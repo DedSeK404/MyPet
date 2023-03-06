@@ -1,0 +1,40 @@
+.submit_signup {
+  border: none;
+  border-radius: 10px;
+  background-image: url("https://svgshare.com/i/qsY.svg");
+  background-repeat: no-repeat;
+  background-position: 10% 50%;
+  background-size: 15%;
+  color: #fdf0dc;
+  background-color: #db8c6f;
+  width: 100%;
+  padding: 5%;
+  height: fit-content;
+  text-align: center;
+  text-align: center;
+  font-size: 1.5rem;
+  transition: 0.3s;
+}
+
+.submit_signup:hover {
+  border: none;
+  border-radius: 10px;
+  background-color: #fef1dd;
+  background-image: url("https://svgshare.com/i/qqf.svg");
+  background-repeat: no-repeat;
+  background-position: 10% 50%;
+  background-size: 15%;
+  color: #fcc1ac;
+  width: 100%;
+  padding: 5%;
+  height: fit-content;
+  text-align: center;
+  text-align: center;
+  font-size: 1.5rem;
+  transition: 0.3s;
+  -webkit-box-shadow: 4px 9px 47px 12px rgba(79, 45, 39, 0.16);
+  -moz-box-shadow: 4px 9px 47px 12px rgba(79, 45, 39, 0.16);
+  box-shadow: 4px 9px 47px 12px rgba(79, 45, 39, 0.16);
+}
+
+

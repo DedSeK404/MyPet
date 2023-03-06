@@ -1,0 +1,41 @@
+.Login_btn{
+    border: none;
+    border-radius: 10px;
+    background-color: #FCC1AC;
+    background-image: url("https://svgshare.com/i/qsY.svg");
+    background-repeat: no-repeat;
+    background-position: 50% 90%;
+    background-size: 20%;
+    color: #FDF0DC;
+    width: 100%;
+    height: 200px;
+    text-align: center;
+    padding-bottom: 25%;
+    font-size: 2rem;
+    transition: 0.3s;
+}
+
+.Login_btn:hover{
+    border: none;
+    border-radius: 10px;
+    background-color: #FEF1DD;
+    background-image: url("https://svgshare.com/i/qqf.svg");
+    background-repeat: no-repeat;
+    background-position: 50% 90%;
+    background-size: 23%;
+    color: #FCC1AC;
+    width: 100%;
+    height: 200px;
+    text-align: center;
+    padding-bottom: 25%;
+    font-size: 2.1rem;
+    transition: 0.3s;
+    -webkit-box-shadow: 4px 9px 47px 12px rgba(79,45,39,0.16);
+-moz-box-shadow: 4px 9px 47px 12px rgba(79,45,39,0.16);
+box-shadow: 4px 9px 47px 12px rgba(79,45,39,0.16);
+}
+
+.Main_container{
+    background-image: url("https://svgshare.com/i/qrU.svg");
+    background-repeat: no-repeat;
+}

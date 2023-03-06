@@ -1,0 +1,52 @@
+.form {
+  background-image: url("https://svgshare.com/i/quN.svg");
+  background-repeat: no-repeat;
+  background-clip: padding-box;
+  background-size: auto;
+  padding: 20% 10% 25% 10%;
+  margin: auto;
+  width: 45%;
+  color: #db8c6f;
+}
+.Submit {
+  border: none;
+  border-radius: 10px;
+  background-image: url("https://svgshare.com/i/qsY.svg");
+  background-repeat: no-repeat;
+  background-position: 10% 50%;
+  background-size: 15%;
+  color: #fdf0dc;
+  background-color: #db8c6f;
+  width: 40%;
+  height: fit-content;
+  text-align: center;
+  text-align: center;
+  font-size: 1.5rem;
+  transition: 0.3s;
+}
+
+.Submit:hover {
+  border: none;
+  border-radius: 10px;
+  background-color: #fef1dd;
+  background-image: url("https://svgshare.com/i/qqf.svg");
+  background-repeat: no-repeat;
+  background-position: 10% 50%;
+  background-size: 15%;
+  color: #fcc1ac;
+  width: 40%;
+  height: fit-content;
+  text-align: center;
+  text-align: center;
+  font-size: 1.5rem;
+  transition: 0.3s;
+  -webkit-box-shadow: 4px 9px 47px 12px rgba(79, 45, 39, 0.16);
+  -moz-box-shadow: 4px 9px 47px 12px rgba(79, 45, 39, 0.16);
+  box-shadow: 4px 9px 47px 12px rgba(79, 45, 39, 0.16);
+}
+
+.Signin_container {
+  background-image: url("https://svgshare.com/i/qu8.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+}
