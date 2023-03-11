@@ -1,0 +1,33 @@
+.nav.nav-tabs .nav-link {
+  color: #49312c;
+  border: none;
+}
+
+.nav.nav-tabs .nav-link.active {
+  background-color: transparent;
+  color: #dd9679;
+  border: none;
+}
+
+.mb-3 {
+  border-bottom: #dd9679 solid 2px;
+}
+
+.logout{
+    border: none;
+    background: transparent;
+    font-size: 20px;
+    color: #49312c;
+    padding-left: 20%; 
+}
+.logout:hover{
+    border: none;
+    background: transparent;
+    font-size: 20px;
+    color: #dd9679;
+}
+
+.Home_Container{
+    background-image: url("https://svgshare.com/i/r3u.svg");
+    background-repeat: no-repeat;
+}

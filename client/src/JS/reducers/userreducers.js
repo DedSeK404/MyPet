@@ -1,22 +1,59 @@
-import { FAILED, LOADING, SIGNUPSUCCESS } from "../actiontypes/usertypes";
+import {
+  AUTHFAILED,
+  CURRENTUSERAUTH,
+  LOADING,
+  LOGOUT,
+  SIGNINSUCCESS,
+  SIGNUPSUCCESS,
+} from "../actiontypes/usertypes";
 
 const initialState = {
+  authloading: true,
   loading: true,
   error: null,
-  input: [],
+  Alert: "",
+  currentUser: {},
+  isAuth: false,
 };
 
 export const userReducers = (state = initialState, { type, payload }) => {
   switch (type) {
     case LOADING:
-      return { ...state, loading: true };
-    
-    case SIGNUPSUCCESS:
-      return { ...state, input: payload };
+      return { ...state, authloading: true };
 
-   
-    case FAILED:
-      return { ...state, error: payload, loading: false };
+    case SIGNUPSUCCESS:
+      return { ...state, authloading: false, Alert: payload };
+
+    case SIGNINSUCCESS:
+      localStorage.setItem("token", payload.token);
+      return {
+        ...state,
+        Alert: payload.msg,
+        currentUser: payload.user,
+        authloading: false,
+        isAuth: true,
+      };
+
+    case CURRENTUSERAUTH:
+      return {
+        ...state,
+        isAuth: true,
+        currentUser: payload,
+        authloading: false,
+      };
+    case LOGOUT:
+      localStorage.removeItem("token");
+      return {
+        ...state,
+        loading: true,
+        error: null,
+        Alert: null,
+        currentUser: {},
+        isAuth: false,
+      };
+    case AUTHFAILED:
+      return { ...state, error: payload, authloading: false };
+
     default:
       return state;
   }

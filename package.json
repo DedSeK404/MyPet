@@ -1,0 +1,25 @@
+{
+  "dependencies": {
+    "concurrently": "^7.6.0"
+  },
+  "name": "mypet",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "concurrently \"cd server && npm start\" \"cd client && npm start\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DedSeK404/MyPet.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DedSeK404/MyPet/issues"
+  },
+  "homepage": "https://github.com/DedSeK404/MyPet#readme",
+  "description": ""
+}

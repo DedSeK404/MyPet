@@ -37,4 +37,53 @@
   box-shadow: 4px 9px 47px 12px rgba(79, 45, 39, 0.16);
 }
 
+.show_icon{
+  background-image: url("https://i.ibb.co/hc26Wg9/show.png");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  width: 30px;
+  height: 25px;
+  border: none;
+  border-radius: 3px;
+  background-color: transparent;
+  transition: 0.3s;
+}
+.hide_icon{
+  background-image: url("https://i.ibb.co/zG33YMT/hide.png");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  width: 30px;
+  height: 25px;
+  border: none;
+  border-radius: 3px;
+  background-color: transparent;
+  transition: 0.3s;
+}
+
+.hide_icon:hover{
+  background-image: url("https://i.ibb.co/zG33YMT/hide.png");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  width: 30px;
+  height: 25px;
+  border: none;
+  border-radius: 3px;
+  background-color: transparent;
+  transition: 0.3s;
+  scale: 1.2;
+}
+
+.show_icon:hover{
+  background-image: url("https://i.ibb.co/MGQJ53p/hide.png");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  width: 30px;
+  height: 25px;
+  border: none;
+  border-radius: 3px;
+  background-color: transparent;
+  transition: 0.3s;
+  scale: 1.2;
+}
+
 

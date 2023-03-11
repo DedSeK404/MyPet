@@ -21,7 +21,7 @@ module.exports.Signup = async (req, res) => {
 module.exports.signin = async (req, res) => {
   const { email, password } = req.body;
   try {
-    const existingUser = userModel.findOne({ email });
+    const existingUser = await userModel.findOne({ email });
     if (!existingUser) {
       return res.status(400).send({
         msg: "there is no account linked to this email, please make sure that you type the email correctly",
@@ -33,8 +33,19 @@ module.exports.signin = async (req, res) => {
     }
     const payload = { userID: existingUser._id };
     const token = createtoken(payload);
-    res.send({ token });
+    existingUser.password=undefined
+    res.send({ token,msg:'user succsessfully logged in', user:existingUser });
   } catch (error) {
     res.status(500).send({ msg: error.message });
   }
 };
+
+
+module.exports. getCurrentUser = (req, res)=>{
+  try {
+    res.send({user:req.user, })
+  } catch (error) {
+    res.status(500).send({ msg: error.message });
+  }
+
+}

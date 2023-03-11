@@ -44,12 +44,12 @@ const MainLogin = () => {
       <Container>
         <Row>
           <Col sm={6}>
-            <Link to="/Signup">
+            <Link to="/login/Signup">
               <button className="Login_btn">Sign up</button>
             </Link>
           </Col>
           <Col sm={6}>
-            <Link to="/Signin">
+            <Link to="/login/Signin">
               <button className="Login_btn">Sign in</button>
             </Link>
           </Col>
