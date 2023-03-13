@@ -30,6 +30,34 @@ module.exports.registerRules = [
   .toDate()
   .withMessage("please select a date"),
 ];
+
+module.exports.editUserRules = [
+  body("first_name")
+    .notEmpty()
+    .trim()
+    .isLength({ min: 3 })
+    .withMessage("first name must be more than 3 characters"),
+  body("last_name")
+    .notEmpty()
+    .trim()
+    .isLength({ min: 3 })
+    .withMessage("last name must be more than 3 characters"),
+  // body("email")
+  //   .isEmail()
+  //   .normalizeEmail()
+  //   .trim()
+  //   .withMessage("enter a valid email "),
+  body("adress")
+    .notEmpty()
+    .trim()
+    .isLength({ min: 3 })
+    .withMessage("please enter a valid adress"),
+  body("birth_date")
+  .isISO8601()
+  .toDate()
+  .withMessage("please select a date"),
+];
+
 module.exports.loginRules = [
   body("email").isEmail().withMessage("enter a valid email "),
   body("password")

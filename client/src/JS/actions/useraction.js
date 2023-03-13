@@ -6,6 +6,8 @@ import {
   SIGNUPSUCCESS,
   CURRENTUSERAUTH,
   LOGOUT,
+  EDITUSER,
+  FAILED,
 } from "../actiontypes/usertypes";
 
 /**
@@ -106,3 +108,35 @@ export const getUser = () => async (dispatch) => {
 export const logout = () => ({
   type: LOGOUT,
 });
+
+
+//edituser
+/**
+ * @route patch /auth/:iduser
+ * @description update user
+ * @access private
+ */
+export const editUser = (editData, iduser) => async (dispatch) => {
+  dispatch({ type: LOADING });
+  try {
+    
+    const {data} = await axios.patch(`/auth/${iduser}`, {
+      ...editData,
+    });
+    
+    dispatch({ type: EDITUSER, payload: data.msg });
+    console.log(data.msg)
+    if (data.msg) {
+      alert(data.msg);
+    }
+  } catch (error) {
+    dispatch({ type: FAILED, payload: error });
+    console.log(error);
+    if (error.response.data.errors) {
+      error.response.data.errors.forEach((el) => alert(el.msg));
+    }
+    if (error.response.data.msg) {
+      alert(error.response.data.msg);
+    }
+  }
+};

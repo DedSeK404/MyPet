@@ -1,6 +1,7 @@
 import {
   AUTHFAILED,
   CURRENTUSERAUTH,
+  EDITUSER,
   LOADING,
   LOGOUT,
   SIGNINSUCCESS,
@@ -14,6 +15,7 @@ const initialState = {
   Alert: "",
   currentUser: {},
   isAuth: false,
+  
 };
 
 export const userReducers = (state = initialState, { type, payload }) => {
@@ -53,6 +55,9 @@ export const userReducers = (state = initialState, { type, payload }) => {
       };
     case AUTHFAILED:
       return { ...state, error: payload, authloading: false };
+
+      case EDITUSER:
+        return { ...state, loading: false, Alert: payload.msg };
 
     default:
       return state;

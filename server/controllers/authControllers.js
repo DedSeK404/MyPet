@@ -33,19 +33,42 @@ module.exports.signin = async (req, res) => {
     }
     const payload = { userID: existingUser._id };
     const token = createtoken(payload);
-    existingUser.password=undefined
-    res.send({ token,msg:'user succsessfully logged in', user:existingUser });
+    existingUser.password = undefined;
+    res.send({
+      token,
+      msg: "user succsessfully logged in",
+      user: existingUser,
+    });
   } catch (error) {
     res.status(500).send({ msg: error.message });
   }
 };
 
-
-module.exports. getCurrentUser = (req, res)=>{
+module.exports.getCurrentUser = (req, res) => {
   try {
-    res.send({user:req.user, })
+    res.send({ user: req.user });
   } catch (error) {
     res.status(500).send({ msg: error.message });
   }
+};
 
-}
+module.exports.updateuser = async (req, res) => {
+  const { email } = req.body;
+  try {
+    const existingEmail = await userModel.findOne({ email });
+    if (existingEmail) {
+      return res.status(400).send({ msg: "email already exists" });
+    }
+    const { iduser } = req.params;
+    const user = await userModel.findByIdAndUpdate(
+      iduser,
+      {
+        ...req.body,
+      },
+      { new: true }
+    );
+    res.send({ updateduser: user });
+  } catch (error) {
+    res.send({ msg: error.message });
+  }
+};

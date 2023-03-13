@@ -31,3 +31,11 @@
     background-image: url("https://svgshare.com/i/r3u.svg");
     background-repeat: no-repeat;
 }
+
+.edit_button:hover{
+  scale: 1.3;
+  transition: 0.3;
+}
+.edit_button:hover{
+  transition: 0.3;
+}
