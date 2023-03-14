@@ -9,7 +9,7 @@ import {
   EDITUSER,
   FAILED,
 } from "../actiontypes/usertypes";
-
+const baseURL="http://localhost:4500/auth/"
 /**
  *@method POST /auth/signup
  *@description register a new user
@@ -21,7 +21,7 @@ export const addUser = (newUserData, navigate) => async (dispatch) => {
   });
 
   try {
-    const { data } = await axios.post("/auth/signup", { ...newUserData });
+    const { data } = await axios.post(baseURL+"signup", { ...newUserData });
 
     dispatch({ type: SIGNUPSUCCESS, payload: data.msg });
 
@@ -54,7 +54,7 @@ export const loginUser = (UserLoginData, navigate) => async (dispatch) => {
   });
 
   try {
-    const { data } = await axios.post("/auth/signin", { ...UserLoginData });
+    const { data } = await axios.post(baseURL+"signin", { ...UserLoginData });
 
     dispatch({ type: SIGNINSUCCESS, payload: data });
 
@@ -85,12 +85,13 @@ export const loginUser = (UserLoginData, navigate) => async (dispatch) => {
  */
 export const getUser = () => async (dispatch) => {
   dispatch({ type: LOADING });
+  
   const opts = {
     headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
   };
-
   try {
-    const { data } = await axios.get("/", opts);
+    
+    const { data } = await axios.get(baseURL, opts);
     dispatch({ type: CURRENTUSERAUTH, payload: data.user });
     if (data.msg) {
       alert(data.msg);
@@ -99,9 +100,9 @@ export const getUser = () => async (dispatch) => {
     dispatch({ type: AUTHFAILED, payload: error });
     console.log(error);
 
-    if (error.response.data.msg) {
-      alert(error.response.data.msg);
-    }
+    // if (error.response.data.msg) {
+    //   alert(error.response.data.msg);
+    // }
   }
 };
 //logout
@@ -120,7 +121,7 @@ export const editUser = (editData, iduser) => async (dispatch) => {
   dispatch({ type: LOADING });
   try {
     
-    const {data} = await axios.patch(`/auth/${iduser}`, {
+    const {data} = await axios.patch(`${baseURL}${iduser}`, {
       ...editData,
     });
     

@@ -42,11 +42,11 @@ module.exports.editUserRules = [
     .trim()
     .isLength({ min: 3 })
     .withMessage("last name must be more than 3 characters"),
-  // body("email")
-  //   .isEmail()
-  //   .normalizeEmail()
-  //   .trim()
-  //   .withMessage("enter a valid email "),
+  body("email")
+    .isEmail()
+    .normalizeEmail()
+    .trim()
+    .withMessage("enter a valid email "),
   body("adress")
     .notEmpty()
     .trim()

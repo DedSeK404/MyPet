@@ -36,7 +36,7 @@ console.log(alert)
     first_name: currentUser.first_name,
     last_name: currentUser.last_name,
     bio: currentUser.bio,
-    // email: currentUser.email,
+    email: currentUser.email,
     phone: currentUser.phone,
     city: currentUser.city,
     adress: currentUser.adress,
@@ -85,6 +85,7 @@ console.log(alert)
   };
 
   const handleClick = () => {
+    const editeduser={}
     dispatch(editUser(editData, idUser));
 if (alert) {
   return show(true)

@@ -10,8 +10,9 @@ import SitterHome from "./Components/Home/Sitter_home_page/SitterHome";
 import AdminHome from "./Components/Home/Sitter_home_page/Admin_home_page/AdminHome";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { getUser } from "./JS/actions/useraction";
+
 import PrivateRoute from "./Components";
+import { getUser } from "./JS/actions/useraction";
 
 
 

@@ -10,7 +10,6 @@ import {
 
 const initialState = {
   authloading: true,
-  loading: true,
   error: null,
   Alert: "",
   currentUser: {},
@@ -39,15 +38,16 @@ export const userReducers = (state = initialState, { type, payload }) => {
     case CURRENTUSERAUTH:
       return {
         ...state,
-        isAuth: true,
+        
         currentUser: payload,
+        isAuth: true,
         authloading: false,
       };
     case LOGOUT:
       localStorage.removeItem("token");
       return {
         ...state,
-        loading: true,
+        authloading: true,
         error: null,
         Alert: null,
         currentUser: {},
@@ -57,7 +57,7 @@ export const userReducers = (state = initialState, { type, payload }) => {
       return { ...state, error: payload, authloading: false };
 
       case EDITUSER:
-        return { ...state, loading: false, Alert: payload.msg };
+        return { ...state, authloading: false, Alert: payload.msg };
 
     default:
       return state;
