@@ -1,0 +1,30 @@
+/* .carousel-indicators li {
+    background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Paw-print.svg/1200px-Paw-print.svg.png");
+  color: aqua;
+  background-color: blueviolet;
+  height: 70px;
+ 
+}
+
+.carousel-indicators .active {
+    background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Paw-print.svg/1200px-Paw-print.svg.png");
+    height: 70px;
+} */
+
+.carousel-indicators [data-bs-target] {
+  width: 20px !important;
+  height: 20px !important;
+  border: 1px solid #49312c !important;
+  border-radius: 10px;
+
+  bottom: -50px !important;
+  margin-bottom: -10px;
+}
+
+.carousel-control-prev-icon {
+  background-image: url("https://i.ibb.co/w0mbHbg/paw.png") !important;
+}
+
+.carousel-control-next-icon {
+  background-image: url("https://i.ibb.co/w0mbHbg/paw.png") !important;
+}

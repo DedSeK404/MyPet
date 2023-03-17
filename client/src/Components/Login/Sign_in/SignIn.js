@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Col } from "react-bootstrap";
+import { Button, Col } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -40,7 +40,7 @@ const SignIn = () => {
         <Form.Group className="mb-3" controlId="formBasicCheckbox">
           <Form.Check type="checkbox" label="Stay logged in" />
         </Form.Group>
-        <button className="Submit" type="submit" onClick={handleSubmit}>Submit</button>
+        <Button className="Submit" type="submit" onClick={handleSubmit}><i class="fas fa-paw"></i> Submit</Button>
       </Form>
     </Col>
     </div>

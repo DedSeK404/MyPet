@@ -13,6 +13,7 @@ import { useEffect } from "react";
 
 import PrivateRoute from "./Components";
 import { getUser } from "./JS/actions/useraction";
+import NotFound from "./Components/Home/NotFound";
 
 
 
@@ -61,6 +62,8 @@ function App() {
             </PrivateRoute>
           }
         />
+        <Route path='/404NotFound' element={<NotFound/>} />
+        <Route path='*' element={<Navigate to='/404NotFound' />} />
       </Routes>
       <Footer />
     </div>

@@ -30,13 +30,13 @@ export default function EditOwnerProfile({ show }) {
   const currentUser = useSelector((state) => state.userR.currentUser);
   const authloading = useSelector((state) => state.userR.authloading);
   const alert = useSelector((state) => state.userR.alert);
-console.log(alert)
+  console.log(alert);
   const dispatch = useDispatch();
   const [editData, setEditData] = useState({
     first_name: currentUser.first_name,
     last_name: currentUser.last_name,
     bio: currentUser.bio,
-    email: currentUser.email,
+    //email: currentUser.email,
     phone: currentUser.phone,
     city: currentUser.city,
     adress: currentUser.adress,
@@ -85,11 +85,11 @@ console.log(alert)
   };
 
   const handleClick = () => {
-    const editeduser={}
+    const editeduser = {};
     dispatch(editUser(editData, idUser));
-if (alert) {
-  return show(true)
-}
+    if (alert) {
+      return show(true);
+    }
     setTimeout(() => {
       show(false);
     }, 1000);
@@ -100,7 +100,7 @@ if (alert) {
   //     }
   //     setShowEdit(e.target.id);
   //   };
-  
+
   return (
     <section className="vh-100" style={{ backgroundColor: "transparent" }}>
       <MDBContainer className="py-5 h-50">
@@ -180,9 +180,7 @@ if (alert) {
                               name="first_name"
                               onChange={handleChange}
                               type="text"
-                              placeholder={
-                                !authloading ? currentUser.first_name : ""
-                              }
+                              placeholder=""
                             />
                             <Form.Text className="text-muted"></Form.Text>
                           </motion.div>
@@ -220,9 +218,7 @@ if (alert) {
                               name="last_name"
                               onChange={handleChange}
                               type="text"
-                              placeholder={
-                                !authloading ? currentUser.last_name : ""
-                              }
+                              placeholder=""
                             />
                             <Form.Text className="text-muted"></Form.Text>
                           </motion.div>
@@ -261,7 +257,7 @@ if (alert) {
                               name="bio"
                               onChange={handleChange}
                               type="text"
-                              placeholder={!authloading ? currentUser.bio : ""}
+                              placeholder=""
                             />
                             <Form.Text className="text-muted"></Form.Text>
                           </motion.div>
@@ -313,9 +309,7 @@ if (alert) {
                                     name="email"
                                     onChange={handleChange}
                                     type="email"
-                                    placeholder={
-                                      !authloading ? currentUser.email : ""
-                                    }
+                                    placeholder=""
                                   />
                                   <Form.Text className="text-muted"></Form.Text>
                                 </motion.div>
@@ -358,9 +352,7 @@ if (alert) {
                                     name="phone"
                                     onChange={handleChange}
                                     type="text"
-                                    placeholder={
-                                      !authloading ? currentUser.phone : ""
-                                    }
+                                    placeholder=""
                                   />
                                   <Form.Text className="text-muted"></Form.Text>
                                 </motion.div>
@@ -481,9 +473,7 @@ if (alert) {
                                     name="adress"
                                     onChange={handleChange}
                                     type="text"
-                                    placeholder={
-                                      !authloading ? currentUser.adress : ""
-                                    }
+                                    placeholder=""
                                   />
                                   <Form.Text className="text-muted"></Form.Text>
                                 </motion.div>
@@ -600,9 +590,11 @@ if (alert) {
                     <OverlayTrigger
                       trigger="click"
                       overlay={
-                         alert?(
-                          <Tooltip id="tooltip-disabled">Something went wrong</Tooltip>
-                        ):(
+                        alert ? (
+                          <Tooltip id="tooltip-disabled">
+                            Something went wrong
+                          </Tooltip>
+                        ) : (
                           <Tooltip id="tooltip-disabled">Changes saved</Tooltip>
                         )
                       }

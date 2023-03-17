@@ -6,12 +6,15 @@ import { Button, Card, Col, Container, Row } from "react-bootstrap";
 import "../Sitter_home_page/SitterHome.css";
 import { logout } from "../../../JS/actions/useraction";
 import SitterProfile from "./Sitter_home_Components/SitterProfile";
+import { useNavigate } from "react-router-dom";
 
 const SitterHome = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleClick = () => {
     dispatch(logout());
+    navigate("/login")
   };
   return (
     <div className="Home_Container" style={{ height: "100vh" }}>

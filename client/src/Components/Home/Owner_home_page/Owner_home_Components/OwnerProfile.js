@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   MDBCol,
   MDBContainer,
@@ -10,12 +10,14 @@ import {
   MDBTypography,
   MDBIcon,
 } from "mdb-react-ui-kit";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Button } from "react-bootstrap";
 import EditOwnerProfile from "./EditOwnerProfile";
 import { motion, AnimatePresence } from "framer-motion";
+import { getallpets } from "../../../../JS/actions/petactions";
 
 export default function OwnerProfile() {
+ 
   const [show, setShow] = useState(false);
   const currentUser = useSelector((state) => state.userR.currentUser);
   const authloading = useSelector((state) => state.userR.authloading);
@@ -26,7 +28,7 @@ export default function OwnerProfile() {
 
   return (
     <AnimatePresence>
-      <div>
+      <div >
         {show ? (
           <AnimatePresence>
             <motion.div
