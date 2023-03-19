@@ -25,9 +25,8 @@ import {
   editUser,
 } from "../../../../JS/actions/usermanagementactions";
 import { useNavigate } from "react-router-dom";
-import Loading from "../../../Loading";
 
-export default function EditOwnerProfile({ show }) {
+export default function EditSitterProfile({ show }) {
   const [img, setimg] = useState("");
 
   const [shows, setShow] = useState(false);
@@ -197,7 +196,7 @@ export default function EditOwnerProfile({ show }) {
                     ""
                   )}
                   <MDBTypography tag="h5" style={{ color: "#dd9679" }}>
-                    {authloading ? <Loading /> : currentUser.first_name}
+                    {!authloading ? currentUser.first_name : ""}
 
                     <Button
                       style={{
@@ -236,7 +235,7 @@ export default function EditOwnerProfile({ show }) {
                     )}
                   </MDBTypography>
                   <MDBTypography tag="h5" style={{ color: "#dd9679" }}>
-                    {authloading ? <Loading /> : currentUser.last_name}
+                    {!authloading ? currentUser.last_name : ""}
                     <Button
                       style={{
                         border: "none",
@@ -337,7 +336,7 @@ export default function EditOwnerProfile({ show }) {
                           </Button>
                         </MDBTypography>
                         <MDBCardText className="text-muted">
-                          {authloading ? <Loading /> : currentUser.email}
+                          {!authloading ? currentUser.email : ""}
 
                           {showEmailEdit ? (
                             <>
@@ -381,7 +380,7 @@ export default function EditOwnerProfile({ show }) {
                           </Button>
                         </MDBTypography>
                         <MDBCardText className="text-muted">
-                          +216 {authloading ? <Loading /> : currentUser.phone}
+                          +216 {!authloading ? currentUser.phone : ""}
                           {showPhoneEdit ? (
                             <>
                               <AnimatePresence>
@@ -431,7 +430,7 @@ export default function EditOwnerProfile({ show }) {
                           </Button>
                         </MDBTypography>
                         <MDBCardText className="text-muted">
-                          {authloading ? <Loading /> : currentUser.city}
+                          {!authloading ? currentUser.city : ""}
 
                           {showCityEdit ? (
                             <AnimatePresence>
@@ -501,7 +500,7 @@ export default function EditOwnerProfile({ show }) {
                           </Button>
                         </MDBTypography>
                         <MDBCardText className="text-muted">
-                          {authloading ? <Loading /> : currentUser.adress}
+                          {!authloading ? currentUser.adress : ""}
 
                           {showAdressEdit ? (
                             <>
@@ -552,7 +551,7 @@ export default function EditOwnerProfile({ show }) {
                           </Button>
                         </MDBTypography>
                         <MDBCardText className="text-muted">
-                          {authloading ? <Loading /> : currentUser.gender}
+                          {!authloading ? currentUser.gender : ""}
 
                           {showGenderEdit ? (
                             <>
@@ -600,11 +599,9 @@ export default function EditOwnerProfile({ show }) {
                           </Button>
                         </MDBTypography>
                         <MDBCardText className="text-muted">
-                          {authloading ? (
-                            <Loading />
-                          ) : (
-                            currentUser.birth_date.slice(0, -14)
-                          )}
+                          {!authloading
+                            ? currentUser.birth_date.slice(0, -14)
+                            : ""}
 
                           {showBirthdayEdit ? (
                             <>

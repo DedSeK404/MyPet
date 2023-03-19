@@ -12,7 +12,12 @@ const userSchema = new mongoose.Schema({
   gender: { type: String },
   created_on: { type: Date, default: Date.now() },
   phone: { type: Number },
-  img: { type: String, default:"https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp" },
+  status: { type: String, default: "available" },
+  img: {
+    type: String,
+    default:
+      "https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp",
+  },
   isBan: { type: Boolean, default: false },
   role: {
     type: String,

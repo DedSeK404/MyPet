@@ -18,7 +18,7 @@ const PetProfile = ({ data }) => {
   const handleClick = () => {
     setShowEdit(!showEdit);
   };
-  //console.log(data)
+  
   return (
     <>
       {showEdit ? (

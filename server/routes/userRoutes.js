@@ -1,5 +1,6 @@
 const express = require("express");
-const { updateuser, deleteUser } = require("../controllers/userControllers");
+const { updateuser, deleteUser, getallSitters } = require("../controllers/userControllers");
+const filterUsers = require("../middlewares/filterUsers");
 const upload = require("../tools/multer");
 const router = express.Router();
 
@@ -23,10 +24,17 @@ router.patch(
  */
 
 router.delete(
-    "/delete/:userid",
-    //  IsAuth(),
-    //   isAdmin,
-    deleteUser
-  );
+  "/delete/:userid",
+  //  IsAuth(),
+  //   isAdmin,
+  deleteUser
+);
 
-module.exports = router
+/**
+ * @route get /user/
+ * @description get all sitters
+ * @access protected
+ */
+router.get("/",filterUsers, getallSitters);
+
+module.exports = router;

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
@@ -10,14 +10,21 @@ import PetsTab from "../Pets/PetsTab";
 import { getallpets } from "../../../JS/actions/petactions";
 import { useNavigate } from "react-router-dom";
 import OwnerDashboard from "./Owner_home_Components/Owner_Dashboard/OwnerDashboard";
+import HireSitter from "./HireSitter/HireSitter";
+import { getallSitters } from "../../../JS/actions/usermanagementactions";
+
 
 const OwnerHome = () => {
+  const [city, setCity] = useState("")
+  const [available, setAvailable] = useState("")
+  console.log(available)
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getallpets());
-  }, []);
+    dispatch(getallSitters(city,available));
+  }, [city,available]);
 
   const handleClick = () => {
     dispatch(logout());
@@ -25,7 +32,10 @@ const OwnerHome = () => {
   };
 
   return (
-    <div className="Home_Container" style={{ width: "100vw",minHeight:"110em" }}>
+    <div
+      className="Home_Container"
+      style={{ width: "100vw", minHeight: "110em" }}
+    >
       <Container fluid>
         <Row>
           <Col sm={2}>
@@ -44,19 +54,19 @@ const OwnerHome = () => {
               fill
             >
               <Tab eventKey="Dashboard" title="Dashboard">
-                <OwnerDashboard/>
+                <OwnerDashboard />
               </Tab>
               <Tab eventKey="Profile" title="Profile">
                 <OwnerProfile />
               </Tab>
               <Tab eventKey="Messages" title="Messages">
-                <p>messages</p>
+                <p>messages</p> 
               </Tab>
               <Tab eventKey="My Pets" title="My Pets">
                 <PetsTab />
               </Tab>
               <Tab eventKey="Hire a Sitter" title="Hire a Sitter">
-                <p>hire a sitter</p>
+                <HireSitter setAvailable={setAvailable} setCity={setCity} />
               </Tab>
             </Tabs>
           </Col>

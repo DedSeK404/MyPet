@@ -24,12 +24,22 @@ module.exports.updateuser = async (req, res) => {
 };
 
 module.exports.deleteUser = async (req, res) => {
-    try {
-      const { userid } = req.params;
-  
-      const user = await userModel.findByIdAndRemove(userid);
-      res.send({ msg: "user profile deleted successfully" });
-    } catch (error) {
-      res.send({ msg: error.message });
-    }
-  };
+  try {
+    const { userid } = req.params;
+
+    const user = await userModel.findByIdAndRemove(userid);
+    res.send({ msg: "user profile deleted successfully" });
+  } catch (error) {
+    res.send({ msg: error.message });
+  }
+};
+
+module.exports.getallSitters = async (req, res) => {
+  try {
+    const sitters = await userModel.find({ role: "sitter" });
+
+    res.send({ sitters });
+  } catch (error) {
+    res.send({ msg: error.message });
+  }
+};

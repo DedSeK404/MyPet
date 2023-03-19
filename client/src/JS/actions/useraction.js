@@ -6,10 +6,8 @@ import {
   SIGNUPSUCCESS,
   CURRENTUSERAUTH,
   LOGOUT,
-  EDITUSER,
-  FAILED,
 } from "../actiontypes/usertypes";
-import { getallpets } from "./petactions";
+
 const baseURL="http://localhost:4500/auth/"
 /**
  *@method POST /auth/signup
@@ -101,9 +99,7 @@ export const getUser = () => async (dispatch) => {
     dispatch({ type: AUTHFAILED, payload: error });
     console.log(error);
 
-    // if (error.response.data.msg) { 
-    //   alert(error.response.data.msg);
-    // }
+ 
   }
 };
 //logout
@@ -112,4 +108,4 @@ export const logout = () => ({
 });
 
 
-//edituser
+

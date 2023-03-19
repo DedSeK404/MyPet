@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 const NotFound = () => {
   const currentUser = useSelector((state) => state.userR.currentUser);
-  console.log(currentUser.role);
+  //console.log(currentUser.role);
   return (
     <div>
       <div className="d-grid gap-2">

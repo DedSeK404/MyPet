@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   MDBCol,
   MDBContainer,
@@ -10,11 +10,11 @@ import {
   MDBTypography,
   MDBIcon,
 } from "mdb-react-ui-kit";
-import { useDispatch, useSelector } from "react-redux";
+import {  useSelector } from "react-redux";
 import { Button } from "react-bootstrap";
 import EditOwnerProfile from "./EditOwnerProfile";
 import { motion, AnimatePresence } from "framer-motion";
-import { getallpets } from "../../../../JS/actions/petactions";
+
 
 export default function OwnerProfile() {
  

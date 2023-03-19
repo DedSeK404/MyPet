@@ -1,8 +1,12 @@
-import { EDITUSER } from "../actiontypes/usermanagementtypes";
+import {
+  EDITUSER,
+  GETALLSITTERSSUCCESS,
+} from "../actiontypes/usermanagementtypes";
 
 const initialState = {
-  authloading: true,
+  loading: true,
   Alert: "",
+  sitters: [],
 };
 
 export const usermanagementreducers = (
@@ -11,7 +15,10 @@ export const usermanagementreducers = (
 ) => {
   switch (type) {
     case EDITUSER:
-      return { ...state, authloading: false, Alert: payload };
+      return { ...state, loading: false, Alert: payload };
+
+    case GETALLSITTERSSUCCESS:
+      return { ...state, sitters: payload.sitters, loading: false };
 
     default:
       return state;
