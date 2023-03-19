@@ -1,6 +1,6 @@
 export const PETLOADING = "PETLOADING";
 
-export const FAILED = "FAILED";
+export const PETFAILED = "PETFAILED";
 
 export const GETALLPETSSUCCESS = "GETALLPETSSUCCESS";
 

@@ -5,6 +5,7 @@ import {
   EDITPETSUCCESS,
   FAILED,
   GETALLPETSSUCCESS,
+  PETFAILED,
   PETLOADING,
 } from "../actiontypes/pettypes";
 
@@ -22,7 +23,7 @@ export const getallpets = () => async (dispatch) => {
 
     dispatch({ type: GETALLPETSSUCCESS, payload: data });
   } catch (error) {
-    dispatch({ type: FAILED, payload: error });
+    dispatch({ type: PETFAILED, payload: error });
   }
 };
 //   /**
@@ -64,7 +65,7 @@ export const addpet = (newPet) => async (dispatch) => {
   } catch (error) {
     console.log(error);
     dispatch({
-      type: FAILED,
+      type: PETFAILED,
       payload: error,
     });
   }
@@ -87,7 +88,7 @@ export const editpet = (editData) => async (dispatch) => {
     dispatch({ type: EDITPETSUCCESS, payload: data.msg });
     dispatch(getallpets());
   } catch (error) {
-    dispatch({ type: FAILED, payload: error });
+    dispatch({ type: PETFAILED, payload: error });
     console.log(error);
   }
 };
@@ -109,7 +110,7 @@ export const deletepet = (petid) => async (dispatch) => {
     dispatch({ type: DELETEPETSUCCESS, payload: data.msg });
     dispatch(getallpets());
   } catch (error) {
-    dispatch({ type: FAILED, payload: error });
+    dispatch({ type: PETFAILED, payload: error });
     console.log(error);
   }
 };

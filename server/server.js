@@ -14,6 +14,7 @@ connectToDB();
 
 app.use("/auth", require("./routes/authRoutes"));
 app.use("/pet", require("./routes/petRoutes"));
+app.use("/user", require("./routes/userRoutes"));
 
 app.listen(PORT, (e) =>
   e ? console.log(e.message) : console.log(`Server is running on port ${PORT}`)

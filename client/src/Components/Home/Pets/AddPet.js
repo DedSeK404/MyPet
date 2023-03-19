@@ -30,6 +30,7 @@ const AddPet = ({ setShow }) => {
 
     data.append("img", img);
     data.append("name", petData.name);
+    data.append("tag", petData.tag);
     data.append("gender", petData.gender);
     data.append("breed", petData.breed);
     data.append("birth_date", petData.birth_date);

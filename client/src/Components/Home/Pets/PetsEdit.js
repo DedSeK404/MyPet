@@ -27,6 +27,7 @@ const PetsEdit = ({ data, setShowEdit }) => {
   const [breed, setbreed] = useState(false);
   const [gender, setgender] = useState(false);
   const [birthDay, setbirthDay] = useState(false);
+  const [tag, setTag] = useState(false);
 
   const [editData, setEditData] = useState({
     name: data.name,
@@ -45,6 +46,7 @@ const PetsEdit = ({ data, setShowEdit }) => {
 
     data.append("img", img);
     data.append("name", editData.name);
+    data.append("tag", editData.tag);
     data.append("gender", editData.gender);
     data.append("breed", editData.breed);
     data.append("birth_date", editData.birth_date);
@@ -59,6 +61,9 @@ const PetsEdit = ({ data, setShowEdit }) => {
 
   const handleClickname = () => {
     setname(!name);
+  };
+  const handleClicktag = () => {
+    setTag(!tag);
   };
   const handleClickimage = () => {
     setimage(!image);
@@ -150,24 +155,54 @@ const PetsEdit = ({ data, setShowEdit }) => {
                   </div>
                   <div className="d-flex align-items-center mb-4">
                     <div className="flex-shrink-0">
-                      <MDBCardImage
-                        style={{ width: "70px" }}
-                        className="img-fluid rounded-circle border border-light border-2"
-                        src={data.img}
-                        alt="https://cdn.dribbble.com/users/458522/screenshots/15252882/media/b8ec8a7867ffb2f53f4689edc222e1a1.png?compress=1&resize=400x400"
-                        fluid
-                      />
-                      <Button
+                      <div
                         style={{
-                          border: "none",
-                          background: "transparent",
-                          color: "#1596E5",
+                          display: "flex",
+                          flexDirection: "column",
+                          alignItems: "center",
                         }}
-                        className="edit_button"
-                        onClick={handleClickimage}
                       >
-                        <i id="1" class="fas fa-edit"></i>
-                      </Button>
+                        <MDBCardImage
+                          style={{
+                            width: "70px",
+                            height: "70px",
+                            borderRadius: "50%",
+                          }}
+                          className="img-fluid border border-light border-1"
+                          src={
+                            data.img
+                              ? data.img
+                              : "https://cdn.dribbble.com/users/458522/screenshots/15252882/media/b8ec8a7867ffb2f53f4689edc222e1a1.png?compress=1&resize=400x400"
+                          }
+                          alt="https://cdn.dribbble.com/users/458522/screenshots/15252882/media/b8ec8a7867ffb2f53f4689edc222e1a1.png?compress=1&resize=400x400"
+                          fluid
+                        />
+                        <Button
+                          style={{
+                            border: "none",
+                            background: "transparent",
+                            color: "#1596E5",
+                          }}
+                          className="edit_button"
+                          onClick={handleClickimage}
+                        >
+                          <i id="1" class="fas fa-edit"></i>
+                        </Button>
+                        <p style={{ color: "#BF9997" }}>
+                          #{data.tag}{" "}
+                          <Button
+                            style={{
+                              border: "none",
+                              background: "transparent",
+                              color: "#1596E5",
+                            }}
+                            className="edit_button"
+                            onClick={handleClicktag}
+                          >
+                            <i id="1" class="fas fa-edit"></i>
+                          </Button>
+                        </p>
+                      </div>
                     </div>
                     <div
                       className="flex-grow-1 ms-3"
@@ -318,6 +353,27 @@ const PetsEdit = ({ data, setShowEdit }) => {
                           onChange={handleChange}
                           type="text"
                           placeholder="enter breed here"
+                        />
+                      </motion.div>
+                    </AnimatePresence>
+                  ) : (
+                    ""
+                  )}
+                  {tag ? (
+                    <AnimatePresence>
+                      <motion.div
+                        initial={{ opacity: 0, scale: 0.5 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{
+                          duration: 0.8,
+                          ease: [0, 0.71, 0.2, 1.01],
+                        }}
+                      >
+                        <Form.Control
+                          name="tag"
+                          onChange={handleChange}
+                          type="text"
+                          placeholder="enter tag here"
                         />
                       </motion.div>
                     </AnimatePresence>

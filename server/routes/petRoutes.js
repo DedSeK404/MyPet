@@ -19,6 +19,7 @@ const {
   validator,
   AddPetRules,
 } = require("../middlewares/validators/bodyValidators");
+const isAuthorized = require("../middlewares/authorization/IsOwner");
 // const upload = require("../utils/multer");
 const router = express.Router();
 
@@ -31,8 +32,8 @@ router.post(
   "/add",
   IsAuth(),
   isOwner,
-  //   AddProductRules,
-  //   validator,
+  // AddPetRules,
+  // validator,
   upload("pets").single("img"),
   addPet
 );
@@ -56,8 +57,8 @@ router.get("/", getallpets);
  */
 router.patch(
   "/edit",
-  // IsAuth(),
-  // isAdmin,
+  
+  //isOwner,
   //AddProductRules,
   validator,
   upload("editpet").single("img"),

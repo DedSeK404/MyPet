@@ -56,9 +56,7 @@ export const userReducers = (state = initialState, { type, payload }) => {
     case AUTHFAILED:
       return { ...state, error: payload, authloading: false };
 
-      case EDITUSER:
-        return { ...state, authloading: false, Alert: payload.msg };
-
+     
     default:
       return state;
   }

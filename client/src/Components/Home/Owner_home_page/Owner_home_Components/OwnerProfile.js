@@ -67,10 +67,10 @@ export default function OwnerProfile() {
                         }}
                       >
                         <MDBCardImage
-                          src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
+                          src={currentUser.img?currentUser.img:"https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"}
                           alt="Avatar"
                           className="my-5"
-                          style={{ width: "80px" }}
+                          style={{ width: "100px",borderRadius:"50%",border:"2px solid #755A58" }}
                           fluid
                         />
 
@@ -82,7 +82,7 @@ export default function OwnerProfile() {
                         </MDBTypography>
 
                         <MDBCardText style={{ color: "#49312c" }}>
-                          Bio: {!authloading ? currentUser.bio : ""}
+                          Bio: {currentUser.bio?currentUser.bio : ""}
                         </MDBCardText>
                         <MDBIcon far icon="edit mb-5" />
                       </MDBCol>
@@ -102,7 +102,7 @@ export default function OwnerProfile() {
                             <MDBCol size="6" className="mb-3">
                               <MDBTypography tag="h6">Phone</MDBTypography>
                               <MDBCardText className="text-muted">
-                              {!authloading ? currentUser.phone : ""}
+                             +216 {!authloading ? currentUser.phone : ""}
                               </MDBCardText>
                             </MDBCol>
                           </MDBRow>

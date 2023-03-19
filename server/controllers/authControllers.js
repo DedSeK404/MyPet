@@ -52,23 +52,4 @@ module.exports.getCurrentUser = (req, res) => {
   }
 };
 
-module.exports.updateuser = async (req, res) => {
-  const { email } = req.body;
-  try {
-    const existingEmail = await userModel.findOne({ email });
-    if (existingEmail) {
-      return res.status(400).send({ msg: "email already exists" });
-    }
-    const { iduser } = req.params;
-    const user = await userModel.findByIdAndUpdate(
-      iduser,
-      {
-        ...req.body,
-      },
-      { new: true }
-    );
-    res.send({ updateduser: user });
-  } catch (error) {
-    res.send({ msg: error.message });
-  }
-};
+

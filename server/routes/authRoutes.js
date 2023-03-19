@@ -4,13 +4,16 @@ const IsAuth = require("../middlewares/authorization/IsAuth");
 const { validator, registerRules, loginRules, editUserRules } = require("../middlewares/validators/bodyValidators");
 const router = express.Router();
 
+
 /**
  *@method POST /auth/signup
  *@description register a new user
  *@access public
  */
 
-router.post("/signup",registerRules ,validator ,Signup)
+router.post("/signup",
+registerRules ,
+validator ,Signup)
 
 /**
  *@method POST /auth/signin
@@ -29,10 +32,3 @@ module.exports = router
  */
  router.get("/",IsAuth(), getCurrentUser)
 
- /**
- * @route patch /auth/:iduser
- * @description update user
- * @access private
- */
-router.patch("/:iduser",editUserRules,validator,updateuser)
- 

@@ -9,6 +9,7 @@ import {
   EDITUSER,
   FAILED,
 } from "../actiontypes/usertypes";
+import { getallpets } from "./petactions";
 const baseURL="http://localhost:4500/auth/"
 /**
  *@method POST /auth/signup
@@ -100,7 +101,7 @@ export const getUser = () => async (dispatch) => {
     dispatch({ type: AUTHFAILED, payload: error });
     console.log(error);
 
-    // if (error.response.data.msg) {
+    // if (error.response.data.msg) { 
     //   alert(error.response.data.msg);
     // }
   }
@@ -112,32 +113,3 @@ export const logout = () => ({
 
 
 //edituser
-/**
- * @route patch /auth/:iduser
- * @description update user
- * @access private
- */
-export const editUser = (editData, iduser) => async (dispatch) => {
-  dispatch({ type: LOADING });
-  try {
-    
-    const {data} = await axios.patch(`${baseURL}${iduser}`, {
-      ...editData,
-    });
-    
-    dispatch({ type: EDITUSER, payload: data.msg });
-    console.log(data.msg)
-    if (data.msg) {
-      alert(data.msg);
-    }
-  } catch (error) {
-    dispatch({ type: FAILED, payload: error });
-    console.log(error);
-    if (error.response.data.errors) {
-      error.response.data.errors.forEach((el) => alert(el.msg));
-    }
-    if (error.response.data.msg) {
-      alert(error.response.data.msg);
-    }
-  }
-};

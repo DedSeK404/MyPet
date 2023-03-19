@@ -11,11 +11,28 @@ import {
   MDBIcon,
 } from "mdb-react-ui-kit";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, Col, Form, OverlayTrigger, Tooltip } from "react-bootstrap";
+import {
+  Button,
+  Col,
+  Form,
+  Modal,
+  OverlayTrigger,
+  Tooltip,
+} from "react-bootstrap";
 import { motion, AnimatePresence } from "framer-motion";
-import { editUser } from "../../../../JS/actions/useraction";
+import {
+  deleteUser,
+  editUser,
+} from "../../../../JS/actions/usermanagementactions";
+import { useNavigate } from "react-router-dom";
 
 export default function EditOwnerProfile({ show }) {
+  const [img, setimg] = useState("");
+
+  const [shows, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   const [showPicEdit, setShowPicEdit] = useState(false);
   const [showNameEdit, setShowNameEdit] = useState(false);
   const [showLastNameEdit, setShowLastNameEdit] = useState(false);
@@ -26,17 +43,17 @@ export default function EditOwnerProfile({ show }) {
   const [showAdressEdit, setShowAdressEdit] = useState(false);
   const [showGenderEdit, setShowGenderEdit] = useState(false);
   const [showBirthdayEdit, setShowBirthdayEdit] = useState(false);
+  const [showPasswordEdit, setShowPasswordEdit] = useState(false);
 
   const currentUser = useSelector((state) => state.userR.currentUser);
   const authloading = useSelector((state) => state.userR.authloading);
-  const alert = useSelector((state) => state.userR.alert);
-  console.log(alert);
+
   const dispatch = useDispatch();
   const [editData, setEditData] = useState({
     first_name: currentUser.first_name,
     last_name: currentUser.last_name,
     bio: currentUser.bio,
-    //email: currentUser.email,
+    email: currentUser.email,
     phone: currentUser.phone,
     city: currentUser.city,
     adress: currentUser.adress,
@@ -56,6 +73,11 @@ export default function EditOwnerProfile({ show }) {
   const handleEditPic = () => {
     setShowPicEdit(!showPicEdit);
   };
+
+  const handleEditPassword = () => {
+    setShowPasswordEdit(!showPasswordEdit);
+  };
+
   const handleEditName = () => {
     setShowNameEdit(!showNameEdit);
   };
@@ -85,22 +107,32 @@ export default function EditOwnerProfile({ show }) {
   };
 
   const handleClick = () => {
-    const editeduser = {};
-    dispatch(editUser(editData, idUser));
-    if (alert) {
-      return show(true);
-    }
-    setTimeout(() => {
-      show(false);
-    }, 1000);
-  };
-  //   const handleEdit = (e) => {
-  //     if (showEdit == e.target.id) {
-  //       return setShowEdit("");
-  //     }
-  //     setShowEdit(e.target.id);
-  //   };
+    const data = new FormData();
 
+    data.append("first_name", editData.first_name);
+    data.append("last_name", editData.last_name);
+    data.append("bio", editData.bio);
+    data.append("email", editData.email);
+    data.append("phone", editData.phone);
+    data.append("city", editData.city);
+    data.append("adress", editData.adress);
+    data.append("gender", editData.gender);
+    data.append("birth_date", editData.birth_date);
+    //data.append("password", editData.password);
+    data.append("img", img);
+    //console.log(data);
+    dispatch(editUser(data, idUser));
+  };
+
+  const handleClickReturn = () => {
+    show(false);
+  };
+  const navigate = useNavigate();
+  const handleClickDelete = () => {
+    const userid = currentUser._id;
+    dispatch(deleteUser(userid, navigate));
+    setShow(false);
+  };
   return (
     <section className="vh-100" style={{ backgroundColor: "transparent" }}>
       <MDBContainer className="py-5 h-50">
@@ -117,10 +149,18 @@ export default function EditOwnerProfile({ show }) {
                   }}
                 >
                   <MDBCardImage
-                    src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
+                    src={
+                      currentUser.img
+                        ? currentUser.img
+                        : "https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
+                    }
                     alt="Avatar"
                     className="my-5"
-                    style={{ width: "80px" }}
+                    style={{
+                      width: "100px",
+                      borderRadius: "50%",
+                      border: "2px solid #755A58",
+                    }}
                     fluid
                   />
 
@@ -145,7 +185,11 @@ export default function EditOwnerProfile({ show }) {
                           ease: [0, 0.71, 0.2, 1.01],
                         }}
                       >
-                        <Form.Control type="file" placeholder="" />
+                        <input
+                          type="file"
+                          name="file"
+                          onChange={(e) => setimg(e.target.files[0])}
+                        />
                       </motion.div>
                     </AnimatePresence>
                   ) : (
@@ -180,7 +224,7 @@ export default function EditOwnerProfile({ show }) {
                               name="first_name"
                               onChange={handleChange}
                               type="text"
-                              placeholder=""
+                              placeholder="first name"
                             />
                             <Form.Text className="text-muted"></Form.Text>
                           </motion.div>
@@ -218,7 +262,7 @@ export default function EditOwnerProfile({ show }) {
                               name="last_name"
                               onChange={handleChange}
                               type="text"
-                              placeholder=""
+                              placeholder="last name"
                             />
                             <Form.Text className="text-muted"></Form.Text>
                           </motion.div>
@@ -230,7 +274,7 @@ export default function EditOwnerProfile({ show }) {
                   </MDBTypography>
 
                   <MDBCardText style={{ color: "#49312c" }}>
-                    Bio:{!authloading ? currentUser.bio : ""}
+                    Bio:{currentUser.bio ? currentUser.bio : ""}
                     <Button
                       style={{
                         border: "none",
@@ -257,7 +301,7 @@ export default function EditOwnerProfile({ show }) {
                               name="bio"
                               onChange={handleChange}
                               type="text"
-                              placeholder=""
+                              placeholder="bio"
                             />
                             <Form.Text className="text-muted"></Form.Text>
                           </motion.div>
@@ -309,7 +353,7 @@ export default function EditOwnerProfile({ show }) {
                                     name="email"
                                     onChange={handleChange}
                                     type="email"
-                                    placeholder=""
+                                    placeholder="email"
                                   />
                                   <Form.Text className="text-muted"></Form.Text>
                                 </motion.div>
@@ -336,7 +380,7 @@ export default function EditOwnerProfile({ show }) {
                           </Button>
                         </MDBTypography>
                         <MDBCardText className="text-muted">
-                          {!authloading ? currentUser.phone : ""}
+                          +216 {!authloading ? currentUser.phone : ""}
                           {showPhoneEdit ? (
                             <>
                               <AnimatePresence>
@@ -352,7 +396,7 @@ export default function EditOwnerProfile({ show }) {
                                     name="phone"
                                     onChange={handleChange}
                                     type="text"
-                                    placeholder=""
+                                    placeholder="phone number"
                                   />
                                   <Form.Text className="text-muted"></Form.Text>
                                 </motion.div>
@@ -473,7 +517,7 @@ export default function EditOwnerProfile({ show }) {
                                     name="adress"
                                     onChange={handleChange}
                                     type="text"
-                                    placeholder=""
+                                    placeholder="adress"
                                   />
                                   <Form.Text className="text-muted"></Form.Text>
                                 </motion.div>
@@ -587,33 +631,127 @@ export default function EditOwnerProfile({ show }) {
                       </MDBCol>
                     </MDBRow>
 
-                    <OverlayTrigger
-                      trigger="click"
-                      overlay={
-                        alert ? (
-                          <Tooltip id="tooltip-disabled">
-                            Something went wrong
-                          </Tooltip>
-                        ) : (
-                          <Tooltip id="tooltip-disabled">Changes saved</Tooltip>
-                        )
-                      }
+                    <MDBTypography tag="h6" style={{ color: "#dd9679" }}>
+                      Security
+                    </MDBTypography>
+                    <hr className="mt-0 mb-4" />
+                    <MDBRow className="pt-2">
+                      <MDBCol size="6" className="mb-3">
+                        <MDBTypography tag="h6">
+                          Password{" "}
+                          <Button
+                            style={{
+                              border: "none",
+                              background: "transparent",
+                              color: "#ff4500",
+                            }}
+                            className="edit_button"
+                            onClick={handleEditPassword}
+                          >
+                            <i id="9" class="fas fa-edit"></i>
+                          </Button>
+                        </MDBTypography>
+                        <MDBCardText className="text-muted">
+                          {showPasswordEdit ? (
+                            <>
+                              <AnimatePresence>
+                                <motion.div
+                                  initial={{ opacity: 0, scale: 0.5 }}
+                                  animate={{ opacity: 1, scale: 1 }}
+                                  transition={{
+                                    duration: 0.8,
+                                    ease: [0, 0.71, 0.2, 1.01],
+                                  }}
+                                >
+                                  <Form.Control
+                                    name="password"
+                                    onChange={handleChange}
+                                    type="password"
+                                    placeholder=""
+                                  />
+
+                                  <Form.Text className="text-muted"></Form.Text>
+                                </motion.div>
+                              </AnimatePresence>
+                            </>
+                          ) : (
+                            ""
+                          )}
+                        </MDBCardText>
+                      </MDBCol>
+                      <MDBCol size="6" className="mb-3">
+                        <MDBCardText className="text-muted">
+                          <AnimatePresence>
+                            <motion.div
+                              initial={{ opacity: 0, scale: 0.5 }}
+                              animate={{ opacity: 1, scale: 1 }}
+                              transition={{
+                                duration: 0.8,
+                                ease: [0, 0.71, 0.2, 1.01],
+                              }}
+                            >
+                              <>
+                                <Button
+                                  variant="danger"
+                                  size="sm"
+                                  onClick={handleShow}
+                                >
+                                  <i class="fas fa-eraser"></i> Delete profile
+                                </Button>
+
+                                <Modal show={shows} onHide={handleClose}>
+                                  <Modal.Header closeButton>
+                                    <Modal.Title>Delete profile</Modal.Title>
+                                  </Modal.Header>
+                                  <Modal.Body>
+                                    Do you want to permenantly delete your
+                                    profile?{" "}
+                                  </Modal.Body>
+                                  <Modal.Footer>
+                                    <Button
+                                      variant="secondary"
+                                      onClick={handleClose}
+                                    >
+                                      Close
+                                    </Button>
+                                    <Button
+                                      variant="danger"
+                                      onClick={handleClickDelete}
+                                    >
+                                      Delete
+                                    </Button>
+                                  </Modal.Footer>
+                                </Modal>
+                              </>
+                            </motion.div>
+                          </AnimatePresence>
+                        </MDBCardText>
+                      </MDBCol>
+                    </MDBRow>
+
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                      }}
                     >
-                      <Button onClick={handleClick} variant="outline-info">
-                        {showPicEdit ||
-                        showNameEdit ||
-                        showLastNameEdit ||
-                        showBioEdit ||
-                        showEmailEdit ||
-                        showPhoneEdit ||
-                        showCityEdit ||
-                        showAdressEdit ||
-                        showGenderEdit ||
-                        showBirthdayEdit
-                          ? "Save changes"
-                          : "Return to profile"}
+                      <Button
+                        onClick={handleClickReturn}
+                        variant="outline-info"
+                      >
+                        Return to Profile
                       </Button>
-                    </OverlayTrigger>
+                      <OverlayTrigger
+                        trigger="click"
+                        overlay={
+                          <Tooltip id="tooltip-disabled">Changes saved</Tooltip>
+                        }
+                      >
+                        <Button onClick={handleClick} variant="outline-success">
+                          Save changes
+                        </Button>
+                      </OverlayTrigger>
+                    </div>
                   </MDBCardBody>
                 </MDBCol>
               </MDBRow>

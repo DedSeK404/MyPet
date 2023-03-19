@@ -6,7 +6,7 @@ module.exports.addPet = async (req, res) => {
 
     console.log(url);
     const { name } = req.body;
-    
+   
     const existPet = await petModel.find({ user: req.user._id });
 
     const existingPet = existPet.find((el) => el.name == name);

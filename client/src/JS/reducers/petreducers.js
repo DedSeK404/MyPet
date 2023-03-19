@@ -1,9 +1,9 @@
 import {
   DELETEPETSUCCESS,
   EDITPETSUCCESS,
-  FAILED,
   GETALLPETSSUCCESS,
   GETONEPETSSUCCESS,
+  PETFAILED,
   PETLOADING,
 } from "../actiontypes/pettypes";
 
@@ -25,7 +25,7 @@ export const petreducers = (state = initialState, { type, payload }) => {
     case GETONEPETSSUCCESS:
       return { ...state, details: payload.pet, loading: false };
 
-    case FAILED:
+    case PETFAILED:
       return { ...state, error: payload, loading: false };
 
       case EDITPETSUCCESS:

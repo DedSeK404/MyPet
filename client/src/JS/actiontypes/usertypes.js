@@ -10,6 +10,6 @@ export const LOGOUT="LOGOUT"
 
 export const AUTHFAILED="AUTHFAILED"
 
-export const EDITUSER = "EDITUSER";
+
 
 export const FAILED = "FAILED";

@@ -18,7 +18,7 @@ const PetProfile = ({ data }) => {
   const handleClick = () => {
     setShowEdit(!showEdit);
   };
-
+  //console.log(data)
   return (
     <>
       {showEdit ? (
@@ -59,14 +59,30 @@ const PetProfile = ({ data }) => {
                       </div>
                       <div className="d-flex align-items-center mb-4">
                         <div className="flex-shrink-0">
-                          <MDBCardImage
-                            style={{ width: "70px",height:"70px", borderRadius:"50%" }}
-                            className="img-fluid border border-light border-1"
-                            src={data.img}
-                            alt="https://cdn.dribbble.com/users/458522/screenshots/15252882/media/b8ec8a7867ffb2f53f4689edc222e1a1.png?compress=1&resize=400x400"
-                            fluid
-                          />
-                         
+                          <div
+                            style={{
+                              display: "flex",
+                              flexDirection: "column",
+                              alignItems: "center",
+                            }}
+                          >
+                            <MDBCardImage
+                              style={{
+                                width: "70px",
+                                height: "70px",
+                                borderRadius: "50%",
+                              }}
+                              className="img-fluid border border-light border-1"
+                              src={
+                                data.img
+                                  ? data.img
+                                  : "https://cdn.dribbble.com/users/458522/screenshots/15252882/media/b8ec8a7867ffb2f53f4689edc222e1a1.png?compress=1&resize=400x400"
+                              }
+                              alt="https://cdn.dribbble.com/users/458522/screenshots/15252882/media/b8ec8a7867ffb2f53f4689edc222e1a1.png?compress=1&resize=400x400"
+                              fluid
+                            />
+                            <p style={{ color: "#BF9997" }}>#{data.tag}</p>
+                          </div>
                         </div>
                         <div
                           className="flex-grow-1 ms-3"
