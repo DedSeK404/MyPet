@@ -1,25 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import Loading from "../../../Loading";
+import OfferModal from "../../Offer/OfferModal";
 
 const HireSitterCard = ({ data }) => {
-  const loading = useSelector(state=>state.userM.loading)
+  const loading = useSelector((state) => state.userM.loading);
 
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   return (
     <div className="col col-md-9 col-lg-7 col-xl-5">
       <div
         className="card"
         style={{
           borderRadius: 15,
-          backgroundColor:
-          loading?<Loading/>:data.status == "available"
-              ? "#93e2bb"
-              : loading?<Loading/>:data.status == "busy"
-              ? "#FF6C6C"
-              : loading?<Loading/>:data.status == "unavailable"
-              ? "#D6D6D6"
-              : "",
+          backgroundColor: loading ? (
+            <Loading />
+          ) : data.status == "available" ? (
+            "#93e2bb"
+          ) : loading ? (
+            <Loading />
+          ) : data.status == "busy" ? (
+            "#FF6C6C"
+          ) : loading ? (
+            <Loading />
+          ) : data.status == "unavailable" ? (
+            "#D6D6D6"
+          ) : (
+            ""
+          ),
           width: "390px",
         }}
       >
@@ -31,23 +42,31 @@ const HireSitterCard = ({ data }) => {
                   <i className="far fa-clock me-2" />
                   Status:
                 </p>
-                {loading?<Loading/>:data.status == "available" ? (
+                {loading ? (
+                  <Loading />
+                ) : data.status == "available" ? (
                   <p style={{ color: "green" }}>Available</p>
-                ) : loading?<Loading/>:data.status == "unavailable" ? (
+                ) : loading ? (
+                  <Loading />
+                ) : data.status == "unavailable" ? (
                   <p style={{ color: "grey" }}>Unavailable</p>
-                ) : loading?<Loading/>:data.status == "busy" ? (
+                ) : loading ? (
+                  <Loading />
+                ) : data.status == "busy" ? (
                   <p style={{ color: "red" }}>Busy</p>
                 ) : (
                   ""
                 )}
               </div>
-              <p className="fw-bold mb-0">{loading?<Loading/>:data.city}</p>
+              <p className="fw-bold mb-0">
+                {loading ? <Loading /> : data.city}
+              </p>
             </div>
           </div>
           <div className="d-flex align-items-center mb-4">
             <div className="flex-shrink-0">
               <img
-                src={loading?<Loading/>:data.img}
+                src={loading ? <Loading /> : data.img}
                 alt="Generic placeholder image"
                 className="img-fluid rounded-circle border border-dark border-2"
                 style={{ width: 70, height: 70 }}
@@ -55,7 +74,9 @@ const HireSitterCard = ({ data }) => {
             </div>
             <div className="flex-grow-1 ms-3">
               <div className="d-flex flex-row align-items-center mb-2">
-                <p className="mb-0 me-2">{loading?<Loading/>:data.first_name}</p>
+                <p className="mb-0 me-2">
+                  {loading ? <Loading /> : data.first_name}
+                </p>
                 <ul
                   className="mb-0 list-unstyled d-flex flex-row"
                   style={{ color: "#1B7B2C" }}
@@ -97,8 +118,15 @@ const HireSitterCard = ({ data }) => {
           </div>
           <hr />
 
-          {loading?<Loading/>:data.status == "available" ? (
-            <Button type="button" variant="success" style={{ width: "100%" }}>
+          {loading ? (
+            <Loading />
+          ) : data.status == "available" ? (
+            <Button
+              type="button"
+              variant="success"
+              onClick={handleShow}
+              style={{ width: "100%" }}
+            >
               <div
                 style={{
                   display: "flex",
@@ -111,7 +139,9 @@ const HireSitterCard = ({ data }) => {
                 <span>Send Offer</span>
               </div>
             </Button>
-          ) : loading?<Loading/>:data.status == "unavailable" ? (
+          ) : loading ? (
+            <Loading />
+          ) : data.status == "unavailable" ? (
             <Button
               type="button"
               variant="light"
@@ -130,7 +160,9 @@ const HireSitterCard = ({ data }) => {
                 <span>Send Offer</span>
               </div>
             </Button>
-          ) : loading?<Loading/>:data.status == "busy" ? (
+          ) : loading ? (
+            <Loading />
+          ) : data.status == "busy" ? (
             <Button
               type="button"
               variant="danger"
@@ -152,6 +184,11 @@ const HireSitterCard = ({ data }) => {
           ) : (
             ""
           )}
+          <OfferModal
+            handleClose={handleClose}
+            show={show}
+            data={data}
+          />
         </div>
       </div>
     </div>

@@ -9,7 +9,7 @@ import {
 
 import { motion, AnimatePresence } from "framer-motion";
 
-const OwnerDashboard = () => {
+const SitterDashboard = () => {
   return (
     <AnimatePresence>
       <motion.section
@@ -28,7 +28,7 @@ const OwnerDashboard = () => {
               <MDBCard className="mb-3" style={{ borderRadius: ".5rem" }}>
                 <MDBRow className="g-0">
                   <MDBCardImage
-                    src="https://svgshare.com/i/rCe.svg"
+                    src="https://svgshare.com/i/rGf.svg"
                     alt="Avatar"
                     style={{ width: "100vw", pointerEvents: "none" }}
                     fluid
@@ -43,4 +43,4 @@ const OwnerDashboard = () => {
   );
 };
 
-export default OwnerDashboard;
+export default SitterDashboard;

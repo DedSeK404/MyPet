@@ -25,8 +25,9 @@ import {
   editUser,
 } from "../../../../JS/actions/usermanagementactions";
 import { useNavigate } from "react-router-dom";
+import Loading from "../../../Loading";
 
-export default function EditSitterProfile({ show }) {
+export default function EditSitterProfile({ show, setUnavailable }) {
   const [img, setimg] = useState("");
 
   const [shows, setShow] = useState(false);
@@ -65,6 +66,13 @@ export default function EditSitterProfile({ show }) {
     setEditData({ ...editData, [e.target.name]: e.target.value });
   };
   const idUser = currentUser._id;
+
+  const handleAvailability = () => {
+    const available = {
+      status: currentUser.status == "available" ? "unavailable" : "available",
+    };
+    dispatch(editUser(available, idUser));
+  };
 
   const handleSumbit = () => {
     dispatch(editUser(editData, idUser));
@@ -105,7 +113,7 @@ export default function EditSitterProfile({ show }) {
   const handleEditBirthday = () => {
     setShowBirthdayEdit(!showBirthdayEdit);
   };
-
+  const loading = useSelector((state) => state.userM.loading);
   const handleClick = () => {
     const data = new FormData();
 
@@ -163,6 +171,18 @@ export default function EditSitterProfile({ show }) {
                     }}
                     fluid
                   />
+                  <p style={{ color: "black" }}>
+                    Status:{" "}
+                    {currentUser.status == "available" ? (
+                      <p style={{ color: "green" }}>Available</p>
+                    ) : currentUser.status == "unavailable" ? (
+                      <p style={{ color: "grey" }}>Unavailable</p>
+                    ) : currentUser.status == "busy" ? (
+                      <p style={{ color: "red" }}>Busy</p>
+                    ) : (
+                      ""
+                    )}
+                  </p>
 
                   <Button
                     style={{
@@ -315,9 +335,36 @@ export default function EditSitterProfile({ show }) {
                 </MDBCol>
                 <MDBCol md="8">
                   <MDBCardBody className="p-4">
-                    <MDBTypography tag="h6" style={{ color: "#dd9679" }}>
-                      Contacts
-                    </MDBTypography>
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <MDBTypography tag="h6" style={{ color: "#dd9679" }}>
+                        Contacts
+                      </MDBTypography>
+                      <div class="form-check form-switch">
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          role="switch"
+                          id="flexSwitchCheckDefault"
+                          onClick={handleAvailability}
+                          checked={
+                            currentUser.status == "available" ? true : false
+                          }
+                        />
+                        <label
+                          class="form-check-label"
+                          for="flexSwitchCheckDefault"
+                        >
+                          Toggle :
+                          <span style={{ color: "green" }}>available</span>/
+                          <span style={{ color: "gray" }}>Unavailable</span>
+                        </label>
+                      </div>
+                    </div>
                     <hr className="mt-0 mb-4" />
                     <MDBRow className="pt-1">
                       <MDBCol size="6" className="mb-3">

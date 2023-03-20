@@ -13,7 +13,7 @@ const HireSitter = ({ setCity, setAvailable }) => {
     },
     onscreen: {
       y: 50,
-      rotate: -10,
+      rotate: 0,
       transition: {
         type: "spring",
         bounce: 0.4,
@@ -86,7 +86,6 @@ const HireSitter = ({ setCity, setAvailable }) => {
               onChange={handleSubmit}
               style={{ width: "45%" }}
             >
-              <option >Select a city</option>
               <option value="">Show all</option>
               <option value="Ariana">Ariana</option>
               <option value="Béja">Béja</option>

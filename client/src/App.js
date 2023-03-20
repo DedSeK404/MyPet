@@ -9,7 +9,7 @@ import OwnerHome from "./Components/Home/Owner_home_page/OwnerHome";
 import SitterHome from "./Components/Home/Sitter_home_page/SitterHome";
 import AdminHome from "./Components/Home/Sitter_home_page/Admin_home_page/AdminHome";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import PrivateRoute from "./Components";
 import { getUser } from "./JS/actions/useraction";
@@ -20,6 +20,7 @@ import NotFound from "./Components/Home/NotFound";
 
 
 function App() {
+  const [unavailable, setUnavailable] = useState("")
   const dispatch = useDispatch();
   
   useEffect(() => {
@@ -50,7 +51,7 @@ function App() {
           path="/sitter"
           element={
             <PrivateRoute>
-              <SitterHome />
+              <SitterHome setUnavailable={setUnavailable} />
             </PrivateRoute>
           }
         />

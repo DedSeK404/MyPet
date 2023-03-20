@@ -7,14 +7,15 @@ import "../Sitter_home_page/SitterHome.css";
 import { logout } from "../../../JS/actions/useraction";
 import SitterProfile from "./Sitter_home_Components/SitterProfile";
 import { useNavigate } from "react-router-dom";
+import SitterDashboard from "./Sitter_home_Components/Sitter_Dashboard/SitterDashboard";
 
-const SitterHome = () => {
+const SitterHome = ({ setUnavailable }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleClick = () => {
     dispatch(logout());
-    navigate("/login")
+    navigate("/login");
   };
   return (
     <div className="Home_Container" style={{ height: "100vh" }}>
@@ -36,10 +37,10 @@ const SitterHome = () => {
               fill
             >
               <Tab eventKey="Dashboard" title="Dashboard">
-                <p>dashboard</p>
+                <SitterDashboard />
               </Tab>
               <Tab eventKey="Profile" title="Profile">
-                <SitterProfile />
+                <SitterProfile setUnavailable={setUnavailable} />
               </Tab>
               <Tab eventKey="Messages" title="Messages">
                 <p>messages</p>

@@ -13,7 +13,7 @@ module.exports.updateuser = async (req, res) => {
       iduser,
       {
         ...req.body,
-        img: `${url}/${req.file.path}`,
+        // img: `${url}/${req.file.path}`,
       },
       { new: true }
     );

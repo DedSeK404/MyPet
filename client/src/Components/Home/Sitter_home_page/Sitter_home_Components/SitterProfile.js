@@ -14,20 +14,20 @@ import { useSelector } from "react-redux";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "react-bootstrap";
 import EditSitterProfile from "./EditSitterProfile";
+import Loading from "../../../Loading";
 
-export default function SitterProfile() {
-  
+export default function SitterProfile({ setUnavailable }) {
   const [show, setShow] = useState(false);
   const currentUser = useSelector((state) => state.userR.currentUser);
   const authloading = useSelector((state) => state.userR.authloading);
-
+  const loading = useSelector((state) => state.userM.loading);
   const handleClick = () => {
     setShow(true);
   };
 
   return (
     <AnimatePresence>
-      <div >
+      <div>
         {show ? (
           <AnimatePresence>
             <motion.div
@@ -38,7 +38,10 @@ export default function SitterProfile() {
                 ease: [0, 0.71, 0.2, 1.01],
               }}
             >
-              <EditSitterProfile show={setShow} />
+              <EditSitterProfile
+                setUnavailable={setUnavailable}
+                show={setShow}
+              />
             </motion.div>
           </AnimatePresence>
         ) : (
@@ -66,13 +69,32 @@ export default function SitterProfile() {
                         }}
                       >
                         <MDBCardImage
-                          src={currentUser.img?currentUser.img:"https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"}
+                          src={
+                            currentUser.img
+                              ? currentUser.img
+                              : "https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
+                          }
                           alt="Avatar"
                           className="my-5"
-                          style={{ width: "100px",borderRadius:"50%",border:"2px solid #755A58" }}
+                          style={{
+                            width: "100px",
+                            borderRadius: "50%",
+                            border: "2px solid #755A58",
+                          }}
                           fluid
                         />
-
+                        <p style={{ color: "black" }}>
+                          Status:{" "}
+                          {currentUser.status == "available" ? (
+                            <p style={{ color: "green" }}>Available</p>
+                          ) : currentUser.status == "unavailable" ? (
+                            <p style={{ color: "grey" }}>Unavailable</p>
+                          ) : currentUser.status == "busy" ? (
+                            <p style={{ color: "red" }}>Busy</p>
+                          ) : (
+                            ""
+                          )}
+                        </p>
                         <MDBTypography tag="h5" style={{ color: "#dd9679" }}>
                           {!authloading ? currentUser.first_name : ""}
                         </MDBTypography>
@@ -81,7 +103,7 @@ export default function SitterProfile() {
                         </MDBTypography>
 
                         <MDBCardText style={{ color: "#49312c" }}>
-                          Bio: {currentUser.bio?currentUser.bio : ""}
+                          Bio: {currentUser.bio ? currentUser.bio : ""}
                         </MDBCardText>
                         <MDBIcon far icon="edit mb-5" />
                       </MDBCol>
@@ -101,7 +123,7 @@ export default function SitterProfile() {
                             <MDBCol size="6" className="mb-3">
                               <MDBTypography tag="h6">Phone</MDBTypography>
                               <MDBCardText className="text-muted">
-                             +216 {!authloading ? currentUser.phone : ""}
+                                +216 {!authloading ? currentUser.phone : ""}
                               </MDBCardText>
                             </MDBCol>
                           </MDBRow>
