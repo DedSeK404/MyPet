@@ -3,7 +3,6 @@ import {
   ADDPETSUCCESS,
   DELETEPETSUCCESS,
   EDITPETSUCCESS,
-  FAILED,
   GETALLPETSSUCCESS,
   PETFAILED,
   PETLOADING,
@@ -26,21 +25,7 @@ export const getallpets = () => async (dispatch) => {
     dispatch({ type: PETFAILED, payload: error });
   }
 };
-//   /**
-//  * @route get /product/:idprod
-//  * @description get one product
-//  * @access public
-//  */
-//   export const getoneprod = (id) => async (dispatch) => {
-//     dispatch({ type: PRODUCTLOADING });
-//     try {
-//       const { data } = await axios.get(`${baseURl}/${id}`);
-//       console.log(data)
-//       dispatch({ type: GETONEPRODCUTSSUCCESS, payload: data });
-//     } catch (error) {
-//       dispatch({ type: FAILED, payload: error });
-//     }
-//   };
+
 /**
  * @route POST /pet/add
  * @description add new pet
@@ -55,7 +40,7 @@ export const addpet = (newPet) => async (dispatch) => {
     headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
   };
   console.log(`Bearer ${localStorage.getItem("token")}`);
-  console.log(newPet)
+  console.log(newPet);
   try {
     const res = await axios.post(baseURL + "/add", newPet, opts);
     console.log("res", res.data);

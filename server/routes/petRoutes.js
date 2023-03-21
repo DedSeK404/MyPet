@@ -43,12 +43,7 @@ router.post(
  * @access protected(authentifié+role:client)
  */
 router.get("/", getallpets);
-// /**
-//  * @route get /product/:idprod
-//  * @description get one product
-//  * @access public
-//  */
-// router.get("/:idprod", getonepet);
+
 
 /**
  * @route patch /pet/edit

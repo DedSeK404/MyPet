@@ -1,4 +1,10 @@
 const express = require("express");
+const {
+  postOffer,
+  getallOffers,
+  getonePet,
+  getallOwners,
+} = require("../controllers/offerControllers");
 
 const router = express.Router();
 
@@ -7,44 +13,27 @@ const router = express.Router();
  * @description add new offer
  * @access protected(authentifié+role:client)
  */
-router.post("/add");
-// /**
-//  * @route get /pet/
-//  * @description get all pets
-//  * @access protected(authentifié+role:client)
-//  */
-// router.get("/", getallpets);
-// // /**
-// //  * @route get /product/:idprod
-// //  * @description get one product
-// //  * @access public
-// //  */
-// // router.get("/:idprod", getonepet);
+router.post("/add", postOffer);
 
-// /**
-//  * @route patch /pet/edit
-//  * @description update  pet
-//  * @access protected
-//  */
-// router.patch(
-//   "/edit",
+/**
+ * @route get /offer/
+ * @description get all offers
+ * @access protected(authentifié+role:client)
+ */
+router.get("/", getallOffers);
 
-//   //isOwner,
-//   //AddProductRules,
-//   validator,
-//   upload("editpet").single("img"),
-//   updatePet
-// );
-// /**
-//  * @route delete /pet/delete
-//  * @description delete  pet
-//  * @access protected
-//  */
+/**
+ * @route get /offer/pet/:petID
+ * @description get one pet
+ * @access public
+ */
+router.get("/pet/:petID", getonePet);
 
-// router.delete(
-//   "/delete/:petid",
-//   //  IsAuth(),
-//   //   isAdmin,
-//   deletePet
-// );
+/**
+ * @route get offer/user/
+ * @description get all owners
+ * @access protected
+ */
+router.get("/user", getallOwners);
+
 module.exports = router;

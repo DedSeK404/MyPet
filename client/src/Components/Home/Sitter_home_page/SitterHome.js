@@ -1,5 +1,5 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import { Button, Card, Col, Container, Row } from "react-bootstrap";
@@ -8,10 +8,15 @@ import { logout } from "../../../JS/actions/useraction";
 import SitterProfile from "./Sitter_home_Components/SitterProfile";
 import { useNavigate } from "react-router-dom";
 import SitterDashboard from "./Sitter_home_Components/Sitter_Dashboard/SitterDashboard";
+import { getalloffers } from "../../../JS/actions/offeractions";
 
 const SitterHome = ({ setUnavailable }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getalloffers());
+  }, []);
 
   const handleClick = () => {
     dispatch(logout());
@@ -37,7 +42,7 @@ const SitterHome = ({ setUnavailable }) => {
               fill
             >
               <Tab eventKey="Dashboard" title="Dashboard">
-                <SitterDashboard />
+                <SitterDashboard  />
               </Tab>
               <Tab eventKey="Profile" title="Profile">
                 <SitterProfile setUnavailable={setUnavailable} />

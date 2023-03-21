@@ -34,15 +34,7 @@ module.exports.getallpets = async (req, res) => {
     res.send({ msg: error.message });
   }
 };
-// module.exports.getoneprod = async (req, res) => {
-//   try {
-//     const { idprod } = req.params;
-//     const prod = await productmodel.findById(idprod);
-//     res.send({ product: prod });
-//   } catch (error) {
-//     res.send({ msg: error.message });
-//   }
-// };
+
 module.exports.updatePet = async (req, res) => {
   try {
     const { idpet } = req.body;

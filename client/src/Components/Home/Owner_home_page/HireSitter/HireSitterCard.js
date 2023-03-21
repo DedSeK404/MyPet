@@ -5,11 +5,16 @@ import Loading from "../../../Loading";
 import OfferModal from "../../Offer/OfferModal";
 
 const HireSitterCard = ({ data }) => {
+  const [OfferData, setOfferData] = useState({});
   const loading = useSelector((state) => state.userM.loading);
 
   const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
+  const handleClose = () => {
+    setOfferData({});
+    setShow(false);
+  };
   const handleShow = () => setShow(true);
+
   return (
     <div className="col col-md-9 col-lg-7 col-xl-5">
       <div
@@ -188,6 +193,8 @@ const HireSitterCard = ({ data }) => {
             handleClose={handleClose}
             show={show}
             data={data}
+            setOfferData={setOfferData}
+            OfferData={OfferData}
           />
         </div>
       </div>
