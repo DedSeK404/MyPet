@@ -34,7 +34,8 @@ const OwnerHome = () => {
   return (
     <div
       className="Home_Container"
-      style={{ width: "100vw", minHeight: "110em" }}
+      // style={{ width: "100vw", minHeight: "110em" }}
+      style={{ height: "max-content", minHeight:"100vh" }}
     >
       <Container fluid>
         <Row>

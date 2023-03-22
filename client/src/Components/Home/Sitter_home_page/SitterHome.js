@@ -23,7 +23,7 @@ const SitterHome = ({ setUnavailable }) => {
     navigate("/login");
   };
   return (
-    <div className="Home_Container" style={{ height: "100vh" }}>
+    <div className="Home_Container" style={{ height: "max-content", minHeight:"100vh" }}>
       <Container fluid>
         <Row>
           <Col sm={2}>

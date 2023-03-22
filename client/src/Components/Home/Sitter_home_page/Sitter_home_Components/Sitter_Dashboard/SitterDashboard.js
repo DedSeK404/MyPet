@@ -13,29 +13,51 @@ import SitterD_Component from "./SitterD_Component";
 import { getallpets } from "../../../../../JS/actions/petactions";
 import { getallOwners } from "../../../../../JS/actions/offeractions";
 
+
 const SitterDashboard = () => {
   const offers = useSelector((state) => state.offerR.offers);
   const currentUser = useSelector((state) => state.userR.currentUser);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getallOwners())
-    dispatch(getallpets()); 
+    dispatch(getallOwners());
+    dispatch(getallpets());
   }, []);
- 
+  const cardVariants: Variants = {
+    offscreen: {
+      y: 300,
+    },
+    onscreen: {
+      y: 50,
+      rotate: 0,
+      transition: {
+        type: "spring",
+        bounce: 0.4,
+        duration: 0.8,
+      },
+    },
+  };
   return (
-    <>
-      {offers ? (
-        <>
-          {offers.map((e) =>
-            e.sitter == currentUser._id ? (
-              <SitterD_Component key={e._id} data={e} />
-            ) : (
-              ""
-            )
-          )}{" "}
-        </>
-      ) : (
-        <AnimatePresence>
+    <AnimatePresence>
+      <>
+        {offers ? (
+          <>
+            {offers.map((e) =>
+              e.sitter == currentUser._id ? (
+                <motion.div
+                  initial="offscreen"
+                  whileInView="onscreen"
+                  viewport={{ once: true, amount: 0.8 }}
+                >
+                  <motion.div variants={cardVariants}>
+                    <SitterD_Component key={e._id} data={e} />
+                  </motion.div>
+                </motion.div>
+              ) : (
+                ""
+              )
+            )}{" "}
+          </>
+        ) : (
           <motion.section
             initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -63,9 +85,9 @@ const SitterDashboard = () => {
               </MDBRow>
             </MDBContainer>
           </motion.section>
-        </AnimatePresence>
-      )}
-    </>
+        )}
+      </>
+    </AnimatePresence>
   );
 };
 
