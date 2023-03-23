@@ -1,6 +1,8 @@
 import axios from "axios";
 import {
+  ACCEPT_DECLINE_OFFER,
   ADDOFFERSUCCESS,
+  DELETEOFFERSUCCESS,
   GETALLOFFERSSUCCESS,
   GETALLOWNERS,
   OFFERFAILED,
@@ -51,10 +53,10 @@ export const addOffer = (offerData) => async (dispatch) => {
  * @access protected(authentifié+role:client)
  */
 
-export const getalloffers = () => async (dispatch) => {
+export const getalloffers = (status) => async (dispatch) => {
   dispatch({ type: OFFERLOADING });
   try {
-    const { data } = await axios.get(baseURL);
+    const { data } = await axios.get(`${baseURL}/${status ? "?status=" + status : ""}`);
     dispatch({ type: GETALLOFFERSSUCCESS, payload: data });
   } catch (error) {
     dispatch({ type: OFFERFAILED, payload: error });
@@ -89,6 +91,52 @@ export const getallOwners = () => async (dispatch) => {
 
     dispatch({ type: GETALLOWNERS, payload: data });
   } catch (error) {
-    dispatch({ type: OFFERFAILED, payload: error }); 
+    dispatch({ type: OFFERFAILED, payload: error });
+  }
+};
+
+/**
+ * @route patch /offer/edit
+ * @description update  offer
+ * @access protected
+ */
+export const editoffer = (offerEdit) => async (dispatch) => {
+  dispatch({
+    type: OFFERLOADING,
+  });
+  console.log(offerEdit);
+  try {
+    const { data } = await axios.patch(baseURL + "/edit", offerEdit);
+
+    alert(`${data.msg}`);
+    dispatch({ type: ACCEPT_DECLINE_OFFER, payload: data.msg });
+    dispatch(getalloffers());
+  } catch (error) {
+    dispatch({ type: OFFERFAILED, payload: error });
+    console.log(error);
+  }
+};
+
+/**
+ * @route delete /offer/delete
+ * @description delete  offer
+ * @access protected
+ */
+export const deleteoffer = (offerid) => async (dispatch) => {
+  dispatch({
+    type: OFFERLOADING,
+  });
+
+  try {
+    const { data } = await axios.delete(
+      baseURL + `/delete/${offerid}`
+    );
+
+    alert(`${data.msg}`);
+    dispatch({ type: DELETEOFFERSUCCESS, payload: data.msg });
+    dispatch(getalloffers());
+  } catch (error) {
+    dispatch({ type: OFFERFAILED, payload: error });
+    console.log(error);
   }
 };

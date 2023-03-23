@@ -9,6 +9,7 @@ const OfferSchema = new mongoose.Schema({
   client: { type: mongoose.Types.ObjectId, ref: "users" },
   sitter: { type: mongoose.Types.ObjectId, ref: "users" },
   pet: { type: mongoose.Types.ObjectId, ref: "pets" },
+  status:{type: String, default: "unknown"}
 });
 
 const OfferModel = mongoose.model("offers", OfferSchema);

@@ -23,7 +23,7 @@ function OfferModal({ handleClose, show, data,OfferData,setOfferData }) {
     dispatch(addOffer(OfferData))
     handleClose()
   };
-  console.log(OfferData)
+  //console.log(OfferData)
   return (
     <>
       <Modal

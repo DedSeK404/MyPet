@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
@@ -13,10 +13,11 @@ import { getalloffers } from "../../../JS/actions/offeractions";
 const SitterHome = ({ setUnavailable }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+  const [status, setStatus] = useState("") 
   useEffect(() => {
-    dispatch(getalloffers());
-  }, []);
+    window.scrollTo(0,0)
+    dispatch(getalloffers(status)); 
+  }, [status]);
 
   const handleClick = () => {
     dispatch(logout());
@@ -42,7 +43,7 @@ const SitterHome = ({ setUnavailable }) => {
               fill
             >
               <Tab eventKey="Dashboard" title="Dashboard">
-                <SitterDashboard  />
+                <SitterDashboard setStatus={setStatus} />
               </Tab>
               <Tab eventKey="Profile" title="Profile">
                 <SitterProfile setUnavailable={setUnavailable} />

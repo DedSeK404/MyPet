@@ -5,37 +5,46 @@ import ListGroup from "react-bootstrap/ListGroup";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
-import "./SitterDashboard.css";
 import Nav from "react-bootstrap/Nav";
 import Tab from "react-bootstrap/Tab";
-import { editoffer } from "../../../../../JS/actions/offeractions";
+import { deleteoffer, editoffer } from "../../../../../JS/actions/offeractions";
 import { editUser } from "../../../../../JS/actions/usermanagementactions";
 
-const SitterD_Component = ({ data }) => {
+const OwnerD_Component = ({ data }) => {
+  const sitter = useSelector((state) => state.userM.sitters);
   const pets = useSelector((state) => state.petR.pets);
   const owners = useSelector((state) => state.offerR.owners);
-
+  //console.log(sitter);
+  //console.log(owners);
   // console.log(pets);
   //console.log(data);
   const CurrentUser = useSelector((state) => state.userR.currentUser);
   const isBusy = CurrentUser.status;
   const dispatch = useDispatch();
   const Offerstatus = data.status;
-  const [disabled, setDisabled] = useState(isBusy == "busy" ? true : false);
+  const [disabled, setDisabled] = useState(
+    data.status == "unknown" ? true : false
+  );
   const [disabledD, setDisabledD] = useState(
     Offerstatus == "active" || Offerstatus == "declined" ? true : false
   );
   const idoffer = data._id;
 
-  const handleSubmitAccept = () => {
-    dispatch(editUser({ editData: { status: "busy" }, idUser: data.sitter }));
-    dispatch(editoffer({ idoffer: idoffer, status: "active" }));
+  const handleComplete = () => {
+    dispatch(
+      editUser({ editData: { status: "available" }, idUser: data.sitter })
+    );
+    dispatch(editoffer({ idoffer: idoffer, status: "completed" }));
     setDisabled(true);
   };
 
-  const handleSubmitDecline = () => {
-    dispatch(editoffer({ idoffer: idoffer, status: "declined" }));
-    setDisabledD(true);
+  const handleDelete = () => {
+    if (data.status == "declined") {
+      alert("Cannot delete the offer because the sitter already declined it");
+    } else {
+      dispatch(deleteoffer(idoffer));
+      setDisabledD(true);
+    }
   };
 
   return (
@@ -78,7 +87,9 @@ const SitterD_Component = ({ data }) => {
                                   </Nav.Link>
                                 </Nav.Item>
                                 <Nav.Item>
-                                  <Nav.Link eventKey="second">Owner</Nav.Link>
+                                <Nav.Item>
+                                  <Nav.Link eventKey="second">Sitter</Nav.Link>
+                                </Nav.Item>
                                 </Nav.Item>
                                 <Nav.Item>
                                   <Nav.Link eventKey="third">
@@ -132,8 +143,8 @@ const SitterD_Component = ({ data }) => {
                                 <Tab.Pane eventKey="second">
                                   {" "}
                                   <Col>
-                                    {owners.map((e) =>
-                                      e._id == data.client ? (
+                                    {sitter.map((e) =>
+                                      e._id == data.sitter ? (
                                         //ownerCard
                                         <Card
                                           className="card mb-3"
@@ -314,9 +325,7 @@ const SitterD_Component = ({ data }) => {
                           <h4 className="mb-1 me-1">{data.price}D.t</h4>
                         </div>
                         <hr />
-                        <h6 style={{ color: "#734E4A" }}>
-                          Choose whether you like to accept or decline the offer
-                        </h6>
+                        <h6 style={{ color: "#734E4A" }}>Choose an action</h6>
                         <hr />
                         <div className="d-flex flex-column mt-4">
                           {Offerstatus == "completed" ||
@@ -330,25 +339,22 @@ const SitterD_Component = ({ data }) => {
                                   : "btn btn-success btn-sm"
                               }
                               type="button"
-                              onClick={handleSubmitAccept}
+                              onClick={handleComplete}
                               disabled={disabled ? true : false}
-                              
                             >
-                             <h3>{data.status == "active"
-                                ? "Offer accepted"
-                                : isBusy == "busy"
-                                ? "You already have an ongoing Job"
-                                : "Accept"}</h3> 
+                              {data.status == "active"
+                                ? "Mark as complete"
+                                : "Sitter did not accept the offer yet"}
                             </button>
                           )}
                           {Offerstatus == "unknown" ? (
                             <button
                               className="btn btn-outline-danger btn-sm mt-2"
                               type="button"
-                              onClick={handleSubmitDecline}
+                              onClick={handleDelete}
                               disabled={disabledD ? true : false}
                             >
-                              {disabledD ? "Offer declined" : "Decline"}
+                              {disabledD ? "Offer deleted" : "Delete offer"}
                             </button>
                           ) : Offerstatus == "active" ? (
                             ""
@@ -371,19 +377,19 @@ const SitterD_Component = ({ data }) => {
                               disabled
                             >
                               <i class="fas fa-ban"></i>
-                              <h4 style={{ color: "white" }}>
+                              <h2 style={{ color: "white" }}>
                                 {" "}
                                 Offer declined
-                              </h4>
+                              </h2>
                             </button>
                           ) : (
                             <button
                               className="btn btn-outline-danger btn-sm mt-2"
                               type="button"
-                              onClick={handleSubmitDecline}
+                              onClick={handleDelete}
                               disabled={disabledD ? true : false}
                             >
-                              {disabledD ? "Offer declined" : "Decline"}
+                              {disabledD ? "Offer declined" : "Delete offer"}
                             </button>
                           )}
                         </div>
@@ -406,4 +412,4 @@ const SitterD_Component = ({ data }) => {
   );
 };
 
-export default SitterD_Component;
+export default OwnerD_Component;

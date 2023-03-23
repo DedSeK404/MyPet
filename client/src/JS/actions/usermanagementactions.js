@@ -16,10 +16,11 @@ import { getUser } from "./useraction";
  */
 const baseURL = "http://localhost:4500/user/";
 
-export const editUser = (editData, iduser) => async (dispatch) => {
+export const editUser = ({editData, idUser}) => async (dispatch) => {
   dispatch({ type: USERLOADING });
+  
   try {
-    const { data } = await axios.patch(`${baseURL}${iduser}`, editData);
+    const { data } = await axios.patch(`${baseURL}${idUser}`, editData);
     dispatch(getUser());
     dispatch({ type: EDITUSER, payload: data.msg });
     console.log(data.msg);
@@ -79,4 +80,4 @@ export const getallSitters = (city, available) => async (dispatch) => {
   } catch (error) {
     dispatch({ type: USERFAILED, payload: error });
   }
-};
+}; 

@@ -44,34 +44,40 @@ module.exports.getallOwners = async (req, res) => {
   }
 };
 
-// module.exports.updatePet = async (req, res) => {
-//   try {
-//     const { idpet } = req.body;
-//     const url = `${req.protocol}://${req.get("host")}`;
-//     console.log(req)
-//     const pet = await petModel.findByIdAndUpdate(
-//       idpet,
-//       {
-//         $set: {
-//           ...req.body,
-//           img: `${url}/${req.file.path}`,
-//         },
-//       },
-//       { new: true }
-//     );
-//     res.send({ pet: pet, msg: "Changes saved" });
-//   } catch (error) {
-//     res.send({ msg: error.message });
-//   }
-// };
+module.exports.updateOffer = async (req, res) => {
+  try {
+    const { idoffer } = req.body;
+    const { status } = req.body;
+    const offerStatus = await offerModel.findByIdAndUpdate(
+      idoffer,
+      {
+        $set: {
+          ...req.body,
+        },
+      },
+      { new: true }
+    );
+    res.send({
+      offerStatus: offerStatus,
+      msg:
+        status == "active"
+          ? "Offer accepted"
+          : status == "declined"
+          ? "Offer declined"
+          : "",
+    });
+  } catch (error) {
+    res.send({ msg: error.message });
+  }
+};
 
-// module.exports.deletePet = async (req, res) => {
-//   try {
-//     const { petid } = req.params;
+module.exports.deleteOffer = async (req, res) => {
+  try {
+    const { offerid } = req.params;
 
-//     const prod = await petModel.findByIdAndRemove(petid);
-//     res.send({ msg: "pet profile deleted successfully" });
-//   } catch (error) {
-//     res.send({ msg: error.message });
-//   }
-// };
+    const deleteOffer = await offerModel.findByIdAndRemove(offerid);
+    res.send({ msg: "offer deleted successfully" });
+  } catch (error) {
+    res.send({ msg: error.message });
+  }
+};

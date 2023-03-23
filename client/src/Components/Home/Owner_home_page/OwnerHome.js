@@ -12,20 +12,23 @@ import { useNavigate } from "react-router-dom";
 import OwnerDashboard from "./Owner_home_Components/Owner_Dashboard/OwnerDashboard";
 import HireSitter from "./HireSitter/HireSitter";
 import { getallSitters } from "../../../JS/actions/usermanagementactions";
+import { getalloffers } from "../../../JS/actions/offeractions";
 
 
 const OwnerHome = () => {
   const [city, setCity] = useState("")
   const [available, setAvailable] = useState("")
-  console.log(available)
+  //console.log(available)
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+const [status, setStatus] = useState("") 
   useEffect(() => {
+    window.scrollTo(0,0)
+    dispatch(getalloffers(status))
     dispatch(getallpets());
     dispatch(getallSitters(city,available));
-  }, [city,available]);
-
+  }, [city,available,status]);
+//console.log(status)
   const handleClick = () => {
     dispatch(logout());
     navigate("/login");
@@ -55,7 +58,7 @@ const OwnerHome = () => {
               fill
             >
               <Tab eventKey="Dashboard" title="Dashboard">
-                <OwnerDashboard />
+                <OwnerDashboard setStatus={setStatus} />
               </Tab>
               <Tab eventKey="Profile" title="Profile">
                 <OwnerProfile />

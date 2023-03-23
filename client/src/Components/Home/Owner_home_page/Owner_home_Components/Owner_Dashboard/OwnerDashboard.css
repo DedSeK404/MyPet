@@ -59,49 +59,49 @@
   color: #7f5a57;
 }
 
-.boxActive{
-  border: 2px green  solid;
+.boxActive {
+  border: 2px green solid;
   border-radius: 10px;
   transition: 0.1s;
 }
-.boxActive:hover{
-  border: 4px green  solid;
-  border-radius: 10px;
-  transition: 0.1s;
-  scale: 1.03;
-}
-
-.boxDeclined{
-  border: 2px red  solid;
-  border-radius: 10px;
-  transition: 0.1s;
-}
-.boxDeclined:hover{
-  border: 4px red  solid;
+.boxActive:hover {
+  border: 4px green solid;
   border-radius: 10px;
   transition: 0.1s;
   scale: 1.03;
 }
 
-.boxUnknown{
-  border: 2px gray  solid;
+.boxDeclined {
+  border: 2px red solid;
   border-radius: 10px;
   transition: 0.1s;
 }
-.boxUnknown:hover{
-  border: 4px gray  solid;
+.boxDeclined:hover {
+  border: 4px red solid;
   border-radius: 10px;
   transition: 0.1s;
   scale: 1.03;
 }
 
-.boxBusy{
-  border: 2px purple  solid;
+.boxUnknown {
+  border: 2px gray solid;
   border-radius: 10px;
   transition: 0.1s;
 }
-.boxBusy:hover{
-  border: 4px purple  solid;
+.boxUnknown:hover {
+  border: 4px gray solid;
+  border-radius: 10px;
+  transition: 0.1s;
+  scale: 1.03;
+}
+
+.boxBusy {
+  border: 2px purple solid;
+  border-radius: 10px;
+  transition: 0.1s;
+}
+.boxBusy:hover {
+  border: 4px purple solid;
   border-radius: 10px;
   transition: 0.1s;
   scale: 1.03;

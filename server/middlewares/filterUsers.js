@@ -11,7 +11,7 @@ const filterUsers = async (req, res, next) => {
       sitters = await userModel.find({role: "sitter", status: available });
       return res.send({ sitters });
     }
-    next();
+    next(); 
   } catch (error) {
     res.send({ msg: error.message });
   }

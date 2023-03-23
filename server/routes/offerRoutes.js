@@ -4,7 +4,10 @@ const {
   getallOffers,
   getonePet,
   getallOwners,
+  updateOffer,
+  deleteOffer,
 } = require("../controllers/offerControllers");
+const filterOffers = require("../middlewares/filterOffers");
 
 const router = express.Router();
 
@@ -20,7 +23,7 @@ router.post("/add", postOffer);
  * @description get all offers
  * @access protected(authentifié+role:client)
  */
-router.get("/", getallOffers);
+router.get("/",filterOffers, getallOffers);
 
 /**
  * @route get /offer/pet/:petID
@@ -35,5 +38,24 @@ router.get("/pet/:petID", getonePet);
  * @access protected
  */
 router.get("/user", getallOwners);
+
+/**
+ * @route patch /offer/edit
+ * @description update  offer
+ * @access protected
+ */
+router.patch("/edit", updateOffer);
+/**
+ * @route delete /offer/delete
+ * @description delete  offer
+ * @access protected
+ */
+
+router.delete(
+  "/delete/:offerid",
+  //  IsAuth(),
+  //   isAdmin,
+  deleteOffer
+);
 
 module.exports = router;

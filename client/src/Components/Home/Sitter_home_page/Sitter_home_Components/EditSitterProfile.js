@@ -68,10 +68,15 @@ export default function EditSitterProfile({ show, setUnavailable }) {
   const idUser = currentUser._id;
 
   const handleAvailability = () => {
-    const available = {
-      status: currentUser.status == "available" ? "unavailable" : "available",
-    };
-    dispatch(editUser(available, idUser));
+    if (currentUser.status=!"busy") {
+      const available = {
+        status: currentUser.status == "available" ? "unavailable" : "available",
+      };
+      dispatch(editUser(available, idUser));
+    } else {
+      alert('You cannot edit your status while you have an ongoing job')
+    }
+   
   };
 
   const handleSumbit = () => {

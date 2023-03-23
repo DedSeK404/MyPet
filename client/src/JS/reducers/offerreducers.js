@@ -1,4 +1,6 @@
 import {
+  ACCEPT_DECLINE_OFFER,
+  DELETEOFFERSUCCESS,
   GETALLOFFERSSUCCESS,
   GETALLOWNERS,
   OFFERFAILED,
@@ -12,6 +14,7 @@ const initialState = {
   error: null,
   pets: [],
   owners: [],
+  Alert: null,
 };
 
 export const offerreducers = (state = initialState, { type, payload }) => {
@@ -28,8 +31,14 @@ export const offerreducers = (state = initialState, { type, payload }) => {
     case OFFERFAILED:
       return { ...state, error: payload, loading: false };
 
-      case GETALLOWNERS:
-      return { ...state, owners: payload.owners, loading: false }; 
+    case GETALLOWNERS:
+      return { ...state, owners: payload.owners, loading: false };
+
+    case ACCEPT_DECLINE_OFFER:
+      return { ...state, Alert: payload };
+
+      case DELETEOFFERSUCCESS:
+        return { ...state, Alert: payload };
 
     default:
       return state;
