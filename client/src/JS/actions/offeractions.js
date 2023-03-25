@@ -8,12 +8,7 @@ import {
   OFFERFAILED,
   OFFERLOADING,
 } from "../actiontypes/offertypes";
-import {
-  GETONEPETSSUCCESS,
-  PETFAILED,
-  PETLOADING,
-} from "../actiontypes/pettypes";
-import { getUser } from "./useraction";
+
 
 const baseURL = "http://localhost:4500/offer";
 
@@ -108,7 +103,7 @@ export const editoffer = (offerEdit) => async (dispatch) => {
   try {
     const { data } = await axios.patch(baseURL + "/edit", offerEdit);
 
-    alert(`${data.msg}`);
+   // alert(`${data.msg}`);
     dispatch({ type: ACCEPT_DECLINE_OFFER, payload: data.msg });
     dispatch(getalloffers());
   } catch (error) {

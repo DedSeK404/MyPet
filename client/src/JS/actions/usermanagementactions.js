@@ -6,7 +6,6 @@ import {
   USERFAILED,
   USERLOADING,
 } from "../actiontypes/usermanagementtypes";
-import { FAILED, LOADING } from "../actiontypes/usertypes";
 import { getUser } from "./useraction";
 
 /**
@@ -21,7 +20,7 @@ export const editUser = ({editData, idUser}) => async (dispatch) => {
   
   try {
     const { data } = await axios.patch(`${baseURL}${idUser}`, editData);
-    dispatch(getUser());
+    //dispatch(getUser());
     dispatch({ type: EDITUSER, payload: data.msg });
     console.log(data.msg);
     if (data.msg) {

@@ -9,8 +9,14 @@ import Nav from "react-bootstrap/Nav";
 import Tab from "react-bootstrap/Tab";
 import { deleteoffer, editoffer } from "../../../../../JS/actions/offeractions";
 import { editUser } from "../../../../../JS/actions/usermanagementactions";
+import Offcanvas from "react-bootstrap/Offcanvas";
+import Button from "react-bootstrap/Button";
+import ReviewModalComponent from "../../../Reviews/ReviewModalComponent";
 
 const OwnerD_Component = ({ data }) => {
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   const sitter = useSelector((state) => state.userM.sitters);
   const pets = useSelector((state) => state.petR.pets);
   const owners = useSelector((state) => state.offerR.owners);
@@ -31,11 +37,12 @@ const OwnerD_Component = ({ data }) => {
   const idoffer = data._id;
 
   const handleComplete = () => {
+    dispatch(editoffer({ idoffer: idoffer, status: "completed" }));
     dispatch(
       editUser({ editData: { status: "available" }, idUser: data.sitter })
     );
-    dispatch(editoffer({ idoffer: idoffer, status: "completed" }));
     setDisabled(true);
+    setShow(true);
   };
 
   const handleDelete = () => {
@@ -87,9 +94,11 @@ const OwnerD_Component = ({ data }) => {
                                   </Nav.Link>
                                 </Nav.Item>
                                 <Nav.Item>
-                                <Nav.Item>
-                                  <Nav.Link eventKey="second">Sitter</Nav.Link>
-                                </Nav.Item>
+                                  <Nav.Item>
+                                    <Nav.Link eventKey="second">
+                                      Sitter
+                                    </Nav.Link>
+                                  </Nav.Item>
                                 </Nav.Item>
                                 <Nav.Item>
                                   <Nav.Link eventKey="third">
@@ -405,6 +414,22 @@ const OwnerD_Component = ({ data }) => {
                 </div>
               </section>
             </Col>
+
+            {/* <Button variant="primary" onClick={handleShow} className="me-2">
+        zadfaz
+      </Button> */}
+            <Offcanvas
+              style={{ height: "100vh" }}
+              show={show}
+              onHide={handleClose}
+              placement="bottom"
+              backdrop="static"
+            >
+              <Offcanvas.Header closeButton></Offcanvas.Header>
+              <Offcanvas.Body>
+                <ReviewModalComponent setShow={setShow} data={data} />
+              </Offcanvas.Body>
+            </Offcanvas>
           </div>
         </Row>
       </Container>

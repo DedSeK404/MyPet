@@ -32,11 +32,12 @@ function OfferModal({ handleClose, show, data,OfferData,setOfferData }) {
         centered
         show={show}
         onHide={handleClose}
+        style={{background:"rgba(0, 0, 0, 0.7)"}}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Send an offer to {data.first_name}</Modal.Title>
+          <Modal.Title style={{color:"brown"}}>Send an offer to {data.first_name}</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body  style={{background:"white"}}>
           <h5 style={{ paddingBottom: "20px" }}>Please Fill the form</h5>
 
           <Row className="g-3">
@@ -127,7 +128,7 @@ function OfferModal({ handleClose, show, data,OfferData,setOfferData }) {
             </Row>
           </Row>
         </Modal.Body>
-        <Modal.Footer>
+        <Modal.Footer style={{background:"white"}}>
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>

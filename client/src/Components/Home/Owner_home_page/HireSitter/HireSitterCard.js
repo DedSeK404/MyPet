@@ -3,6 +3,7 @@ import { Button } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import Loading from "../../../Loading";
 import OfferModal from "../../Offer/OfferModal";
+import SitterProfileModal from "./SitterProfileModal";
 
 const HireSitterCard = ({ data }) => {
   const [OfferData, setOfferData] = useState({});
@@ -14,7 +15,8 @@ const HireSitterCard = ({ data }) => {
     setShow(false);
   };
   const handleShow = () => setShow(true);
-
+  const [modalShow, setModalShow] = useState(false);
+  
   return (
     <div className="col col-md-9 col-lg-7 col-xl-5">
       <div
@@ -108,6 +110,7 @@ const HireSitterCard = ({ data }) => {
                   type="button"
                   className="btn btn-outline-dark btn-rounded btn-sm"
                   data-mdb-ripple-color="dark"
+                  onClick={() => setModalShow(true)}
                 >
                   See profile
                 </button>
@@ -198,6 +201,8 @@ const HireSitterCard = ({ data }) => {
           />
         </div>
       </div>
+
+      <SitterProfileModal data={data} show={modalShow} onHide={() => setModalShow(false)} />
     </div>
   );
 };

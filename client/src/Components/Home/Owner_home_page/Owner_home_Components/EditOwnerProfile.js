@@ -51,15 +51,15 @@ export default function EditOwnerProfile({ show }) {
 
   const dispatch = useDispatch();
   const [editData, setEditData] = useState({
-    first_name: currentUser.first_name,
-    last_name: currentUser.last_name,
-    bio: currentUser.bio,
-    email: currentUser.email,
-    phone: currentUser.phone,
-    city: currentUser.city,
-    adress: currentUser.adress,
-    gender: currentUser.gender,
-    birth_date: currentUser.birth_date,
+    first_name: "",
+    last_name: "",
+    bio: "",
+    email: "",
+    phone: "",
+    city: "",
+    adress: "",
+    gender: "",
+    birth_date: "",
   });
 
   const handleChange = (e) => {
@@ -110,9 +110,9 @@ export default function EditOwnerProfile({ show }) {
   const handleClick = () => {
     const data = new FormData();
 
-    data.append("first_name", editData.first_name);
-    data.append("last_name", editData.last_name);
-    data.append("bio", editData.bio);
+    data?.append("first_name", editData.first_name);
+    data?.append("last_name", editData.last_name);
+    data?.append("bio", editData.bio);
     data.append("email", editData.email);
     data.append("phone", editData.phone);
     data.append("city", editData.city);
@@ -121,8 +121,10 @@ export default function EditOwnerProfile({ show }) {
     data.append("birth_date", editData.birth_date);
     //data.append("password", editData.password);
     data.append("img", img);
-    //console.log(data);
-    dispatch(editUser(data, idUser));
+    console.log(data);
+    const first_name=data.append("first_name", editData.first_name)
+    
+    //dispatch(editUser(data, idUser));
   };
 
   const handleClickReturn = () => {
@@ -135,7 +137,7 @@ export default function EditOwnerProfile({ show }) {
     setShow(false);
   };
   return (
-    <section className="vh-100" style={{ backgroundColor: "transparent" }}>
+    <section style={{ backgroundColor: "transparent", marginTop: "-3%" }}>
       <MDBContainer className="py-5 h-50">
         <MDBRow className="justify-content-center align-items-center h-100">
           <MDBCol lg="8" className="mb-4 mb-lg-0">
@@ -147,6 +149,9 @@ export default function EditOwnerProfile({ show }) {
                   style={{
                     borderTopLeftRadius: ".5rem",
                     borderBottomLeftRadius: ".5rem",
+                    background: "rgb(238,174,202)",
+                    background:
+                      "linear-gradient(187deg, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%)",
                   }}
                 >
                   <MDBCardImage
@@ -159,8 +164,10 @@ export default function EditOwnerProfile({ show }) {
                     className="my-5"
                     style={{
                       width: "100px",
+                      height: "100px",
+                      margin: "auto",
                       borderRadius: "50%",
-                      border: "2px solid #755A58",
+                      border: "2px solid white",
                     }}
                     fluid
                   />
@@ -196,7 +203,8 @@ export default function EditOwnerProfile({ show }) {
                   ) : (
                     ""
                   )}
-                  <MDBTypography tag="h5" style={{ color: "#dd9679" }}>
+                  <hr style={{ color: "gray" }} />
+                  <MDBTypography tag="h5" style={{ color: "white" }}>
                     {authloading ? <Loading /> : currentUser.first_name}
 
                     <Button
@@ -235,7 +243,7 @@ export default function EditOwnerProfile({ show }) {
                       ""
                     )}
                   </MDBTypography>
-                  <MDBTypography tag="h5" style={{ color: "#dd9679" }}>
+                  <MDBTypography tag="h5" style={{ color: "white" }}>
                     {authloading ? <Loading /> : currentUser.last_name}
                     <Button
                       style={{
@@ -273,7 +281,7 @@ export default function EditOwnerProfile({ show }) {
                       ""
                     )}
                   </MDBTypography>
-
+                  <hr style={{ color: "gray" }} />
                   <MDBCardText style={{ color: "#49312c" }}>
                     Bio:{currentUser.bio ? currentUser.bio : ""}
                     <Button
@@ -312,7 +320,6 @@ export default function EditOwnerProfile({ show }) {
                       ""
                     )}
                   </MDBCardText>
-                  <MDBIcon far icon="edit mb-5" />
                 </MDBCol>
                 <MDBCol md="8">
                   <MDBCardBody className="p-4">
@@ -337,7 +344,7 @@ export default function EditOwnerProfile({ show }) {
                           </Button>
                         </MDBTypography>
                         <MDBCardText className="text-muted">
-                          {authloading ? <Loading /> : currentUser.email}
+                          {!showEmailEdit ? currentUser.email : ""}
 
                           {showEmailEdit ? (
                             <>
@@ -381,31 +388,35 @@ export default function EditOwnerProfile({ show }) {
                           </Button>
                         </MDBTypography>
                         <MDBCardText className="text-muted">
-                          +216 {authloading ? <Loading /> : currentUser.phone}
-                          {showPhoneEdit ? (
-                            <>
-                              <AnimatePresence>
-                                <motion.div
-                                  initial={{ opacity: 0, scale: 0.5 }}
-                                  animate={{ opacity: 1, scale: 1 }}
-                                  transition={{
-                                    duration: 0.8,
-                                    ease: [0, 0.71, 0.2, 1.01],
-                                  }}
-                                >
-                                  <Form.Control
-                                    name="phone"
-                                    onChange={handleChange}
-                                    type="text"
-                                    placeholder="phone number"
-                                  />
-                                  <Form.Text className="text-muted"></Form.Text>
-                                </motion.div>
-                              </AnimatePresence>
-                            </>
-                          ) : (
-                            ""
-                          )}
+                          <Col style={{ display: "flex", gap: "5px" }}>
+                            <p>
+                              +216 {!showPhoneEdit ? currentUser.phone : ""}
+                            </p>
+                            {showPhoneEdit ? (
+                              <div>
+                                <AnimatePresence>
+                                  <motion.div
+                                    initial={{ opacity: 0, scale: 0.5 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    transition={{
+                                      duration: 0.8,
+                                      ease: [0, 0.71, 0.2, 1.01],
+                                    }}
+                                  >
+                                    <Form.Control
+                                      name="phone"
+                                      onChange={handleChange}
+                                      type="text"
+                                      placeholder="phone number"
+                                    />
+                                    <Form.Text className="text-muted"></Form.Text>
+                                  </motion.div>
+                                </AnimatePresence>
+                              </div>
+                            ) : (
+                              ""
+                            )}
+                          </Col>
                         </MDBCardText>
                       </MDBCol>
                     </MDBRow>
@@ -431,7 +442,7 @@ export default function EditOwnerProfile({ show }) {
                           </Button>
                         </MDBTypography>
                         <MDBCardText className="text-muted">
-                          {authloading ? <Loading /> : currentUser.city}
+                          {!showCityEdit ? currentUser.city : ""}
 
                           {showCityEdit ? (
                             <AnimatePresence>
@@ -501,7 +512,7 @@ export default function EditOwnerProfile({ show }) {
                           </Button>
                         </MDBTypography>
                         <MDBCardText className="text-muted">
-                          {authloading ? <Loading /> : currentUser.adress}
+                          {!showAdressEdit ? currentUser.adress : ""}
 
                           {showAdressEdit ? (
                             <>
@@ -552,7 +563,7 @@ export default function EditOwnerProfile({ show }) {
                           </Button>
                         </MDBTypography>
                         <MDBCardText className="text-muted">
-                          {authloading ? <Loading /> : currentUser.gender}
+                          {!showGenderEdit ? currentUser.gender : ""}
 
                           {showGenderEdit ? (
                             <>
@@ -600,11 +611,9 @@ export default function EditOwnerProfile({ show }) {
                           </Button>
                         </MDBTypography>
                         <MDBCardText className="text-muted">
-                          {authloading ? (
-                            <Loading />
-                          ) : (
-                            currentUser.birth_date.slice(0, -14)
-                          )}
+                          {!showBirthdayEdit
+                            ? currentUser.birth_date.slice(0, -14)
+                            : ""}
 
                           {showBirthdayEdit ? (
                             <>

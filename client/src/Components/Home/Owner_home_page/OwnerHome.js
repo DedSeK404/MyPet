@@ -12,7 +12,8 @@ import { useNavigate } from "react-router-dom";
 import OwnerDashboard from "./Owner_home_Components/Owner_Dashboard/OwnerDashboard";
 import HireSitter from "./HireSitter/HireSitter";
 import { getallSitters } from "../../../JS/actions/usermanagementactions";
-import { getalloffers } from "../../../JS/actions/offeractions";
+import { getalloffers, getallOwners } from "../../../JS/actions/offeractions";
+import { getallReviews } from "../../../JS/actions/reviewactions";
 
 
 const OwnerHome = () => {
@@ -27,6 +28,8 @@ const [status, setStatus] = useState("")
     dispatch(getalloffers(status))
     dispatch(getallpets());
     dispatch(getallSitters(city,available));
+    dispatch(getallReviews())
+    dispatch(getallOwners())
   }, [city,available,status]);
 //console.log(status)
   const handleClick = () => {
@@ -38,7 +41,7 @@ const [status, setStatus] = useState("")
     <div
       className="Home_Container"
       // style={{ width: "100vw", minHeight: "110em" }}
-      style={{ height: "max-content", minHeight:"100vh" }}
+      style={{ height: "fit-content", marginBottom:"15%", minHeight:"100vh"  }}
     >
       <Container fluid>
         <Row>

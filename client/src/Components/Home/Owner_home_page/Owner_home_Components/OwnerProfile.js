@@ -8,16 +8,13 @@ import {
   MDBCardBody,
   MDBCardImage,
   MDBTypography,
-  MDBIcon,
 } from "mdb-react-ui-kit";
-import {  useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Button } from "react-bootstrap";
 import EditOwnerProfile from "./EditOwnerProfile";
 import { motion, AnimatePresence } from "framer-motion";
 
-
 export default function OwnerProfile() {
- 
   const [show, setShow] = useState(false);
   const currentUser = useSelector((state) => state.userR.currentUser);
   const authloading = useSelector((state) => state.userR.authloading);
@@ -28,7 +25,7 @@ export default function OwnerProfile() {
 
   return (
     <AnimatePresence>
-      <div >
+      <div style={{ backgroundColor: "transparent", marginTop: "-3%" }}>
         {show ? (
           <AnimatePresence>
             <motion.div
@@ -64,27 +61,40 @@ export default function OwnerProfile() {
                         style={{
                           borderTopLeftRadius: ".5rem",
                           borderBottomLeftRadius: ".5rem",
+                          background: "rgb(238,174,202)",
+                          background:
+                            "linear-gradient(187deg, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%)",
                         }}
                       >
                         <MDBCardImage
-                          src={currentUser.img?currentUser.img:"https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"}
+                          src={
+                            currentUser.img
+                              ? currentUser.img
+                              : "https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
+                          }
                           alt="Avatar"
                           className="my-5"
-                          style={{ width: "100px",borderRadius:"50%",border:"2px solid #755A58" }}
+                          style={{
+                            width: "100px",
+                            height: "100px",
+                            margin: "auto",
+                            borderRadius: "50%",
+                            border: "2px solid white",
+                          }}
                           fluid
                         />
-
-                        <MDBTypography tag="h5" style={{ color: "#dd9679" }}>
+<hr style={{color:"gray"}}/>
+                        <MDBTypography tag="h5" style={{ color: "white" }}>
                           {!authloading ? currentUser.first_name : ""}
                         </MDBTypography>
-                        <MDBTypography tag="h5" style={{ color: "#dd9679" }}>
+                        <MDBTypography tag="h5" style={{ color: "white" }}>
                           {!authloading ? currentUser.last_name : ""}
                         </MDBTypography>
-
+                        <hr style={{color:"gray"}}/>
                         <MDBCardText style={{ color: "#49312c" }}>
-                          Bio: {currentUser.bio?currentUser.bio : ""}
+                          Bio: {currentUser.bio ? currentUser.bio : ""}
                         </MDBCardText>
-                        <MDBIcon far icon="edit mb-5" />
+                       
                       </MDBCol>
                       <MDBCol md="8">
                         <MDBCardBody className="p-4">
@@ -102,7 +112,7 @@ export default function OwnerProfile() {
                             <MDBCol size="6" className="mb-3">
                               <MDBTypography tag="h6">Phone</MDBTypography>
                               <MDBCardText className="text-muted">
-                             +216 {!authloading ? currentUser.phone : ""}
+                                +216 {!authloading ? currentUser.phone : ""}
                               </MDBCardText>
                             </MDBCol>
                           </MDBRow>
