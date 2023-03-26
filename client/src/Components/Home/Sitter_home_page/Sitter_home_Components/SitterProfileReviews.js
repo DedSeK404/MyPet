@@ -7,7 +7,7 @@ import Box from "@mui/material/Box";
 import { useSelector } from "react-redux";
 import Loading from "../../../Loading";
 
-const SitterReviewsComponent = ({data}) => {
+const SitterProfileReviews = ({data}) => {
   const reviews = useSelector((state) => state.reviewR.uniqueReviews);
   const loading = useSelector((state) => state.reviewR.loading);
 
@@ -32,12 +32,12 @@ const SitterReviewsComponent = ({data}) => {
                     <MDBCol>
                       <div
                         className="overflow-auto"
-                        style={{ maxHeight: "70vh" }}
+                        style={{ maxHeight: "80vh" }}
                       >
 
                         {loading?<Loading/>: reviews.length==0?<Card.Img style={{width:"100%",pointerEvents:"none"}} src="https://svgshare.com/i/rUX.svg"/>:
                         <>
-                        {reviews.map(e => e.sitter==data._id? 
+                        {reviews.map(e =>
 
                           <div style={{ padding: "10px" }}>
                             <Toast bg="dark">
@@ -96,7 +96,7 @@ const SitterReviewsComponent = ({data}) => {
                               </Toast.Body>
                             </Toast>
                           </div>
-                          : <p>no reviews yet</p>
+                         
                         )}</>}
                       </div>
                     </MDBCol>
@@ -111,4 +111,4 @@ const SitterReviewsComponent = ({data}) => {
   );
 };
 
-export default SitterReviewsComponent;
+export default SitterProfileReviews;

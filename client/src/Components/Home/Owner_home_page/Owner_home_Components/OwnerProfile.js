@@ -17,7 +17,7 @@ import { motion, AnimatePresence } from "framer-motion";
 export default function OwnerProfile() {
   const [show, setShow] = useState(false);
   const currentUser = useSelector((state) => state.userR.currentUser);
-  const authloading = useSelector((state) => state.userR.authloading);
+  const authloading = useSelector((state) => state.userR.authloading); 
 
   const handleClick = () => {
     setShow(true);

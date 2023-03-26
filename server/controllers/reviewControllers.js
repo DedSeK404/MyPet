@@ -20,3 +20,15 @@ module.exports.getAllReviews = async (req, res) => {
     res.send({ msg: error.message });
   }
 };
+
+module.exports.getUniqueReviews = async (req, res) => {
+  const { sitterid } = req.params;
+  //console.log(sitterid)
+  try {
+    const uniqueReviews = await reviewModel.find({ sitter: sitterid });
+
+    res.send({ uniqueReviews });
+  } catch (error) {
+    res.send({ msg: error.message });
+  }
+};

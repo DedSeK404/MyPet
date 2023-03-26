@@ -10,19 +10,22 @@ import { getUser } from "./useraction";
 
 /**
  * @route patch /user/:iduser
- * @description update user
+ * @description update user 
  * @access private
  */
 const baseURL = "http://localhost:4500/user/";
 
-export const editUser = ({editData, idUser}) => async (dispatch) => {
+export const editUser = ({editData, idUser,token}) => async (dispatch) => {
   dispatch({ type: USERLOADING });
-  
+  //console.log(editData,idUser);
   try {
     const { data } = await axios.patch(`${baseURL}${idUser}`, editData);
-    //dispatch(getUser());
+    
     dispatch({ type: EDITUSER, payload: data.msg });
-    console.log(data.msg);
+    if (token) {
+      dispatch(getUser())
+    }
+    //console.log(data.msg);
     if (data.msg) {
       alert(data.msg);
     }

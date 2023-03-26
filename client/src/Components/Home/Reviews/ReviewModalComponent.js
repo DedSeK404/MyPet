@@ -10,7 +10,8 @@ import Rating from "@mui/material/Rating";
 import Box from "@mui/material/Box";
 import { useDispatch, useSelector } from "react-redux";
 import { addReview } from "../../../JS/actions/reviewactions";
-
+import { editoffer, getUniqueOffers } from "../../../JS/actions/offeractions";
+import { editUser } from "../../../JS/actions/usermanagementactions";
 
 const ReviewModalComponent = ({ data, setShow }) => {
   const currentUser = useSelector((state) => state.userR.currentUser);
@@ -18,7 +19,7 @@ const ReviewModalComponent = ({ data, setShow }) => {
   const [value, setValue] = useState(0);
 
   const rate = { rating: value };
-  console.log(value);
+  const idoffer = data._id;
   const [review, setReview] = useState({
     review: "",
     client: data.client,
@@ -26,15 +27,21 @@ const ReviewModalComponent = ({ data, setShow }) => {
     first_name: currentUser.first_name,
     last_name: currentUser.last_name,
     img: currentUser.img,
-  }); 
+  });
   const handleChange = (e) => {
     setReview({ ...review, [e.target.name]: e.target.value });
   };
   const handleSubmit = () => {
     dispatch(addReview({ ...review, ...rate }));
+    dispatch(editoffer({ idoffer: idoffer, status: "completed" }));
+    dispatch(
+      editUser({ editData: { status: "available" }, idUser: data.sitter })
+    );
+
+    dispatch(getUniqueOffers(currentUser._id));
     setShow(false);
   };
-  console.log({ ...review, ...rate });
+
   return (
     <Container>
       <Row>

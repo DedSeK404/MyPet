@@ -5,10 +5,12 @@ import {
   DELETEOFFERSUCCESS,
   GETALLOFFERSSUCCESS,
   GETALLOWNERS,
+  GETUNIQUEOFFERS,
   OFFERFAILED,
   OFFERLOADING,
 } from "../actiontypes/offertypes";
-
+import { getallReviews } from "./reviewactions";
+import { getallSitters } from "./usermanagementactions";
 
 const baseURL = "http://localhost:4500/offer";
 
@@ -30,9 +32,11 @@ export const addOffer = (offerData) => async (dispatch) => {
   //   console.log(newPet);
   try {
     const res = await axios.post(baseURL + "/add", offerData);
-    console.log("res", res.data);
+    //console.log("res", res.data);
     alert(`${res.data.msg}`);
     dispatch({ type: ADDOFFERSUCCESS });
+    dispatch(getallSitters());
+    dispatch(getalloffers())
   } catch (error) {
     console.log(error);
     dispatch({
@@ -51,7 +55,9 @@ export const addOffer = (offerData) => async (dispatch) => {
 export const getalloffers = (status) => async (dispatch) => {
   dispatch({ type: OFFERLOADING });
   try {
-    const { data } = await axios.get(`${baseURL}/${status ? "?status=" + status : ""}`);
+    const { data } = await axios.get(
+      `${baseURL}/${status ? "?status=" + status : ""}`
+    );
     dispatch({ type: GETALLOFFERSSUCCESS, payload: data });
   } catch (error) {
     dispatch({ type: OFFERFAILED, payload: error });
@@ -59,21 +65,6 @@ export const getalloffers = (status) => async (dispatch) => {
   }
 };
 
-// /**
-//  * @route get /offer/pet/:petID
-//  * @description get one pet
-//  * @access public
-//  */
-// export const getonepet = (petID) => async (dispatch) => {
-//   dispatch({ type: OFFERLOADING });
-//   try {
-//     const { data } = await axios.get(`${baseURL}/pet/${petID}`);
-//     console.log(data);
-//     dispatch({ type: GETONEPETSSUCCESS, payload: data });
-//   } catch (error) {
-//     dispatch({ type: OFFERLOADING, payload: error });
-//   }
-// };
 /**
  * @route get offer/user/
  * @description get all owners
@@ -99,13 +90,14 @@ export const editoffer = (offerEdit) => async (dispatch) => {
   dispatch({
     type: OFFERLOADING,
   });
-  console.log(offerEdit);
+  //console.log(offerEdit);
   try {
     const { data } = await axios.patch(baseURL + "/edit", offerEdit);
 
-   // alert(`${data.msg}`);
-    dispatch({ type: ACCEPT_DECLINE_OFFER, payload: data.msg });
-    dispatch(getalloffers());
+    // alert(`${data.msg}`);
+    dispatch({ type: ACCEPT_DECLINE_OFFER, payload: data.msg }); 
+    dispatch(getallSitters());
+    dispatch(getallReviews());
   } catch (error) {
     dispatch({ type: OFFERFAILED, payload: error });
     console.log(error);
@@ -123,13 +115,28 @@ export const deleteoffer = (offerid) => async (dispatch) => {
   });
 
   try {
-    const { data } = await axios.delete(
-      baseURL + `/delete/${offerid}`
-    );
+    const { data } = await axios.delete(baseURL + `/delete/${offerid}`);
 
     alert(`${data.msg}`);
     dispatch({ type: DELETEOFFERSUCCESS, payload: data.msg });
     dispatch(getalloffers());
+  } catch (error) {
+    dispatch({ type: OFFERFAILED, payload: error });
+    console.log(error);
+  }
+};
+
+/**
+ * @route get /offer/unique/:sitterid
+ * @description get unique reviews
+ * @access protected(authentifié+role:client)
+ */
+export const getUniqueOffers = (sitterid) => async (dispatch) => {
+  dispatch({ type: OFFERLOADING });
+
+  try {
+    const { data } = await axios.get(`${baseURL}/unique/${sitterid}`);
+    dispatch({ type: GETUNIQUEOFFERS, payload: data });
   } catch (error) {
     dispatch({ type: OFFERFAILED, payload: error });
     console.log(error);

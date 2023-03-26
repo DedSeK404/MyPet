@@ -12,11 +12,12 @@ import { useNavigate } from "react-router-dom";
 import OwnerDashboard from "./Owner_home_Components/Owner_Dashboard/OwnerDashboard";
 import HireSitter from "./HireSitter/HireSitter";
 import { getallSitters } from "../../../JS/actions/usermanagementactions";
-import { getalloffers, getallOwners } from "../../../JS/actions/offeractions";
+import { getalloffers, getallOwners, getUniqueOffers } from "../../../JS/actions/offeractions";
 import { getallReviews } from "../../../JS/actions/reviewactions";
 
 
 const OwnerHome = () => {
+  const currentUser = useSelector((state) => state.userR.currentUser);
   const [city, setCity] = useState("")
   const [available, setAvailable] = useState("")
   //console.log(available)
@@ -30,6 +31,7 @@ const [status, setStatus] = useState("")
     dispatch(getallSitters(city,available));
     dispatch(getallReviews())
     dispatch(getallOwners())
+    dispatch(getUniqueOffers(currentUser._id)); 
   }, [city,available,status]);
 //console.log(status)
   const handleClick = () => {

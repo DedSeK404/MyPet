@@ -81,3 +81,22 @@ module.exports.deleteOffer = async (req, res) => {
     res.send({ msg: error.message });
   }
 };
+
+module.exports.getUniqueOffers = async (req, res) => {
+  const { sitterid } = req.params;
+  const user = await userModel.findOne({ _id: sitterid });
+  const role = user.role;
+  //console.log(user.role);
+
+  try {
+    if (user.role == "sitter") {
+      const uniqueOffers = await offerModel.find({ sitter: sitterid });
+      res.send({ uniqueOffers });
+    } else if (user.role == "client") {
+      const uniqueOffers = await offerModel.find({ client: sitterid });
+      res.send({ uniqueOffers });
+    }
+  } catch (error) {
+    res.send({ msg: error.message }); 
+  }
+};

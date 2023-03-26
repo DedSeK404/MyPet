@@ -9,6 +9,7 @@
 
 .modal-header {
   /* background-color: rgba(0, 0, 0, 0.4) !important; */
-  background-color: white;
+  background-color: transparent;
+  border:none
   
 }

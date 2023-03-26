@@ -8,7 +8,7 @@ import Container from "react-bootstrap/Container";
 import "./SitterDashboard.css";
 import Nav from "react-bootstrap/Nav";
 import Tab from "react-bootstrap/Tab";
-import { editoffer } from "../../../../../JS/actions/offeractions";
+import { editoffer, getUniqueOffers } from "../../../../../JS/actions/offeractions";
 import { editUser } from "../../../../../JS/actions/usermanagementactions";
 
 const SitterD_Component = ({ data }) => {
@@ -21,20 +21,22 @@ const SitterD_Component = ({ data }) => {
   const isBusy = CurrentUser.status;
   const dispatch = useDispatch();
   const Offerstatus = data.status;
-  const [disabled, setDisabled] = useState(isBusy == "busy" ? true : false);
+  const [disabled, setDisabled] = useState(isBusy == "busy" ? true : false); 
   const [disabledD, setDisabledD] = useState(
     Offerstatus == "active" || Offerstatus == "declined" ? true : false
   );
   const idoffer = data._id;
 
   const handleSubmitAccept = () => {
-    dispatch(editUser({ editData: { status: "busy" }, idUser: data.sitter }));
-    dispatch(editoffer({ idoffer: idoffer, status: "active" }));
+    dispatch(editUser({ editData: { status: "busy" }, idUser: data.sitter,token:true })); 
+    dispatch(editoffer({ idoffer: idoffer, status: "active" })); 
+    
     setDisabled(true);
-  };
+  }; 
 
   const handleSubmitDecline = () => {
     dispatch(editoffer({ idoffer: idoffer, status: "declined" }));
+    dispatch(getUniqueOffers(CurrentUser._id))
     setDisabledD(true);
   };
 

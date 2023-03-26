@@ -6,7 +6,7 @@ import FloatingLabel from "react-bootstrap/FloatingLabel";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import { useDispatch, useSelector } from "react-redux";
-import { addOffer } from "../../../JS/actions/offeractions";
+import { addOffer, getUniqueOffers } from "../../../JS/actions/offeractions";
 
 function OfferModal({ handleClose, show, data,OfferData,setOfferData }) {
   const dispatch=useDispatch()
@@ -21,6 +21,7 @@ function OfferModal({ handleClose, show, data,OfferData,setOfferData }) {
 
   const handleClick = () => {
     dispatch(addOffer(OfferData))
+    dispatch(getUniqueOffers(currentUser._id)) 
     handleClose()
   };
   //console.log(OfferData)
@@ -34,7 +35,7 @@ function OfferModal({ handleClose, show, data,OfferData,setOfferData }) {
         onHide={handleClose}
         style={{background:"rgba(0, 0, 0, 0.7)"}}
       >
-        <Modal.Header closeButton>
+        <Modal.Header style={{background:"white"}} closeButton>
           <Modal.Title style={{color:"brown"}}>Send an offer to {data.first_name}</Modal.Title>
         </Modal.Header>
         <Modal.Body  style={{background:"white"}}>

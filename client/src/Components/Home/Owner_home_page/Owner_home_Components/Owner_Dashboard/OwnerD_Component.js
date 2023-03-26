@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
@@ -7,11 +7,16 @@ import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Tab from "react-bootstrap/Tab";
-import { deleteoffer, editoffer } from "../../../../../JS/actions/offeractions";
+import {
+  deleteoffer,
+  editoffer,
+  getUniqueOffers,
+} from "../../../../../JS/actions/offeractions";
 import { editUser } from "../../../../../JS/actions/usermanagementactions";
 import Offcanvas from "react-bootstrap/Offcanvas";
-import Button from "react-bootstrap/Button";
 import ReviewModalComponent from "../../../Reviews/ReviewModalComponent";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
 
 const OwnerD_Component = ({ data }) => {
   const [show, setShow] = useState(false);
@@ -19,11 +24,7 @@ const OwnerD_Component = ({ data }) => {
   const handleShow = () => setShow(true);
   const sitter = useSelector((state) => state.userM.sitters);
   const pets = useSelector((state) => state.petR.pets);
-  const owners = useSelector((state) => state.offerR.owners);
-  //console.log(sitter);
-  //console.log(owners);
-  // console.log(pets);
-  //console.log(data);
+
   const CurrentUser = useSelector((state) => state.userR.currentUser);
   const isBusy = CurrentUser.status;
   const dispatch = useDispatch();
@@ -36,24 +37,40 @@ const OwnerD_Component = ({ data }) => {
   );
   const idoffer = data._id;
 
-  const handleComplete = () => {
-    dispatch(editoffer({ idoffer: idoffer, status: "completed" }));
-    dispatch(
-      editUser({ editData: { status: "available" }, idUser: data.sitter })
-    );
-    setDisabled(true);
-    setShow(true);
-  };
+  const [showComplete, setShowComplete] = useState(false);
 
+  const handleCloseComplete = () => setShowComplete(false);
+
+  const handleComplete = () => {
+    setShowComplete(true);
+  };
+  const handleCloseModal = () => {
+    setShowComplete(false);
+  };
   const handleDelete = () => {
     if (data.status == "declined") {
       alert("Cannot delete the offer because the sitter already declined it");
     } else {
       dispatch(deleteoffer(idoffer));
+      dispatch(getUniqueOffers(CurrentUser._id));
       setDisabledD(true);
     }
   };
+  const handleReview = () => {
+    setShowComplete(false);
+    setShow(true);
+    setDisabled(true);
+  };
+  const handleMarkAsComplete = () => {
+    setShowComplete(false);
+    dispatch(editoffer({ idoffer: idoffer, status: "completed" }));
+    dispatch(
+      editUser({ editData: { status: "available" }, idUser: data.sitter })
+    );
+    dispatch(getUniqueOffers(CurrentUser._id));
 
+    setDisabled(true);
+  };
   return (
     <>
       <Container
@@ -351,9 +368,12 @@ const OwnerD_Component = ({ data }) => {
                               onClick={handleComplete}
                               disabled={disabled ? true : false}
                             >
-                              {data.status == "active"
-                                ? "Mark as complete"
-                                : "Sitter did not accept the offer yet"}
+                              <h4>
+                                {" "}
+                                {data.status == "active"
+                                  ? "Mark as complete"
+                                  : "Sitter did not accept the offer yet"}{" "}
+                              </h4>
                             </button>
                           )}
                           {Offerstatus == "unknown" ? (
@@ -415,9 +435,6 @@ const OwnerD_Component = ({ data }) => {
               </section>
             </Col>
 
-            {/* <Button variant="primary" onClick={handleShow} className="me-2">
-        zadfaz
-      </Button> */}
             <Offcanvas
               style={{ height: "100vh" }}
               show={show}
@@ -432,6 +449,28 @@ const OwnerD_Component = ({ data }) => {
             </Offcanvas>
           </div>
         </Row>
+
+        <>
+          <Modal show={showComplete} onHide={handleCloseComplete}>
+            <Modal.Header closeButton>
+              <Modal.Title>Modal heading</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              Woohoo, you're reading this text in a modal!
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={handleCloseModal}>
+                Closedddd
+              </Button>
+              <Button variant="secondary" onClick={handleMarkAsComplete}>
+                Close
+              </Button>
+              <Button variant="primary" onClick={handleReview}>
+                Save Changes
+              </Button>
+            </Modal.Footer>
+          </Modal>
+        </>
       </Container>
     </>
   );

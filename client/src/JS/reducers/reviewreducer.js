@@ -1,5 +1,6 @@
 import {
   GETALLREVIEWS,
+  GETUNIQUEREVIEWS,
   REVIEWFAILED,
   REVIEWLOADING,
 } from "../actiontypes/reviewtypes";
@@ -9,6 +10,7 @@ const initialState = {
   reviews: [],
   error: null,
   Alert: null,
+  uniqueReviews:[]
 };
 
 export const reviewreducers = (state = initialState, { type, payload }) => {
@@ -18,6 +20,9 @@ export const reviewreducers = (state = initialState, { type, payload }) => {
 
     case GETALLREVIEWS:
       return { ...state, reviews: payload.reviews, loading: false };
+
+      case GETUNIQUEREVIEWS:
+        return { ...state, uniqueReviews: payload.uniqueReviews, loading: false };
 
     case REVIEWFAILED:
       return { ...state, error: payload, loading: false };

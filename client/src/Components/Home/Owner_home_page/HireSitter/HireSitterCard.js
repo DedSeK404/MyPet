@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { Button } from "react-bootstrap";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getUniqueReviews } from "../../../../JS/actions/reviewactions";
 import Loading from "../../../Loading";
 import OfferModal from "../../Offer/OfferModal";
 import SitterProfileModal from "./SitterProfileModal";
 
 const HireSitterCard = ({ data }) => {
+  const dispatch=useDispatch()
   const [OfferData, setOfferData] = useState({});
   const loading = useSelector((state) => state.userM.loading);
 
@@ -14,9 +16,13 @@ const HireSitterCard = ({ data }) => {
     setOfferData({});
     setShow(false);
   };
+  // console.log(data._id)
   const handleShow = () => setShow(true);
   const [modalShow, setModalShow] = useState(false);
-  
+  const handleClick=()=>{
+    dispatch(getUniqueReviews(data._id))
+    setModalShow(true)
+  }
   return (
     <div className="col col-md-9 col-lg-7 col-xl-5">
       <div
@@ -110,7 +116,7 @@ const HireSitterCard = ({ data }) => {
                   type="button"
                   className="btn btn-outline-dark btn-rounded btn-sm"
                   data-mdb-ripple-color="dark"
-                  onClick={() => setModalShow(true)}
+                  onClick={handleClick}
                 >
                   See profile
                 </button>

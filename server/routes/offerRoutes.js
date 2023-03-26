@@ -6,6 +6,7 @@ const {
   getallOwners,
   updateOffer,
   deleteOffer,
+  getUniqueOffers,
 } = require("../controllers/offerControllers");
 const filterOffers = require("../middlewares/filterOffers");
 
@@ -57,5 +58,12 @@ router.delete(
   //   isAdmin,
   deleteOffer
 );
+
+/**
+ * @route get /offer/unique/:sitterid
+ * @description get unique reviews
+ * @access protected(authentifié+role:client)
+ */
+router.get("/unique/:sitterid", getUniqueOffers);
 
 module.exports = router;

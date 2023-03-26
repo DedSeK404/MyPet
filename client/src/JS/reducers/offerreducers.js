@@ -3,6 +3,7 @@ import {
   DELETEOFFERSUCCESS,
   GETALLOFFERSSUCCESS,
   GETALLOWNERS,
+  GETUNIQUEOFFERS,
   OFFERFAILED,
   OFFERLOADING,
 } from "../actiontypes/offertypes";
@@ -15,6 +16,7 @@ const initialState = {
   pets: [],
   owners: [],
   Alert: null,
+  uniqueOffers:[]
 };
 
 export const offerreducers = (state = initialState, { type, payload }) => {
@@ -24,6 +26,9 @@ export const offerreducers = (state = initialState, { type, payload }) => {
 
     case GETALLOFFERSSUCCESS:
       return { ...state, offers: payload.offers, loading: false };
+
+      case GETUNIQUEOFFERS:
+        return { ...state, uniqueOffers: payload.uniqueOffers, loading: false };
 
     case GETONEPETSSUCCESS:
       return { ...state, pets: payload.pets, loading: false };

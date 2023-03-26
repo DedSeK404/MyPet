@@ -26,6 +26,7 @@ import {
 } from "../../../../JS/actions/usermanagementactions";
 import { useNavigate } from "react-router-dom";
 import Loading from "../../../Loading";
+import { getUser } from "../../../../JS/actions/useraction";
 
 export default function EditSitterProfile({ show, setUnavailable }) {
   const [img, setimg] = useState("");
@@ -66,17 +67,17 @@ export default function EditSitterProfile({ show, setUnavailable }) {
     setEditData({ ...editData, [e.target.name]: e.target.value });
   };
   const idUser = currentUser._id;
-
+  //console.log(currentUser.status);
   const handleAvailability = () => {
-    if (currentUser.status=!"busy") {
-      const available = {
+    if (currentUser.status == "busy") {
+      alert("You cannot edit your status while you have an ongoing job");
+    } else {
+      const editData = {
         status: currentUser.status == "available" ? "unavailable" : "available",
       };
-      dispatch(editUser(available, idUser));
-    } else {
-      alert('You cannot edit your status while you have an ongoing job')
+      dispatch(editUser({editData, idUser, token:true})); 
+      
     }
-   
   };
 
   const handleSumbit = () => {
@@ -147,19 +148,20 @@ export default function EditSitterProfile({ show, setUnavailable }) {
     setShow(false);
   };
   return (
-    <section className="vh-100" style={{ backgroundColor: "transparent" }}>
-      <MDBContainer className="py-5 h-50">
-        <MDBRow className="justify-content-center align-items-center h-100">
-          <MDBCol lg="8" className="mb-4 mb-lg-0">
-            <MDBCard className="mb-3" style={{ borderRadius: ".5rem" }}>
+    <section className="vh-100" style={{ backgroundColor: "transparent" }}> 
+      
+            <MDBCard className="mb-3" sm={2} style={{ borderRadius: ".5rem" ,width:"180%" }}>
               <MDBRow className="g-0">
                 <MDBCol
-                  md="4"
-                  className="gradient-custom text-center text-white"
-                  style={{
-                    borderTopLeftRadius: ".5rem",
-                    borderBottomLeftRadius: ".5rem",
-                  }}
+                   md="4"
+                   className="gradient-custom text-center text-white"
+                   style={{
+                     borderTopLeftRadius: ".5rem",
+                     borderBottomLeftRadius: ".5rem",
+                     background: "rgb(238,174,202)",
+                     background:
+                       "linear-gradient(187deg, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%)",
+                   }}
                 >
                   <MDBCardImage
                     src={
@@ -171,24 +173,13 @@ export default function EditSitterProfile({ show, setUnavailable }) {
                     className="my-5"
                     style={{
                       width: "100px",
+                      height: "100px",
+                      margin: "auto",
                       borderRadius: "50%",
-                      border: "2px solid #755A58",
+                      border: "2px solid white",
                     }}
                     fluid
                   />
-                  <p style={{ color: "black" }}>
-                    Status:{" "}
-                    {currentUser.status == "available" ? (
-                      <p style={{ color: "green" }}>Available</p>
-                    ) : currentUser.status == "unavailable" ? (
-                      <p style={{ color: "grey" }}>Unavailable</p>
-                    ) : currentUser.status == "busy" ? (
-                      <p style={{ color: "red" }}>Busy</p>
-                    ) : (
-                      ""
-                    )}
-                  </p>
-
                   <Button
                     style={{
                       border: "none",
@@ -220,7 +211,44 @@ export default function EditSitterProfile({ show, setUnavailable }) {
                   ) : (
                     ""
                   )}
-                  <MDBTypography tag="h5" style={{ color: "#dd9679" }}>
+                   <hr style={{ color: "gray" }} />
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "center",
+                          gap: "10px",
+                          marginBottom: "-15%",
+                        }}
+                      >
+                        <i
+                          style={{
+                            marginTop: "3px",
+                            color:
+                              currentUser.status == "available"
+                                ? "green"
+                                : currentUser.status == "unavailable"
+                                ? "grey"
+                                : currentUser.status == "busy"
+                                ? "red"
+                                : "",
+                          }}
+                          class="far fa-user-circle"
+                        ></i>
+                        <p style={{ color: "black" }}>
+                          {currentUser.status == "available" ? (
+                            <p style={{ color: "green" }}>Available</p>
+                          ) : currentUser.status == "unavailable" ? (
+                            <p style={{ color: "grey" }}>Unavailable</p>
+                          ) : currentUser.status == "busy" ? (
+                            <p style={{ color: "red" }}>Busy</p>
+                          ) : (
+                            ""
+                          )}
+                        </p>
+                      </div>
+
+                      <hr style={{ color: "gray" }} />
+                  <MDBTypography tag="h5" style={{ color: "white" }}>
                     {!authloading ? currentUser.first_name : ""}
 
                     <Button
@@ -259,7 +287,7 @@ export default function EditSitterProfile({ show, setUnavailable }) {
                       ""
                     )}
                   </MDBTypography>
-                  <MDBTypography tag="h5" style={{ color: "#dd9679" }}>
+                  <MDBTypography tag="h5" style={{ color: "white" }}>
                     {!authloading ? currentUser.last_name : ""}
                     <Button
                       style={{
@@ -297,7 +325,7 @@ export default function EditSitterProfile({ show, setUnavailable }) {
                       ""
                     )}
                   </MDBTypography>
-
+                  <hr style={{ color: "gray" }} />
                   <MDBCardText style={{ color: "#49312c" }}>
                     Bio:{currentUser.bio ? currentUser.bio : ""}
                     <Button
@@ -336,7 +364,7 @@ export default function EditSitterProfile({ show, setUnavailable }) {
                       ""
                     )}
                   </MDBCardText>
-                  <MDBIcon far icon="edit mb-5" />
+                 
                 </MDBCol>
                 <MDBCol md="8">
                   <MDBCardBody className="p-4">
@@ -372,7 +400,7 @@ export default function EditSitterProfile({ show, setUnavailable }) {
                     </div>
                     <hr className="mt-0 mb-4" />
                     <MDBRow className="pt-1">
-                      <MDBCol size="6" className="mb-3">
+                      <MDBCol size="6" className="mb-3"> 
                         <MDBTypography tag="h6">
                           Email{" "}
                           <Button
@@ -388,7 +416,7 @@ export default function EditSitterProfile({ show, setUnavailable }) {
                           </Button>
                         </MDBTypography>
                         <MDBCardText className="text-muted">
-                          {!authloading ? currentUser.email : ""}
+                          {!showEmailEdit ? currentUser.email : ""}
 
                           {showEmailEdit ? (
                             <>
@@ -432,7 +460,8 @@ export default function EditSitterProfile({ show, setUnavailable }) {
                           </Button>
                         </MDBTypography>
                         <MDBCardText className="text-muted">
-                          +216 {!authloading ? currentUser.phone : ""}
+                          <div style={{display:"flex"}}>
+                          <p>+216 {!showPhoneEdit ? currentUser.phone : ""}</p>
                           {showPhoneEdit ? (
                             <>
                               <AnimatePresence>
@@ -454,9 +483,10 @@ export default function EditSitterProfile({ show, setUnavailable }) {
                                 </motion.div>
                               </AnimatePresence>
                             </>
+                            
                           ) : (
                             ""
-                          )}
+                          )}</div>
                         </MDBCardText>
                       </MDBCol>
                     </MDBRow>
@@ -482,7 +512,7 @@ export default function EditSitterProfile({ show, setUnavailable }) {
                           </Button>
                         </MDBTypography>
                         <MDBCardText className="text-muted">
-                          {!authloading ? currentUser.city : ""}
+                          {!showCityEdit ? currentUser.city : ""}
 
                           {showCityEdit ? (
                             <AnimatePresence>
@@ -552,7 +582,7 @@ export default function EditSitterProfile({ show, setUnavailable }) {
                           </Button>
                         </MDBTypography>
                         <MDBCardText className="text-muted">
-                          {!authloading ? currentUser.adress : ""}
+                          {!showAdressEdit ? currentUser.adress : ""}
 
                           {showAdressEdit ? (
                             <>
@@ -603,7 +633,7 @@ export default function EditSitterProfile({ show, setUnavailable }) {
                           </Button>
                         </MDBTypography>
                         <MDBCardText className="text-muted">
-                          {!authloading ? currentUser.gender : ""}
+                          {!showGenderEdit ? currentUser.gender : ""}
 
                           {showGenderEdit ? (
                             <>
@@ -651,7 +681,7 @@ export default function EditSitterProfile({ show, setUnavailable }) {
                           </Button>
                         </MDBTypography>
                         <MDBCardText className="text-muted">
-                          {!authloading
+                          {!showBirthdayEdit
                             ? currentUser.birth_date.slice(0, -14)
                             : ""}
 
@@ -808,9 +838,7 @@ export default function EditSitterProfile({ show, setUnavailable }) {
                 </MDBCol>
               </MDBRow>
             </MDBCard>
-          </MDBCol>
-        </MDBRow>
-      </MDBContainer>
+        
     </section>
   );
 }
