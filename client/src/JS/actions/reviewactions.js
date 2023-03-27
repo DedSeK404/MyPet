@@ -12,8 +12,8 @@ import { getallSitters } from "./usermanagementactions";
 const baseURL = "http://localhost:4500/review";
 
 /**
- * @route POST /offer/add
- * @description add new offer
+ * @route POST /review/add
+ * @description post review
  * @access protected(authentifié+role:client)
  */
 
@@ -21,14 +21,12 @@ export const addReview = (reviewData) => async (dispatch) => {
   dispatch({
     type: REVIEWLOADING,
   });
-  //   const opts = {
-  //     headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-  //   };
-  //   console.log(`Bearer ${localStorage.getItem("token")}`);
-  //   console.log(newPet);
+  const opts = {
+    headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+  };
   try {
-    const res = await axios.post(baseURL + "/add", reviewData);
-    //console.log("res", res.data);
+    const res = await axios.post(baseURL + "/add", reviewData,opts);
+  
     alert(`${res.data.msg}`);
     dispatch({ type: ADDREVIEWSUCCESS });
     dispatch(getallSitters());
@@ -43,15 +41,18 @@ export const addReview = (reviewData) => async (dispatch) => {
 };
 
 /**
- * @route get /offer/
- * @description get all offers
- * @access protected(authentifié+role:client)
+ * @route get /review/
+ * @description get all reviews
+ * @access protected(authentifié)
  */
 
-export const getallReviews = (status) => async (dispatch) => {
+export const getallReviews = () => async (dispatch) => {
   dispatch({ type: REVIEWLOADING });
+  const opts = {
+    headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+  };
   try {
-    const { data } = await axios.get(baseURL);
+    const { data } = await axios.get(baseURL,opts);
     dispatch({ type: GETALLREVIEWS, payload: data });
   } catch (error) {
     dispatch({ type: REVIEWFAILED, payload: error });
@@ -62,13 +63,15 @@ export const getallReviews = (status) => async (dispatch) => {
 /**
  * @route get /review/unique/:sitterid
  * @description get unique reviews
- * @access protected(authentifié+role:client)
+ * @access protected(authentifié)
  */
 export const getUniqueReviews = (sitterid) => async (dispatch) => {
   dispatch({ type: REVIEWLOADING });
-
+  const opts = {
+    headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+  };
   try {
-    const { data } = await axios.get(`${baseURL}/unique/${sitterid}`);
+    const { data } = await axios.get(`${baseURL}/unique/${sitterid}`,opts);
     dispatch({ type: GETUNIQUEREVIEWS, payload: data });
   } catch (error) {
     dispatch({ type: REVIEWFAILED, payload: error });

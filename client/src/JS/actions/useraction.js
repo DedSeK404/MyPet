@@ -22,7 +22,7 @@ export const addUser = (newUserData, navigate) => async (dispatch) => {
   try {
     const { data } = await axios.post(baseURL+"signup", { ...newUserData });
 
-    dispatch({ type: SIGNUPSUCCESS, payload: data.msg });
+    dispatch({ type: SIGNUPSUCCESS, payload: data.msg }); 
 
     if (data.msg) {
       alert(data.msg);
@@ -38,7 +38,7 @@ export const addUser = (newUserData, navigate) => async (dispatch) => {
     if (error.response.data.msg) {
       alert(error.response.data.msg);
     }
-  }
+  } 
 };
 
 /**

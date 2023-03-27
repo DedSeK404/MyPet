@@ -26,12 +26,12 @@ const OwnerHome = () => {
 const [status, setStatus] = useState("") 
   useEffect(() => {
     window.scrollTo(0,0)
-    dispatch(getalloffers(status))
+    //dispatch(getalloffers(status))
     dispatch(getallpets());
     dispatch(getallSitters(city,available));
     dispatch(getallReviews())
     dispatch(getallOwners())
-    dispatch(getUniqueOffers(currentUser._id)); 
+    dispatch(getUniqueOffers(currentUser._id,status)); 
   }, [city,available,status]);
 //console.log(status)
   const handleClick = () => {
@@ -68,9 +68,9 @@ const [status, setStatus] = useState("")
               <Tab eventKey="Profile" title="Profile">
                 <OwnerProfile />
               </Tab>
-              <Tab eventKey="Messages" title="Messages">
+              {/* <Tab eventKey="Messages" title="Messages">
                 <p>messages</p> 
-              </Tab>
+              </Tab> */}
               <Tab eventKey="My Pets" title="My Pets">
                 <PetsTab />
               </Tab>

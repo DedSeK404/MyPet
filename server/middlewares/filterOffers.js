@@ -1,12 +1,13 @@
 const offerModel = require("../models/OfferModel");
 const filterOffers = async (req, res, next) => {
   try {
-    const { status } = req.query;
+    const { status } = req.query; 
+    console.log(status)
 
-    let offers = [];
+    let uniqueOffers = [];
 if (status) {
-  offers = await offerModel.find({ status: status });
- return res.send({ offers }); 
+  uniqueOffers = await offerModel.find({ status: status });
+ return res.send({ uniqueOffers }); 
 }
    
 

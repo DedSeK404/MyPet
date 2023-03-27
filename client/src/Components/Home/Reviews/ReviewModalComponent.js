@@ -37,7 +37,7 @@ const ReviewModalComponent = ({ data, setShow }) => {
     dispatch(
       editUser({ editData: { status: "available" }, idUser: data.sitter })
     );
-
+    window.scrollTo(0, 0);
     dispatch(getUniqueOffers(currentUser._id));
     setShow(false);
   };

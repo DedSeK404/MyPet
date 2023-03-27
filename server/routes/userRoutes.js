@@ -1,7 +1,12 @@
 const express = require("express");
-const { updateuser, deleteUser, getallSitters } = require("../controllers/userControllers");
+const {
+  updateuser,
+  deleteUser,
+  getallSitters,
+} = require("../controllers/userControllers");
 const filterUsers = require("../middlewares/filterUsers");
 const upload = require("../tools/multer");
+const IsAuth = require("../middlewares/authorization/IsAuth");
 const router = express.Router();
 
 /**
@@ -14,6 +19,7 @@ router.patch(
   upload("users").single("img"),
   // editUserRules,
   // validator,
+  IsAuth(), 
   updateuser
 );
 
@@ -27,6 +33,7 @@ router.delete(
   "/delete/:userid",
   //  IsAuth(),
   //   isAdmin,
+  IsAuth(),
   deleteUser
 );
 
@@ -35,6 +42,6 @@ router.delete(
  * @description get all sitters
  * @access protected
  */
-router.get("/",filterUsers, getallSitters);
+router.get("/", filterUsers, IsAuth(), getallSitters);
 
 module.exports = router;

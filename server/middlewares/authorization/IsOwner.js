@@ -1,9 +1,10 @@
 const IsAuth = require("./IsAuth");
 
 const isAuthorized = async (req, res, next) => {
-  
+  console.log(req.user.role)
   try {
     if (req?.user.role != "client") {
+      console.log(req?.user.role)
       return res.status(403).send({ msg: "you are not authorized" });
     }
 
@@ -12,4 +13,4 @@ const isAuthorized = async (req, res, next) => {
     res.status(500).send({ msg: error.message });
   }
 };
-module.exports = isAuthorized;
+module.exports = isAuthorized; 

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import {
   MDBCol,
   MDBContainer,
@@ -8,7 +8,6 @@ import {
   MDBCardBody,
   MDBCardImage,
   MDBTypography,
-  MDBIcon,
 } from "mdb-react-ui-kit";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -50,17 +49,7 @@ export default function EditOwnerProfile({ show }) {
   const authloading = useSelector((state) => state.userR.authloading);
 
   const dispatch = useDispatch();
-  const [editData, setEditData] = useState({
-    first_name: "",
-    last_name: "",
-    bio: "",
-    email: "",
-    phone: "",
-    city: "",
-    adress: "",
-    gender: "",
-    birth_date: "",
-  });
+  const [editData, setEditData] = useState({});
 
   const handleChange = (e) => {
     setEditData({ ...editData, [e.target.name]: e.target.value });
@@ -110,21 +99,37 @@ export default function EditOwnerProfile({ show }) {
   const handleClick = () => {
     const data = new FormData();
 
-    data?.append("first_name", editData.first_name);
-    data?.append("last_name", editData.last_name);
-    data?.append("bio", editData.bio);
-    data.append("email", editData.email);
-    data.append("phone", editData.phone);
-    data.append("city", editData.city);
-    data.append("adress", editData.adress);
-    data.append("gender", editData.gender);
-    data.append("birth_date", editData.birth_date);
+    data?.append(
+      "first_name",
+      editData.first_name ? editData.first_name : currentUser.first_name
+    );
+    data?.append(
+      "last_name",
+      editData.last_name ? editData.last_name : currentUser.last_name
+    );
+    data?.append("bio", editData.bio ? editData.bio : currentUser.bio);
+    data.append("email", editData.email ? editData.email : currentUser.email);
+    data.append("phone", editData.phone ? editData.phone : currentUser.phone);
+    data.append("city", editData.city ? editData.city : currentUser.city);
+    data.append(
+      "adress",
+      editData.adress ? editData.adress : currentUser.adress
+    );
+    data.append(
+      "gender",
+      editData.gender ? editData.gender : currentUser.gender 
+    );
+    data.append(
+      "birth_date",
+      editData.birth_date ? editData.birth_date : currentUser.birth_date
+    );
     //data.append("password", editData.password);
-    data.append("img", img);
-    console.log(data);
-    const first_name=data.append("first_name", editData.first_name)
+    data.append("img", img ? img : currentUser.img);
     
-    //dispatch(editUser(data, idUser));
+    //console.log(data);
+
+    dispatch(editUser({editData:data, idUser:idUser, token:true}));
+    
   };
 
   const handleClickReturn = () => {
@@ -136,6 +141,7 @@ export default function EditOwnerProfile({ show }) {
     dispatch(deleteUser(userid, navigate));
     setShow(false);
   };
+
   return (
     <section style={{ backgroundColor: "transparent", marginTop: "-3%" }}>
       <MDBContainer className="py-5 h-50">
@@ -712,14 +718,17 @@ export default function EditOwnerProfile({ show }) {
                                 </Button>
 
                                 <Modal show={shows} onHide={handleClose}>
-                                  <Modal.Header closeButton>
+                                  <Modal.Header
+                                    style={{ background: "white" }}
+                                    closeButton
+                                  >
                                     <Modal.Title>Delete profile</Modal.Title>
                                   </Modal.Header>
-                                  <Modal.Body>
+                                  <Modal.Body style={{ background: "white" }}>
                                     Do you want to permenantly delete your
                                     profile?{" "}
                                   </Modal.Body>
-                                  <Modal.Footer>
+                                  <Modal.Footer style={{ background: "white" }}>
                                     <Button
                                       variant="secondary"
                                       onClick={handleClose}

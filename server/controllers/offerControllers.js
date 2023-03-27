@@ -85,8 +85,7 @@ module.exports.deleteOffer = async (req, res) => {
 module.exports.getUniqueOffers = async (req, res) => {
   const { sitterid } = req.params;
   const user = await userModel.findOne({ _id: sitterid });
-  const role = user.role;
-  //console.log(user.role);
+
 
   try {
     if (user.role == "sitter") {

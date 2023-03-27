@@ -26,12 +26,11 @@ export default function PetsTab() {
     setShow(!show);
   };
   const pets = useSelector((state) => state.petR.pets);
-  const loading = useSelector((state) => state.petR.loading);
   const currentUser = useSelector((state) => state.userR.currentUser);
 
   return (
     <AnimatePresence>
-      <div>
+      <div style={{marginTop:"-4%"}}>
         <AnimatePresence>
           <motion.div
             initial={{ opacity: 0, scale: 0.5 }}

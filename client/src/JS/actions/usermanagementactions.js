@@ -10,16 +10,19 @@ import { getUser } from "./useraction";
 
 /**
  * @route patch /user/:iduser
- * @description update user 
+ * @description update user
  * @access private
  */
-const baseURL = "http://localhost:4500/user/";
+const baseURL = "http://localhost:4500/user/"; 
 
 export const editUser = ({editData, idUser,token}) => async (dispatch) => {
   dispatch({ type: USERLOADING });
-  //console.log(editData,idUser);
+  const opts = {
+    headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+  };
+  
   try {
-    const { data } = await axios.patch(`${baseURL}${idUser}`, editData);
+    const { data } = await axios.patch(`${baseURL}${idUser}`, editData,opts); 
     
     dispatch({ type: EDITUSER, payload: data.msg });
     if (token) {
@@ -50,9 +53,11 @@ export const deleteUser = (userid, navigate) => async (dispatch) => {
   dispatch({
     type: USERLOADING,
   });
-
+  const opts = {
+    headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+  };
   try {
-    const { data } = await axios.delete(baseURL + `delete/${userid}`);
+    const { data } = await axios.delete(baseURL + `delete/${userid}`,opts);
 
     alert(`${data.msg}`);
     dispatch({ type: DELETEUSERSUCCESS, payload: data.msg });
@@ -71,11 +76,14 @@ export const deleteUser = (userid, navigate) => async (dispatch) => {
  */
 export const getallSitters = (city, available) => async (dispatch) => {
   dispatch({ type: USERLOADING });
+  const opts = {
+    headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+  };
   try {
     const { data } = await axios.get(
       `${baseURL}/${
         city ? "?city=" + city : available ? "?available=" + available : ""
-      }`
+      }`,opts
     );
   
     dispatch({ type: GETALLSITTERSSUCCESS, payload: data });

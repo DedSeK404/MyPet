@@ -19,9 +19,9 @@ const SitterHome = ({ setUnavailable }) => {
  
   useEffect(() => {
     window.scrollTo(0,0)
-    dispatch(getalloffers(status)); 
+    //dispatch(getalloffers(status)); 
     dispatch(getUniqueReviews(currentUser._id))
-    dispatch(getUniqueOffers(currentUser._id)); 
+    dispatch(getUniqueOffers(currentUser._id,status)); 
   }, [status]);
 
   const handleClick = () => {
@@ -53,9 +53,9 @@ const SitterHome = ({ setUnavailable }) => {
               <Tab eventKey="Profile" title="Profile">
                 <SitterProfile setUnavailable={setUnavailable} />
               </Tab>
-              <Tab eventKey="Messages" title="Messages">
+              {/* <Tab eventKey="Messages" title="Messages">
                 <p>messages</p>
-              </Tab>
+              </Tab> */}
             </Tabs>
           </Col>
           <Col sm={2}>

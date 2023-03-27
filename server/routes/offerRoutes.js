@@ -9,7 +9,12 @@ const {
   getUniqueOffers,
 } = require("../controllers/offerControllers");
 const filterOffers = require("../middlewares/filterOffers");
-
+const {
+  PostOfferRules,
+  validator,
+} = require("../middlewares/validators/bodyValidators");
+const isOwner = require("../middlewares/authorization/IsOwner");
+const IsAuth = require("../middlewares/authorization/IsAuth");
 const router = express.Router();
 
 /**
@@ -17,53 +22,48 @@ const router = express.Router();
  * @description add new offer
  * @access protected(authentifié+role:client)
  */
-router.post("/add", postOffer);
+router.post("/add", PostOfferRules, validator, isOwner, IsAuth(), postOffer);
 
 /**
  * @route get /offer/
  * @description get all offers
- * @access protected(authentifié+role:client)
+ * @access protected(authentifié)
  */
-router.get("/",filterOffers, getallOffers);
+router.get("/", IsAuth(), getallOffers);
 
 /**
  * @route get /offer/pet/:petID
  * @description get one pet
- * @access public
+ * @access protected(authentifié)
  */
-router.get("/pet/:petID", getonePet);
+router.get("/pet/:petID", IsAuth(), getonePet);
 
 /**
  * @route get offer/user/
  * @description get all owners
- * @access protected
+ * @access protected(authentifié)
  */
-router.get("/user", getallOwners);
+router.get("/user", IsAuth(), getallOwners);
 
 /**
  * @route patch /offer/edit
  * @description update  offer
- * @access protected
+ * @access protected(authentifié)
  */
-router.patch("/edit", updateOffer);
+router.patch("/edit", IsAuth(), updateOffer);
 /**
  * @route delete /offer/delete
  * @description delete  offer
- * @access protected
+ * @access protected(authentifié)
  */
 
-router.delete(
-  "/delete/:offerid",
-  //  IsAuth(),
-  //   isAdmin,
-  deleteOffer
-);
+router.delete("/delete/:offerid", IsAuth(), deleteOffer);
 
 /**
  * @route get /offer/unique/:sitterid
  * @description get unique reviews
- * @access protected(authentifié+role:client)
+ * @access protected(authentifié)
  */
-router.get("/unique/:sitterid", getUniqueOffers);
+router.get("/unique/:sitterid", filterOffers, IsAuth(), getUniqueOffers);
 
 module.exports = router;

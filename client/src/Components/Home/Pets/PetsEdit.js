@@ -29,27 +29,22 @@ const PetsEdit = ({ data, setShowEdit }) => {
   const [birthDay, setbirthDay] = useState(false);
   const [tag, setTag] = useState(false);
 
-  const [editData, setEditData] = useState({
-    name: data.name,
-    breed: data.breed,
-    gender: data.gender,
-    birth_date: data.birth_date,
-  });
+  const [editData, setEditData] = useState({});
 
   const handleChange = (e) => {
     setEditData({ ...editData, [e.target.name]: e.target.value });
   };
   const idpet = data._id;
-
+console.log(data.birth_date)
   const handleUpdate = () => {
     const data = new FormData();
 
-    data.append("img", img);
-    data.append("name", editData.name);
-    data.append("tag", editData.tag);
-    data.append("gender", editData.gender);
-    data.append("breed", editData.breed);
-    data.append("birth_date", editData.birth_date);
+    data.append("img", img?img:data.img);
+    data.append("name", editData.name?editData.name:data.name);
+    data.append("tag", editData.tag?editData.tag:data.tag);
+    data.append("gender", editData.gender?editData.gender:data.gender);
+    data.append("breed", editData.breed?editData.breed:data.gender);
+    data.append("birth_date", editData.birth_date?editData.birth_date:data.birth_date);
     data.append("idpet", idpet);
     dispatch(editpet(data));
     setShowEdit(true);
@@ -402,14 +397,14 @@ const PetsEdit = ({ data, setShowEdit }) => {
                         </Button>
 
                         <Modal show={show} onHide={handleClose}>
-                          <Modal.Header closeButton>
+                          <Modal.Header style={{background:"white"}} closeButton>
                             <Modal.Title>Delete pet profile</Modal.Title>
                           </Modal.Header>
-                          <Modal.Body>
+                          <Modal.Body style={{background:"white"}}>
                             Do you want to permenantly delete the profile of
                             this pet?{" "}
                           </Modal.Body>
-                          <Modal.Footer>
+                          <Modal.Footer style={{background:"white"}}>
                             <Button variant="secondary" onClick={handleClose}>
                               Close
                             </Button>

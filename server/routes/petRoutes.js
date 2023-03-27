@@ -1,10 +1,5 @@
 const express = require("express");
 const {
-  //   getallproducts,
-  //   getoneprod,
-  //   deleteprod,
-  //   updateprod,
-  addProduct,
   addPet,
   getallpets,
   updatePet,
@@ -19,8 +14,8 @@ const {
   validator,
   AddPetRules,
 } = require("../middlewares/validators/bodyValidators");
-const isAuthorized = require("../middlewares/authorization/IsOwner");
-// const upload = require("../utils/multer");
+
+
 const router = express.Router();
 
 /**
@@ -32,9 +27,9 @@ router.post(
   "/add",
   IsAuth(),
   isOwner,
-  // AddPetRules,
-  // validator,
   upload("pets").single("img"),
+  AddPetRules,
+  validator,
   addPet
 );
 /**
@@ -44,7 +39,6 @@ router.post(
  */
 router.get("/", getallpets);
 
-
 /**
  * @route patch /pet/edit
  * @description update  pet
@@ -52,11 +46,12 @@ router.get("/", getallpets);
  */
 router.patch(
   "/edit",
-  
-  //isOwner,
-  //AddProductRules,
-  validator,
+
+  IsAuth(),
+  isOwner,
   upload("editpet").single("img"),
+  AddPetRules,
+  validator,
   updatePet
 );
 /**
@@ -65,10 +60,6 @@ router.patch(
  * @access protected
  */
 
-router.delete(
-  "/delete/:petid",
-  //  IsAuth(),
-  //   isAdmin,
-  deletePet
-);
+router.delete("/delete/:petid", IsAuth(), isOwner, deletePet);
+
 module.exports = router;

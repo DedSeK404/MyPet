@@ -25,24 +25,26 @@ export const addOffer = (offerData) => async (dispatch) => {
     type: OFFERLOADING,
   });
 
-  //   const opts = {
-  //     headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-  //   };
-  //   console.log(`Bearer ${localStorage.getItem("token")}`);
-  //   console.log(newPet);
+    const opts = {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    };
+
   try {
-    const res = await axios.post(baseURL + "/add", offerData);
+    const res = await axios.post(baseURL + "/add", offerData,opts);
     //console.log("res", res.data);
     alert(`${res.data.msg}`);
     dispatch({ type: ADDOFFERSUCCESS });
     dispatch(getallSitters());
-    dispatch(getalloffers())
+    dispatch(getalloffers());
   } catch (error) {
+    dispatch({ type: OFFERFAILED, payload: error });
     console.log(error);
-    dispatch({
-      type: OFFERFAILED,
-      payload: error,
-    });
+    if (error.response.data.errors) {
+      error.response.data.errors.forEach((el) => alert(el.msg));
+    }
+    if (error.response.data.msg) {
+      alert(error.response.data.msg);
+    }
   }
 };
 
@@ -54,9 +56,12 @@ export const addOffer = (offerData) => async (dispatch) => {
 
 export const getalloffers = (status) => async (dispatch) => {
   dispatch({ type: OFFERLOADING });
+  const opts = {
+    headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+  };
   try {
     const { data } = await axios.get(
-      `${baseURL}/${status ? "?status=" + status : ""}`
+      `${baseURL}/${status ? "?status=" + status : ""}`,opts
     );
     dispatch({ type: GETALLOFFERSSUCCESS, payload: data });
   } catch (error) {
@@ -72,6 +77,9 @@ export const getalloffers = (status) => async (dispatch) => {
  */
 export const getallOwners = () => async (dispatch) => {
   dispatch({ type: OFFERLOADING });
+  const opts = {
+    headers: { Authorization: `Bearer ${localStorage.getItem("token")}`,opts },
+  };
   try {
     const { data } = await axios.get(baseURL + "/user");
 
@@ -90,12 +98,14 @@ export const editoffer = (offerEdit) => async (dispatch) => {
   dispatch({
     type: OFFERLOADING,
   });
-  //console.log(offerEdit);
+  const opts = {
+    headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+  };
   try {
-    const { data } = await axios.patch(baseURL + "/edit", offerEdit);
+    const { data } = await axios.patch(baseURL + "/edit", offerEdit,opts);
 
     // alert(`${data.msg}`);
-    dispatch({ type: ACCEPT_DECLINE_OFFER, payload: data.msg }); 
+    dispatch({ type: ACCEPT_DECLINE_OFFER, payload: data.msg });
     dispatch(getallSitters());
     dispatch(getallReviews());
   } catch (error) {
@@ -113,13 +123,15 @@ export const deleteoffer = (offerid) => async (dispatch) => {
   dispatch({
     type: OFFERLOADING,
   });
-
+  const opts = {
+    headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+  };
   try {
-    const { data } = await axios.delete(baseURL + `/delete/${offerid}`);
+    const { data } = await axios.delete(baseURL + `/delete/${offerid}`,opts);
 
     alert(`${data.msg}`);
     dispatch({ type: DELETEOFFERSUCCESS, payload: data.msg });
-    dispatch(getalloffers());
+    
   } catch (error) {
     dispatch({ type: OFFERFAILED, payload: error });
     console.log(error);
@@ -131,11 +143,15 @@ export const deleteoffer = (offerid) => async (dispatch) => {
  * @description get unique reviews
  * @access protected(authentifié+role:client)
  */
-export const getUniqueOffers = (sitterid) => async (dispatch) => {
+export const getUniqueOffers = (sitterid, status) => async (dispatch) => {
   dispatch({ type: OFFERLOADING });
-
+  const opts = {
+    headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+  };
   try {
-    const { data } = await axios.get(`${baseURL}/unique/${sitterid}`);
+    const { data } = await axios.get(
+      `${baseURL}/unique/${sitterid}/${status ? "?status=" + status : ""}`,opts
+    );
     dispatch({ type: GETUNIQUEOFFERS, payload: data });
   } catch (error) {
     dispatch({ type: OFFERFAILED, payload: error });

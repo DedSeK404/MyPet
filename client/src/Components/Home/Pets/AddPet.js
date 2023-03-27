@@ -29,12 +29,11 @@ const AddPet = ({ setShow }) => {
     const data = new FormData();
 
     data.append("img", img);
-    data.append("name", petData.name);
-    data.append("tag", petData.tag);
-    data.append("gender", petData.gender);
-    data.append("breed", petData.breed);
+    data.append("name", petData.name?petData.name:"");
+    data.append("tag", petData.tag?petData.tag:"");
+    data.append("gender", petData.gender?petData.gender:"");
+    data.append("breed", petData.breed?petData.breed:"");
     data.append("birth_date", petData.birth_date);
-
     dispatch(addpet(data));
     setShow(false);
   };

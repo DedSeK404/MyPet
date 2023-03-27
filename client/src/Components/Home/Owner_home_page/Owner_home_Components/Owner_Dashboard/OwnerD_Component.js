@@ -48,13 +48,17 @@ const OwnerD_Component = ({ data }) => {
     setShowComplete(false);
   };
   const handleDelete = () => {
+    
     if (data.status == "declined") {
       alert("Cannot delete the offer because the sitter already declined it");
     } else {
-      dispatch(deleteoffer(idoffer));
+      
+      dispatch(deleteoffer(idoffer));     
       dispatch(getUniqueOffers(CurrentUser._id));
       setDisabledD(true);
+      
     }
+    window.scrollTo(0, 0)
   };
   const handleReview = () => {
     setShowComplete(false);
@@ -67,6 +71,7 @@ const OwnerD_Component = ({ data }) => {
     dispatch(
       editUser({ editData: { status: "available" }, idUser: data.sitter })
     );
+    window.scrollTo(0, 0)
     dispatch(getUniqueOffers(CurrentUser._id));
 
     setDisabled(true);
@@ -452,21 +457,22 @@ const OwnerD_Component = ({ data }) => {
 
         <>
           <Modal show={showComplete} onHide={handleCloseComplete}>
-            <Modal.Header closeButton>
-              <Modal.Title>Modal heading</Modal.Title>
+            <Modal.Header style={{ background: "#FDAD8D" }} closeButton>
+              <Modal.Title style={{ color: "white" }}>Congrats!</Modal.Title>
             </Modal.Header>
-            <Modal.Body>
-              Woohoo, you're reading this text in a modal!
+            <Modal.Body style={{ background: "white" }}>
+              Please choose wether you want to complete the job and go back or
+              complete the job and post a review.
             </Modal.Body>
-            <Modal.Footer>
+            <Modal.Footer style={{ background: "white" }}>
               <Button variant="secondary" onClick={handleCloseModal}>
-                Closedddd
-              </Button>
-              <Button variant="secondary" onClick={handleMarkAsComplete}>
                 Close
               </Button>
-              <Button variant="primary" onClick={handleReview}>
-                Save Changes
+              <Button variant="outline-info" onClick={handleMarkAsComplete}>
+                Complete
+              </Button>
+              <Button variant="info" onClick={handleReview}>
+                Post a review
               </Button>
             </Modal.Footer>
           </Modal>
