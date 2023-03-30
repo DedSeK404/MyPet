@@ -25,12 +25,12 @@ export const addOffer = (offerData) => async (dispatch) => {
     type: OFFERLOADING,
   });
 
-    const opts = {
-      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-    };
+  const opts = {
+    headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+  };
 
   try {
-    const res = await axios.post(baseURL + "/add", offerData,opts);
+    const res = await axios.post(baseURL + "/add", offerData, opts);
     //console.log("res", res.data);
     alert(`${res.data.msg}`);
     dispatch({ type: ADDOFFERSUCCESS });
@@ -61,7 +61,8 @@ export const getalloffers = (status) => async (dispatch) => {
   };
   try {
     const { data } = await axios.get(
-      `${baseURL}/${status ? "?status=" + status : ""}`,opts
+      `${baseURL}/${status ? "?status=" + status : ""}`,
+      opts
     );
     dispatch({ type: GETALLOFFERSSUCCESS, payload: data });
   } catch (error) {
@@ -77,9 +78,7 @@ export const getalloffers = (status) => async (dispatch) => {
  */
 export const getallOwners = () => async (dispatch) => {
   dispatch({ type: OFFERLOADING });
-  const opts = {
-    headers: { Authorization: `Bearer ${localStorage.getItem("token")}`,opts },
-  };
+
   try {
     const { data } = await axios.get(baseURL + "/user");
 
@@ -98,12 +97,12 @@ export const editoffer = (offerEdit) => async (dispatch) => {
   dispatch({
     type: OFFERLOADING,
   });
-  console.log(offerEdit)
+  console.log(offerEdit);
   const opts = {
     headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
   };
   try {
-    const { data } = await axios.patch(baseURL + "/edit", offerEdit,opts);
+    const { data } = await axios.patch(baseURL + "/edit", offerEdit, opts);
 
     // alert(`${data.msg}`);
     dispatch({ type: ACCEPT_DECLINE_OFFER, payload: data.msg });
@@ -128,11 +127,10 @@ export const deleteoffer = (offerid) => async (dispatch) => {
     headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
   };
   try {
-    const { data } = await axios.delete(baseURL + `/delete/${offerid}`,opts);
+    const { data } = await axios.delete(baseURL + `/delete/${offerid}`, opts);
 
     alert(`${data.msg}`);
     dispatch({ type: DELETEOFFERSUCCESS, payload: data.msg });
-    
   } catch (error) {
     dispatch({ type: OFFERFAILED, payload: error });
     console.log(error);
@@ -151,7 +149,8 @@ export const getUniqueOffers = (sitterid, status) => async (dispatch) => {
   };
   try {
     const { data } = await axios.get(
-      `${baseURL}/unique/${sitterid}/${status ? "?status=" + status : ""}`,opts
+      `${baseURL}/unique/${sitterid}/${status ? "?status=" + status : ""}`,
+      opts
     );
     dispatch({ type: GETUNIQUEOFFERS, payload: data });
   } catch (error) {

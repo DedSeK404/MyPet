@@ -15,7 +15,7 @@ const SitterD_Component = ({ data }) => {
   const pets = useSelector((state) => state.petR.pets);
   const owners = useSelector((state) => state.offerR.owners);
 
-  // console.log(pets);
+   console.log(owners);
   //console.log(data);
   const CurrentUser = useSelector((state) => state.userR.currentUser);
   const isBusy = CurrentUser.status;
@@ -28,7 +28,7 @@ const SitterD_Component = ({ data }) => {
   const idoffer = data._id;
 
   const handleSubmitAccept = () => {
-    dispatch(editUser({ editData: { status: "busy" }, idUser: data.sitter,token:true })); 
+    dispatch(editUser({ editData: { status: "busy" }, idUser: data.sitter,token:true }));  
     dispatch(editoffer({ idoffer: idoffer, status: "active" })); 
     
     setDisabled(true);
