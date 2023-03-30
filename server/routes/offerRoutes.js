@@ -22,48 +22,48 @@ const router = express.Router();
  * @description add new offer
  * @access protected(authentifié+role:client)
  */
-router.post("/add", PostOfferRules, validator, isOwner, IsAuth(), postOffer);
+router.post("/add", PostOfferRules, validator, postOffer);
 
 /**
  * @route get /offer/
  * @description get all offers
  * @access protected(authentifié)
  */
-router.get("/", IsAuth(), getallOffers);
+router.get("/", getallOffers);
 
 /**
  * @route get /offer/pet/:petID
  * @description get one pet
  * @access protected(authentifié)
  */
-router.get("/pet/:petID", IsAuth(), getonePet);
+router.get("/pet/:petID", getonePet);
 
 /**
  * @route get offer/user/
  * @description get all owners
  * @access protected(authentifié)
  */
-router.get("/user", IsAuth(), getallOwners);
+router.get("/user", getallOwners);
 
 /**
  * @route patch /offer/edit
  * @description update  offer
  * @access protected(authentifié)
  */
-router.patch("/edit", IsAuth(), updateOffer);
+router.patch("/edit", updateOffer);
 /**
  * @route delete /offer/delete
  * @description delete  offer
  * @access protected(authentifié)
  */
 
-router.delete("/delete/:offerid", IsAuth(), deleteOffer);
+router.delete("/delete/:offerid", deleteOffer);
 
 /**
  * @route get /offer/unique/:sitterid
  * @description get unique reviews
  * @access protected(authentifié)
  */
-router.get("/unique/:sitterid", filterOffers, IsAuth(), getUniqueOffers);
+router.get("/unique/:sitterid", filterOffers, getUniqueOffers);
 
 module.exports = router;

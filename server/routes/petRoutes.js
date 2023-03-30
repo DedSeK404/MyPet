@@ -24,9 +24,7 @@ const router = express.Router();
  * @access protected(authentifié+role:client)
  */
 router.post(
-  "/add",
-  IsAuth(),
-  isOwner,
+  "/add",  
   upload("pets").single("img"),
   AddPetRules,
   validator,
@@ -45,10 +43,7 @@ router.get("/", getallpets);
  * @access protected
  */
 router.patch(
-  "/edit",
-
-  IsAuth(),
-  isOwner,
+  "/edit", 
   upload("editpet").single("img"),
   AddPetRules,
   validator,
@@ -60,6 +55,6 @@ router.patch(
  * @access protected
  */
 
-router.delete("/delete/:petid", IsAuth(), isOwner, deletePet);
+router.delete("/delete/:petid",   deletePet);
 
 module.exports = router;

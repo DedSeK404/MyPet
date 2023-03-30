@@ -98,6 +98,7 @@ export const editoffer = (offerEdit) => async (dispatch) => {
   dispatch({
     type: OFFERLOADING,
   });
+  console.log(offerEdit)
   const opts = {
     headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
   };

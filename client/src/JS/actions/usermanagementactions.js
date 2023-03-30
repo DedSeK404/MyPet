@@ -17,6 +17,7 @@ const baseURL = "http://localhost:4500/user/";
 
 export const editUser = ({editData, idUser,token}) => async (dispatch) => {
   dispatch({ type: USERLOADING });
+  console.log(editData)
   const opts = {
     headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
   };

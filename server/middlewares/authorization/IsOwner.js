@@ -1,7 +1,7 @@
 const IsAuth = require("./IsAuth");
 
 const isAuthorized = async (req, res, next) => {
-  console.log(req.user.role)
+  
   try {
     if (req?.user.role != "client") {
       console.log(req?.user.role)

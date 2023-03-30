@@ -99,15 +99,15 @@ export default function EditOwnerProfile({ show }) {
   const handleClick = () => {
     const data = new FormData();
 
-    data?.append(
+    data.append(
       "first_name",
       editData.first_name ? editData.first_name : currentUser.first_name
     );
-    data?.append(
+    data.append(
       "last_name",
       editData.last_name ? editData.last_name : currentUser.last_name
     );
-    data?.append("bio", editData.bio ? editData.bio : currentUser.bio);
+    data.append("bio", editData.bio ? editData.bio : currentUser.bio);
     data.append("email", editData.email ? editData.email : currentUser.email);
     data.append("phone", editData.phone ? editData.phone : currentUser.phone);
     data.append("city", editData.city ? editData.city : currentUser.city);

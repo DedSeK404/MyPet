@@ -19,7 +19,7 @@ router.patch(
   upload("users").single("img"),
   // editUserRules,
   // validator,
-  IsAuth(), 
+ 
   updateuser
 );
 
@@ -33,7 +33,7 @@ router.delete(
   "/delete/:userid",
   //  IsAuth(),
   //   isAdmin,
-  IsAuth(),
+ 
   deleteUser
 );
 
@@ -42,6 +42,6 @@ router.delete(
  * @description get all sitters
  * @access protected
  */
-router.get("/", filterUsers, IsAuth(), getallSitters);
+router.get("/", filterUsers,  getallSitters);
 
 module.exports = router;

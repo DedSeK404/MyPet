@@ -13,20 +13,20 @@ const router = express.Router();
  * @description post review
  * @access protected(authentifié+role:client)
  */
-router.post("/add", isOwner, IsAuth(), addreview);
+router.post("/add",  addreview);
 
 /**
  * @route get /review/
  * @description get all reviews
  * @access protected(authentifié)
  */
-router.get("/", IsAuth(), getAllReviews);
+router.get("/", getAllReviews);
 
 /**
  * @route get /review/unique/:sitterid
  * @description get unique reviews
  * @access protected(authentifié)
  */
-router.get("/unique/:sitterid", IsAuth(), getUniqueReviews);
+router.get("/unique/:sitterid",  getUniqueReviews);
 
 module.exports = router;
