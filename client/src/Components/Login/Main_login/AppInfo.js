@@ -1,4 +1,7 @@
 import Carousel from "react-bootstrap/Carousel";
+import Cat from "../../../Assets/cat.svg"
+import Dog from "../../../Assets/dog.svg"
+import Pets from "../../../Assets/pets.svg"
 
 function AppInfo() {
   return (
@@ -11,7 +14,7 @@ function AppInfo() {
             paddingBottom: "10%",
             pointerEvents: "none",
           }}
-          src="https://svgshare.com/i/qsD.svg"
+          src={Cat}
           alt="First slide"
         />
         <Carousel.Caption>
@@ -30,7 +33,7 @@ function AppInfo() {
             paddingBottom: "10%",
             pointerEvents: "none",
           }}
-          src="https://svgshare.com/i/qsu.svg"
+          src={Dog}
           alt="Second slide"
         />
 
@@ -52,7 +55,7 @@ function AppInfo() {
             paddingBottom: "10%",
             pointerEvents: "none",
           }}
-          src="https://svgshare.com/i/qsv.svg"
+          src={Pets}
           alt="Third slide"
         />
 

@@ -1,6 +1,7 @@
 import React from "react";
 import { MDBCarousel, MDBCarouselItem } from "mdb-react-ui-kit";
 import PetProfile from "./PetProfile";
+import PetBG from "../../../Assets/pet_bg.svg";
 
 const CarouselTab = ({ data }) => {
   console.log(data._id);
@@ -9,7 +10,7 @@ const CarouselTab = ({ data }) => {
       <MDBCarouselItem
         className="w-100 d-block"
         itemId={data._id}
-        src="https://svgshare.com/i/rBV.svg"
+        src={PetBG}
         alt="..."
       >
         <PetProfile />

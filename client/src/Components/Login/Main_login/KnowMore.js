@@ -1,5 +1,6 @@
 import Card from "react-bootstrap/Card";
 import CardGroup from "react-bootstrap/CardGroup";
+import Print from "../../../Assets/print.svg";
 
 function KnowMore() {
   return (
@@ -18,7 +19,7 @@ function KnowMore() {
           {/* <Card.Img variant="top" src="holder.js/100px160" /> */}
           <Card.Body>
             <Card.Title style={{ display: "flex", gap: "15px" }}>
-              <img src="https://svgshare.com/i/qsY.svg" alt="0" width="30px" />
+              <img src={Print} alt="0" width="30px" />
               <span style={{ textAlign: "center", color: "#DB8C6F" }}>
                 {" "}
                 Pet owners
@@ -43,7 +44,7 @@ function KnowMore() {
           {/* <Card.Img variant="top" src="holder.js/100px160" /> */}
           <Card.Body>
             <Card.Title style={{ display: "flex", gap: "15px" }}>
-              <img src="https://svgshare.com/i/qsY.svg" alt="0" width="30px" />
+              <img src={Print} alt="0" width="30px" />
               <span style={{ textAlign: "center", color: "#DB8C6F" }}>
                 {" "}
                 Pet sitters
@@ -70,7 +71,7 @@ function KnowMore() {
           {/* <Card.Img variant="top" src="holder.js/100px160" /> */}
           <Card.Body>
             <Card.Title style={{ display: "flex", gap: "15px" }}>
-              <img src="https://svgshare.com/i/qsY.svg" alt="0" width="30px" />
+              <img src={Print} alt="0" width="30px" />
               <span style={{ textAlign: "center", color: "#DB8C6F" }}>
                 {" "}
                 Services

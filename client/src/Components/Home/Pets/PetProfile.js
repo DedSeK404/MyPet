@@ -12,6 +12,7 @@ import {
 import { Button } from "react-bootstrap";
 import PetsEdit from "./PetsEdit";
 import { motion, AnimatePresence } from "framer-motion";
+import PetBG from "../../../Assets/pet_bg.svg";
 
 const PetProfile = ({ data }) => {
   const [showEdit, setShowEdit] = useState(true);
@@ -33,7 +34,8 @@ const PetProfile = ({ data }) => {
           >
             <MDBContainer
               style={{
-                backgroundImage: "url(https://svgshare.com/i/rCb.svg)",
+                backgroundImage: `url(${PetBG})`,
+                
                 backgroundRepeat: "no-repeat",
                 backgroundSize: "100%",
                 backgroundColor: "#EAAC8E",

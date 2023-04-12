@@ -9,7 +9,7 @@ import {
 import "./OwnerDashboard.css";
 import { motion, AnimatePresence } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
-
+import ongoingLogo from "../../../../../Assets/ongoing_owner.svg";
 import { getallpets } from "../../../../../JS/actions/petactions";
 import OwnerD_Component from "./OwnerD_Component";
 import { getallSitters } from "../../../../../JS/actions/usermanagementactions";
@@ -84,7 +84,7 @@ const OwnerDashboard = ({ setStatus }) => {
                 <MDBCard className="mb-3" style={{ borderRadius: ".5rem" }}>
                   <MDBRow className="g-0">
                     <MDBCardImage
-                      src="https://svgshare.com/i/rTf.svg"
+                      src={ongoingLogo}
                       alt="Avatar"
                       style={{ width: "100vw", pointerEvents: "none" }}
                       fluid

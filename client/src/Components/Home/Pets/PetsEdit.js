@@ -14,6 +14,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useDispatch } from "react-redux";
 import { deletepet, editpet } from "../../../JS/actions/petactions";
 import Modal from "react-bootstrap/Modal";
+import PetBG from "../../../Assets/pet_bg.svg";
+
 
 const PetsEdit = ({ data, setShowEdit }) => {
   const [show, setShow] = useState(false);
@@ -90,7 +92,7 @@ console.log(data.birth_date)
       >
         <MDBContainer
           style={{
-            backgroundImage: "url(https://svgshare.com/i/rCb.svg)",
+            backgroundImage: `url(${PetBG})`,
             backgroundRepeat: "no-repeat",
             backgroundSize: "100%",
             backgroundColor: "#EAAC8E",

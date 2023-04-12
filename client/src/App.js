@@ -15,24 +15,20 @@ import PrivateRoute from "./Components";
 import { getUser } from "./JS/actions/useraction";
 import NotFound from "./Components/Home/NotFound";
 
-
-
-
-
 function App() {
-  const [unavailable, setUnavailable] = useState("")
+  const [unavailable, setUnavailable] = useState("");
   const dispatch = useDispatch();
-  
+
   useEffect(() => {
     dispatch(getUser());
   }, []);
   const currentUser = useSelector((state) => state.userR.currentUser);
+
   return (
     <div className="App">
-     
       <Routes>
-      <Route path="/" element={<Navigate to="/login" />} />
-      <Route path="/login" element={<MainLogin />} />
+        <Route path="/" element={<Navigate to="/login" />} />
+        <Route path="/login" element={<MainLogin />} />
         <Route path="/login/Signup" element={<SignUp />} />
         <Route path="/login/Signin" element={<SignIn />} />
         <Route
@@ -63,8 +59,8 @@ function App() {
             </PrivateRoute>
           }
         />
-        <Route path='/404NotFound' element={<NotFound/>} />
-        <Route path='*' element={<Navigate to='/404NotFound' />} />
+        <Route path="/404NotFound" element={<NotFound />} />
+        <Route path="*" element={<Navigate to="/404NotFound" />} />
       </Routes>
       <Footer />
     </div>

@@ -14,6 +14,7 @@ import { getallpets } from "../../../../../JS/actions/petactions";
 import { getallOwners } from "../../../../../JS/actions/offeractions";
 import { Col, Form } from "react-bootstrap";
 import Loading from "../../../../Loading";
+import OngoingOwner from "../../../../../Assets/ongoing_sitter.svg";
 
 const SitterDashboard = ({ setStatus }) => {
   const offers = useSelector((state) => state.offerR.uniqueOffers);
@@ -89,7 +90,7 @@ const SitterDashboard = ({ setStatus }) => {
                     <MDBCard className="mb-3" style={{ borderRadius: ".5rem" }}>
                       <MDBRow className="g-0">
                         <MDBCardImage
-                          src="https://svgshare.com/i/rGf.svg"
+                          src={OngoingOwner}
                           alt="Avatar"
                           style={{ width: "100vw", pointerEvents: "none" }}
                           fluid

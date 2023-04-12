@@ -14,8 +14,10 @@ import HireSitter from "./HireSitter/HireSitter";
 import { getallSitters } from "../../../JS/actions/usermanagementactions";
 import { getalloffers, getallOwners, getUniqueOffers } from "../../../JS/actions/offeractions";
 import { getallReviews } from "../../../JS/actions/reviewactions";
+import Logo from "../../../Assets/Logo.svg"
+import Messages from "../../Chat/Messages";
 
-
+ 
 const OwnerHome = () => {
   const currentUser = useSelector((state) => state.userR.currentUser);
   const [city, setCity] = useState("")
@@ -38,27 +40,30 @@ const [status, setStatus] = useState("")
     dispatch(logout());
     navigate("/login");
   };
-
+  const [key, setKey] = useState('Dashboard')
+   
   return (
     <div
       className="Home_Container"
-      // style={{ width: "100vw", minHeight: "110em" }}
+      
       style={{ height: "fit-content", marginBottom:"15%", minHeight:"100vh"  }}
     >
+      
       <Container fluid>
         <Row>
           <Col sm={2}>
             <Card.Img
               style={{ pointerEvents: "none", userSelect: "none" }}
               variant="top"
-              src="https://svgshare.com/i/qrE.svg"
+              src={Logo}
             />
           </Col>
           <Col sm={8}>
             {" "}
             <Tabs
-              defaultActiveKey="Dashboard"
-              id="fill-tab-example"
+              id="controlled-tab-example"
+              activeKey={key}
+              onSelect={(k) => setKey(k)} 
               className="mb-3"
               fill
             >
@@ -68,14 +73,14 @@ const [status, setStatus] = useState("")
               <Tab eventKey="Profile" title="Profile">
                 <OwnerProfile />
               </Tab>
-              {/* <Tab eventKey="Messages" title="Messages">
-                <p>messages</p> 
-              </Tab> */}
+              <Tab eventKey="Messages" title="Messages">
+                <Messages /> 
+              </Tab>
               <Tab eventKey="My Pets" title="My Pets">
                 <PetsTab />
               </Tab>
               <Tab eventKey="Hire a Sitter" title="Hire a Sitter">
-                <HireSitter setAvailable={setAvailable} setCity={setCity} />
+                <HireSitter  setKey={setKey} setAvailable={setAvailable} setCity={setCity} />
               </Tab>
             </Tabs>
           </Col>

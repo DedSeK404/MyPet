@@ -5,23 +5,47 @@ import { getUniqueReviews } from "../../../../JS/actions/reviewactions";
 import Loading from "../../../Loading";
 import OfferModal from "../../Offer/OfferModal";
 import SitterProfileModal from "./SitterProfileModal";
+import Modal from "react-bootstrap/Modal";
+import FloatingLabel from "react-bootstrap/FloatingLabel";
+import Form from "react-bootstrap/Form";
+import { addRoom } from "../../../../JS/actions/roomactions";
 
-const HireSitterCard = ({ data }) => {
-  const dispatch=useDispatch()
+const HireSitterCard = ({ data, setKey }) => {
+  const dispatch = useDispatch();
   const [OfferData, setOfferData] = useState({});
   const loading = useSelector((state) => state.userM.loading);
+  const currentUser = useSelector((state) => state.userR.currentUser);
 
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(false); 
   const handleClose = () => {
     setOfferData({});
     setShow(false);
   };
-  // console.log(data._id)
+
   const handleShow = () => setShow(true);
   const [modalShow, setModalShow] = useState(false);
-  const handleClick=()=>{
-    dispatch(getUniqueReviews(data._id))
-    setModalShow(true)
+  const handleClick = () => {
+    dispatch(getUniqueReviews(data._id));
+    setModalShow(true);
+  };
+
+  const [showMessageModal, setShowMessageModal] = useState(false);
+  const handleCloseMessageModal = () => setShowMessageModal(false);
+  const handleShowMessageModal = () => setShowMessageModal(true);
+
+  const [messageData, setMessageData]=useState("")
+  const handleChangeMessage=(e)=>{
+    setMessageData({sitter:data._id, client:currentUser._id, messages:[{role:"client",message:e.target.value,created_on: new Date(Date.now()).getHours() +
+    ":" +
+    new Date(Date.now()).getMinutes()}] })
+    
+  }
+// console.log(messageData)
+  const handleSendMessage = ()=>{
+    dispatch(addRoom(messageData))
+    handleCloseMessageModal()
+    setKey("Messages")
+    
   }
   return (
     <div className="col col-md-9 col-lg-7 col-xl-5">
@@ -90,26 +114,9 @@ const HireSitterCard = ({ data }) => {
                 <p className="mb-0 me-2">
                   {loading ? <Loading /> : data.first_name}
                 </p>
-                <ul
-                  className="mb-0 list-unstyled d-flex flex-row"
-                  style={{ color: "#1B7B2C" }}
-                >
-                  <li>
-                    <i className="fas fa-star fa-xs" />
-                  </li>
-                  <li>
-                    <i className="fas fa-star fa-xs" />
-                  </li>
-                  <li>
-                    <i className="fas fa-star fa-xs" />
-                  </li>
-                  <li>
-                    <i className="fas fa-star fa-xs" />
-                  </li>
-                  <li>
-                    <i className="fas fa-star fa-xs" />
-                  </li>
-                </ul>
+                <p className="mb-0 me-2">
+                  {loading ? <Loading /> : data.last_name}
+                </p>
               </div>
               <div style={{ display: "flex", gap: "5px" }}>
                 <button
@@ -120,13 +127,42 @@ const HireSitterCard = ({ data }) => {
                 >
                   See profile
                 </button>
+                {/* send message button  */}
                 <button
                   type="button"
                   className="btn btn-outline-dark btn-floating btn-sm"
                   data-mdb-ripple-color="dark"
+                  onClick={handleShowMessageModal}
                 >
                   <i className="fas fa-comment" />
                 </button>
+                <Modal show={showMessageModal} onHide={handleCloseMessageModal}>
+                  <Modal.Header style={{ background: "white" }} closeButton>
+                    <Modal.Title>Send {data.first_name} a message</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body style={{ background: "white" }}>
+                    <FloatingLabel
+                      controlId="floatingTextarea2"
+                      label="Message"
+                      
+                    >
+                      <Form.Control
+                        as="textarea"
+                        placeholder="Leave a comment here"
+                        style={{ height: "100px" }}
+                        onChange={handleChangeMessage}
+                      />
+                    </FloatingLabel>
+                  </Modal.Body>
+                  <Modal.Footer style={{ background: "white" }}>
+                    <Button variant="secondary" onClick={handleCloseMessageModal}>
+                      Close
+                    </Button>
+                    <Button variant="primary" onClick={handleSendMessage}>
+                      Send Message
+                    </Button>
+                  </Modal.Footer>
+                </Modal>
               </div>
             </div>
           </div>
@@ -204,11 +240,16 @@ const HireSitterCard = ({ data }) => {
             data={data}
             setOfferData={setOfferData}
             OfferData={OfferData}
-          />
+            
+          /> 
         </div>
       </div>
 
-      <SitterProfileModal data={data} show={modalShow} onHide={() => setModalShow(false)} />
+      <SitterProfileModal
+        data={data}
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+      />
     </div>
   );
 };

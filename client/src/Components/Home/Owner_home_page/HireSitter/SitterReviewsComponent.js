@@ -6,12 +6,21 @@ import Rating from "@mui/material/Rating";
 import Box from "@mui/material/Box";
 import { useSelector } from "react-redux";
 import Loading from "../../../Loading";
+import NoReviews from "../../../../Assets/noReviews.svg";
 
-const SitterReviewsComponent = ({data}) => {
+const SitterReviewsComponent = ({data, setStars}) => {
   const reviews = useSelector((state) => state.reviewR.uniqueReviews);
   const loading = useSelector((state) => state.reviewR.loading);
 
-  //console.log(reviews);
+  const stars = reviews.map((e) => {
+    return e.rating;
+  });
+  const average =
+    stars.length == 0
+      ? "no stars yet"
+      : stars.reduce((a, b) => a + b) / stars.length.toFixed(1);
+  //console.log(average);
+  setStars(average)
   return (
     <AnimatePresence>
       <div style={{ backgroundColor: "transparent" }}>
@@ -35,7 +44,7 @@ const SitterReviewsComponent = ({data}) => {
                         style={{ maxHeight: "70vh" }}
                       >
 
-                        {loading?<Loading/>: reviews.length==0?<Card.Img style={{width:"100%",pointerEvents:"none"}} src="https://svgshare.com/i/rUX.svg"/>:
+                        {loading?<Loading/>: reviews.length==0?<Card.Img style={{width:"100%",pointerEvents:"none"}} src={NoReviews}/>:
                         <>
                         {reviews.map(e => e.sitter==data._id? 
 

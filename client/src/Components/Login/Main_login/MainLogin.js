@@ -4,6 +4,7 @@ import Logo from "../../Logo";
 import "../Main_login/mainlogin.css";
 import AppInfo from ".//AppInfo";
 import KnowMore from "./KnowMore";
+import Line from "../../../Assets/line.svg";
 
 const MainLogin = () => {
   return (
@@ -30,7 +31,7 @@ const MainLogin = () => {
         </Card.Body>
       </Card>
       <AppInfo />
-      <img width="100%" src="https://svgshare.com/i/qsN.svg" alt="line" />
+      <img width="100%" src={Line} alt="line" />
       <h1
         style={{
           textAlign: "center",

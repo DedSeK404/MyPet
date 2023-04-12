@@ -3,7 +3,7 @@
     padding-bottom: 80%;
     font-size: 2.2rem;
     color: #755A58;
-    background-image: url("https://svgshare.com/i/qtC.svg");
+    background-image: url("../../../Assets/signup_owner.svg");
     background-repeat: no-repeat;
     background-size: cover;
     border: none;
@@ -17,7 +17,7 @@
     padding-bottom: 80%;
     font-size: 2.4rem;
     color: #755A58;
-    background-image: url("https://svgshare.com/i/qtC.svg");
+    background-image: url("../../../Assets/signup_owner.svg");
     background-repeat: no-repeat;
     background-size: cover;
     border: none;
@@ -32,7 +32,7 @@
     padding-bottom: 80%;
     font-size: 2.2rem;
     color: #755A58;
-    background-image: url("https://svgshare.com/i/qtb.svg");
+    background-image: url("../../../Assets/signup_sitter.svg");
     background-repeat: no-repeat;
     background-size: cover;
     border: none;
@@ -46,7 +46,7 @@
     padding-bottom: 80%;
     font-size: 2.4rem;
     color: #755A58;
-    background-image: url("https://svgshare.com/i/qtb.svg");
+    background-image: url("../../../Assets/signup_sitter.svg");
     background-repeat: no-repeat;
     background-size: cover;
     border: none;
@@ -62,7 +62,7 @@
     width: fit-content;
 }
 .Container{
-    background-image: url("https://svgshare.com/i/qvA.svg");
+    background-image: url("../../../Assets/signup_bkg.svg");
     background-repeat: no-repeat;
     background-size: cover;
 }

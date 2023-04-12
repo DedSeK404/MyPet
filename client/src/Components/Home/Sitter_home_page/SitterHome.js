@@ -8,8 +8,10 @@ import { logout } from "../../../JS/actions/useraction";
 import SitterProfile from "./Sitter_home_Components/SitterProfile";
 import { useNavigate } from "react-router-dom";
 import SitterDashboard from "./Sitter_home_Components/Sitter_Dashboard/SitterDashboard";
-import { getalloffers, getUniqueOffers } from "../../../JS/actions/offeractions";
+import { getUniqueOffers } from "../../../JS/actions/offeractions";
 import { getUniqueReviews } from "../../../JS/actions/reviewactions";
+import Logo from "../../../Assets/Logo.svg";
+import Messages from "../../Chat/Messages";
 
 const SitterHome = ({ setUnavailable }) => {
   const navigate = useNavigate();
@@ -36,7 +38,7 @@ const SitterHome = ({ setUnavailable }) => {
             <Card.Img
               style={{ pointerEvents: "none", userSelect: "none" }}
               variant="top"
-              src="https://svgshare.com/i/qrE.svg"
+              src={Logo}
             />
           </Col>
           <Col sm={8}>
@@ -53,9 +55,9 @@ const SitterHome = ({ setUnavailable }) => {
               <Tab eventKey="Profile" title="Profile">
                 <SitterProfile setUnavailable={setUnavailable} />
               </Tab>
-              {/* <Tab eventKey="Messages" title="Messages">
-                <p>messages</p>
-              </Tab> */}
+              <Tab eventKey="Messages" title="Messages">
+              <Messages/>  
+              </Tab>
             </Tabs>
           </Col>
           <Col sm={2}>

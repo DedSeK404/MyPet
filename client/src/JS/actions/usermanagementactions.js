@@ -83,7 +83,7 @@ export const getallSitters = (city, available) => async (dispatch) => {
   try {
     const { data } = await axios.get(
       `${baseURL}/${
-        city ? "?city=" + city : available ? "?available=" + available : ""
+        city ? "?city=" + city :"" & available ? "?available=" + available : ""
       }`,opts
     );
   

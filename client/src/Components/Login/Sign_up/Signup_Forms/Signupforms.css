@@ -1,7 +1,7 @@
 .submit_signup {
   border: none;
   border-radius: 10px;
-  background-image: url("https://svgshare.com/i/qsY.svg");
+  background-image: url("../../../../Assets/print.svg");
   background-repeat: no-repeat;
   background-position: 10% 50%;
   background-size: 15%;
@@ -20,7 +20,7 @@
   border: none;
   border-radius: 10px;
   background-color: #fef1dd;
-  background-image: url("https://svgshare.com/i/qqf.svg");
+  background-image: url("../../../../Assets/print_toggle.svg");
   background-repeat: no-repeat;
   background-position: 10% 50%;
   background-size: 15%;

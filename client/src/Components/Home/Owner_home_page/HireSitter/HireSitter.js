@@ -4,7 +4,8 @@ import { motion, AnimatePresence, Variants } from "framer-motion";
 import { useSelector } from "react-redux";
 import { Col, Form } from "react-bootstrap";
 
-const HireSitter = ({ setCity, setAvailable }) => {
+const HireSitter = ({ setCity, setAvailable, setKey }) => {
+ 
   const [showTopBtn, setShowTopBtn] = useState(false);
   useEffect(() => {
     window.addEventListener("scroll", () => {
@@ -161,7 +162,7 @@ const HireSitter = ({ setCity, setAvailable }) => {
               viewport={{ once: true, amount: 0.8 }}
             >
               <motion.div variants={cardVariants}>
-                <HireSitterCard key={e._id} data={e} />
+                <HireSitterCard setKey={setKey} key={e._id} data={e} />
               </motion.div>
             </motion.div>
           ))}

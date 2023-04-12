@@ -55,7 +55,7 @@ export const loginUser = (UserLoginData, navigate) => async (dispatch) => {
   try {
     const { data } = await axios.post(baseURL+"signin", { ...UserLoginData });
 
-    dispatch({ type: SIGNINSUCCESS, payload: data });
+    dispatch({ type: SIGNINSUCCESS, payload: data }); 
 
     if (data.msg) {
       alert(data.msg);

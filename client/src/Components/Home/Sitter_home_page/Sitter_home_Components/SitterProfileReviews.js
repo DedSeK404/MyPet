@@ -6,6 +6,7 @@ import Rating from "@mui/material/Rating";
 import Box from "@mui/material/Box";
 import { useSelector } from "react-redux";
 import Loading from "../../../Loading";
+import Reviews from "../../../../Assets/noReviews.svg"
 
 const SitterProfileReviews = ({data}) => {
   const reviews = useSelector((state) => state.reviewR.uniqueReviews);
@@ -35,7 +36,7 @@ const SitterProfileReviews = ({data}) => {
                         style={{ maxHeight: "80vh" }}
                       >
 
-                        {loading?<Loading/>: reviews.length==0?<Card.Img style={{width:"100%",pointerEvents:"none"}} src="https://svgshare.com/i/rUX.svg"/>:
+                        {loading?<Loading/>: reviews.length==0?<Card.Img style={{width:"100%",pointerEvents:"none"}} src={Reviews}/>:
                         <>
                         {reviews.map(e =>
 

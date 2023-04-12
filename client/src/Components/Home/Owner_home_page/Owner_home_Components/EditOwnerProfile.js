@@ -117,7 +117,7 @@ export default function EditOwnerProfile({ show }) {
     );
     data.append(
       "gender",
-      editData.gender ? editData.gender : currentUser.gender 
+      editData.gender ? editData.gender : currentUser.gender  
     );
     data.append(
       "birth_date",

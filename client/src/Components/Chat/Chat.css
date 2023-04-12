@@ -1,0 +1,119 @@
+.Height_container {
+  height: 350px;
+  width: 100%;
+}
+.Clear {
+  background: none;
+  border: none;
+  transition: 0.2s;
+  color: white;
+}
+.Delete {
+  background: none;
+  border: none;
+  transition: 0.2s;
+  color: white;
+}
+
+.Clear:hover {
+  background: none;
+  border: none;
+  color: #0d6efd;
+  transition: 0.2s;
+}
+
+.Delete:hover {
+  background: none;
+  border: none;
+  color: #fd1d0d;
+  transition: 0.2s;
+}
+
+.Submit_two {
+  background: none;
+  border: 1px rgb(39, 161, 39) solid;
+  border-radius: 5px;
+  color: rgb(39, 161, 39);
+  font-size: small;
+  transition: 0.3s;
+}
+
+.Submit_two:hover {
+  background: rgb(39, 161, 39);
+  border: 1px rgb(39, 161, 39) solid;
+  border-radius: 5px;
+  color: white;
+  font-size: small;
+  transition: 0.3s;
+}
+
+
+.profile-tabitem { 
+  font-weight: bold;
+  color:#751DD5;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 0.77;
+  letter-spacing: -0.6px;
+  text-align: left;
+  color: #d9d9d9;
+}
+
+
+/* .nav-tabs {
+  color: #751DD5 !important;
+  border-bottom: none;
+
+}
+.nav-tabs .nav-link{
+  color: #751DD5 !important;
+  border: #751DD5 1px solid !important;
+  border-radius: 10px;
+  transition: 0.2s;
+  margin: 10px;
+  font-weight: 200;
+}
+
+
+.nav-tabs .nav-link:hover{
+  color: #751DD5 !important;
+  font-size: 20px;
+  transition: 0.2s;
+}
+
+.nav-tabs .nav-link.active{
+  background-color: #751DD5 !important;
+  color: white !important;
+  font-size: 20px !important;
+  transition: 0.2s;
+} */
+
+.nav-tabs {
+  color: #751DD5 !important;
+  border-bottom: none;
+
+}
+.profile-tabitem {
+  color: #751DD5 !important;
+  border: #751DD5 1px solid !important;
+  border-radius: 10px !important;
+  transition: 0.2s !important;
+  margin: 0px 10px !important;
+  font-weight: 200 !important;
+}
+
+.profile-tabitem:hover {
+  color: #751DD5 !important;
+  font-size: 20px !important;
+  transition: 0.2s !important;
+}
+
+.profile-tabitem.active {
+  background-color: #751DD5 !important;
+  color: white !important;
+  font-size: 20px !important;
+  transition: 0.2s !important;
+}
+
+
+

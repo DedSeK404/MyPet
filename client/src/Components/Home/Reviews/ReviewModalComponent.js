@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addReview } from "../../../JS/actions/reviewactions";
 import { editoffer, getUniqueOffers } from "../../../JS/actions/offeractions";
 import { editUser } from "../../../JS/actions/usermanagementactions";
+import Cheers from "../../../Assets/Cheers.svg"
 
 const ReviewModalComponent = ({ data, setShow }) => {
   const currentUser = useSelector((state) => state.userR.currentUser);
@@ -48,7 +49,7 @@ const ReviewModalComponent = ({ data, setShow }) => {
         <Card.Img
           style={{ width: "35%" }}
           variant="top"
-          src="https://svgshare.com/i/rSt.svg"
+          src={Cheers}
           className="m-auto"
         />
       </Row>

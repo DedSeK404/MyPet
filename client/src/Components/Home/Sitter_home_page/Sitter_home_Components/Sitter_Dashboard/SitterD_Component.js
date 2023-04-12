@@ -15,7 +15,7 @@ const SitterD_Component = ({ data }) => {
   const pets = useSelector((state) => state.petR.pets);
   const owners = useSelector((state) => state.offerR.owners);
 
-   console.log(owners);
+   //console.log(owners);
   //console.log(data);
   const CurrentUser = useSelector((state) => state.userR.currentUser);
   const isBusy = CurrentUser.status;

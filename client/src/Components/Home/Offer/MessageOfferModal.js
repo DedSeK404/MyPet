@@ -8,23 +8,27 @@ import Row from "react-bootstrap/Row";
 import { useDispatch, useSelector } from "react-redux";
 import { addOffer, getUniqueOffers } from "../../../JS/actions/offeractions";
 
-function OfferModal({ handleClose, show, data,OfferData,setOfferData }) {
-  const dispatch=useDispatch()
- 
-//console.log(data) 
+function MessageOfferModal({ handleClose, show, data, OfferData, setOfferData }) {
+  const dispatch = useDispatch();
+//console.log(data)
   const pets = useSelector((state) => state.petR.pets);
 
   const currentUser = useSelector((state) => state.userR.currentUser);
   const handleChange = (e) => {
-    setOfferData({ ...OfferData, [e.target.name]: e.target.value,client:currentUser._id,sitter:data._id });
+    setOfferData({
+      ...OfferData,
+      [e.target.name]: e.target.value,
+      client: currentUser._id,
+      sitter: data._id,
+    });
   };
 
-  const handleClick = () => { 
-    dispatch(addOffer(OfferData))
-    dispatch(getUniqueOffers(currentUser._id)) 
-    handleClose()
+  const handleClick = () => {
+    dispatch(addOffer(OfferData));
+    dispatch(getUniqueOffers(currentUser._id));
+    handleClose();
   };
-  
+
   return (
     <>
       <Modal
@@ -33,12 +37,14 @@ function OfferModal({ handleClose, show, data,OfferData,setOfferData }) {
         centered
         show={show}
         onHide={handleClose}
-        style={{background:"rgba(0, 0, 0, 0.7)"}}
+        style={{ background: "rgba(0, 0, 0, 0.7)" }}
       >
-        <Modal.Header style={{background:"white"}} closeButton>
-          <Modal.Title style={{color:"brown"}}>Send an offer to {data.first_name}</Modal.Title>
+        <Modal.Header style={{ background: "white" }} closeButton>
+          <Modal.Title style={{ color: "brown" }}>
+            Send an offer to {data?.first_name}
+          </Modal.Title>
         </Modal.Header>
-        <Modal.Body  style={{background:"white"}}>
+        <Modal.Body style={{ background: "white" }}>
           <h5 style={{ paddingBottom: "20px" }}>Please Fill the form</h5>
 
           <Row className="g-3">
@@ -69,7 +75,7 @@ function OfferModal({ handleClose, show, data,OfferData,setOfferData }) {
                   onChange={handleChange}
                   aria-label="Floating label select example"
                 >
-                  <option >Select a pet</option>
+                  <option>Select a pet</option>
                   {pets.map((e) =>
                     e.user == currentUser._id ? (
                       <option value={e._id}>{e.name}</option>
@@ -131,7 +137,7 @@ function OfferModal({ handleClose, show, data,OfferData,setOfferData }) {
             </Row>
           </Row>
         </Modal.Body>
-        <Modal.Footer style={{background:"white"}}>
+        <Modal.Footer style={{ background: "white" }}>
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
@@ -144,4 +150,4 @@ function OfferModal({ handleClose, show, data,OfferData,setOfferData }) {
   );
 }
 
-export default OfferModal;
+export default MessageOfferModal;
