@@ -11,7 +11,7 @@ const userSchema = new mongoose.Schema({
   adress: { type: String },
   gender: { type: String },
   created_on: { type: Date, default: Date.now() },
-  phone: { type: Number },
+  phone: { type: Number  },
   status: { type: String, default: "available" },
   img: {
     type: String,

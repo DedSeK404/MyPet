@@ -22,7 +22,7 @@ const Messages = () => {
   const SitterfilteredMessages = messages.filter(
     (e) => e.sitter == currentUser._id
   );
-  console.log(SitterfilteredMessages);
+ 
   return (
     <div style={{ marginTop: "3%" }}>
       {filteredMessages.length == 0 && SitterfilteredMessages.length == 0 ? (

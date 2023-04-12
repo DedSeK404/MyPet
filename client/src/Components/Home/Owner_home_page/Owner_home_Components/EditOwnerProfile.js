@@ -56,10 +56,6 @@ export default function EditOwnerProfile({ show }) {
   };
   const idUser = currentUser._id;
 
-  const handleSumbit = () => {
-    dispatch(editUser(editData, idUser));
-  };
-  //console.log(editData);
   const handleEditPic = () => {
     setShowPicEdit(!showPicEdit);
   };
@@ -108,7 +104,7 @@ export default function EditOwnerProfile({ show }) {
       editData.last_name ? editData.last_name : currentUser.last_name
     );
     data.append("bio", editData.bio ? editData.bio : currentUser.bio);
-    data.append("email", editData.email ? editData.email : currentUser.email);
+    data.append("email", editData.email ? editData.email : "");
     data.append("phone", editData.phone ? editData.phone : currentUser.phone);
     data.append("city", editData.city ? editData.city : currentUser.city);
     data.append(
@@ -117,19 +113,19 @@ export default function EditOwnerProfile({ show }) {
     );
     data.append(
       "gender",
-      editData.gender ? editData.gender : currentUser.gender  
+      editData.gender ? editData.gender : currentUser.gender
     );
     data.append(
       "birth_date",
       editData.birth_date ? editData.birth_date : currentUser.birth_date
     );
-    //data.append("password", editData.password);
-    data.append("img", img ? img : currentUser.img);
-    
-    //console.log(data);
 
-    dispatch(editUser({editData:data, idUser:idUser, token:true}));
-    
+    data.append("img", img);
+    if (!editData.email) { 
+      data.delete("email")
+    }
+console.log(data)
+    dispatch(editUser({ editData: data, idUser: idUser, token: true }));
   };
 
   const handleClickReturn = () => {

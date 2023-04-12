@@ -9,13 +9,14 @@ import {
   MDBTypography,
 } from "mdb-react-ui-kit";
 import { Button } from "react-bootstrap";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addpet } from "../../../JS/actions/petactions";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import { motion, AnimatePresence } from "framer-motion";
 
 const AddPet = ({ setShow }) => {
+  const currentUser = useSelector((state) => state.userR.currentUser);
   const [img, setimg] = useState("");
   const [petData, setPetData] = useState({});
   const handleChange = (e) => {
@@ -31,9 +32,10 @@ const AddPet = ({ setShow }) => {
     data.append("img", img);
     data.append("name", petData.name?petData.name:"");
     data.append("tag", petData.tag?petData.tag:"");
-    data.append("gender", petData.gender?petData.gender:"");
+    data.append("gender", petData.gender?petData.gender:""); 
     data.append("breed", petData.breed?petData.breed:"");
     data.append("birth_date", petData.birth_date);
+    data.append("user", currentUser._id);
     dispatch(addpet(data));
     setShow(false);
   };

@@ -51,23 +51,13 @@ export default function EditSitterProfile({ show, setUnavailable }) {
   const authloading = useSelector((state) => state.userR.authloading);
 
   const dispatch = useDispatch();
-  const [editData, setEditData] = useState({
-    first_name: currentUser.first_name,
-    last_name: currentUser.last_name,
-    bio: currentUser.bio,
-    email: currentUser.email,
-    phone: currentUser.phone,
-    city: currentUser.city,
-    adress: currentUser.adress,
-    gender: currentUser.gender,
-    birth_date: currentUser.birth_date,
-  });
+  const [editData, setEditData] = useState({});
 
   const handleChange = (e) => {
     setEditData({ ...editData, [e.target.name]: e.target.value });
   };
   const idUser = currentUser._id;
-  //console.log(currentUser.status);
+
   const handleAvailability = () => {
     if (currentUser.status == "busy") {
       alert("You cannot edit your status while you have an ongoing job");
@@ -79,10 +69,6 @@ export default function EditSitterProfile({ show, setUnavailable }) {
     }
   };
 
-  const handleSumbit = () => {
-    dispatch(editUser(editData, idUser));
-  };
-  //console.log(editData);
   const handleEditPic = () => {
     setShowPicEdit(!showPicEdit);
   };
@@ -122,19 +108,36 @@ export default function EditSitterProfile({ show, setUnavailable }) {
   const handleClick = () => {
     const data = new FormData();
 
-    data.append("first_name", editData.first_name);
-    data.append("last_name", editData.last_name);
-    data.append("bio", editData.bio);
-    data.append("email", editData.email);
-    data.append("phone", editData.phone);
-    data.append("city", editData.city);
-    data.append("adress", editData.adress);
-    data.append("gender", editData.gender);
-    data.append("birth_date", editData.birth_date);
-    //data.append("password", editData.password);
+    data.append(
+      "first_name",
+      editData.first_name ? editData.first_name : currentUser.first_name
+    );
+    data.append(
+      "last_name",
+      editData.last_name ? editData.last_name : currentUser.last_name
+    );
+    data.append("bio", editData.bio ? editData.bio : currentUser.bio);
+    data.append("email", editData.email ? editData.email : "");
+    data.append("phone", editData.phone ? editData.phone : currentUser.phone);
+    data.append("city", editData.city ? editData.city : currentUser.city);
+    data.append(
+      "adress",
+      editData.adress ? editData.adress : currentUser.adress
+    );
+    data.append(
+      "gender",
+      editData.gender ? editData.gender : currentUser.gender
+    );
+    data.append(
+      "birth_date",
+      editData.birth_date ? editData.birth_date : currentUser.birth_date
+    );
+
     data.append("img", img);
-    //console.log(data);
-    dispatch(editUser(data, idUser));
+    if (!editData.email) {
+      data.delete("email")
+    }
+    dispatch(editUser({ editData: data, idUser: idUser, token: true }));
   };
 
   const handleClickReturn = () => {

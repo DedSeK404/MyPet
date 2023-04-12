@@ -8,11 +8,11 @@ const {
 
 const upload = require("../tools/multer");
 
-const isOwner = require("../middlewares/authorization/IsOwner");
-const IsAuth = require("../middlewares/authorization/IsAuth");
+
 const {
   validator,
   AddPetRules,
+  EditPetRules,
 } = require("../middlewares/validators/bodyValidators");
 
 
@@ -45,7 +45,7 @@ router.get("/", getallpets);
 router.patch(
   "/edit", 
   upload("editpet").single("img"),
-  AddPetRules,
+ EditPetRules,
   validator,
   updatePet
 );

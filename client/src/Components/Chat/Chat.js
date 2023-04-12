@@ -69,7 +69,7 @@ const Chat = ({ ChatData }) => {
     }
   };
 
-  console.log(messageList);
+ 
   const handleShow = () => setShow(true);
   const [OfferData, setOfferData] = useState({});
   const [show, setShow] = useState(false);

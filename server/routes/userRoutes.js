@@ -7,6 +7,7 @@ const {
 const filterUsers = require("../middlewares/filterUsers");
 const upload = require("../tools/multer");
 const IsAuth = require("../middlewares/authorization/IsAuth");
+const { editUserRules, validator } = require("../middlewares/validators/bodyValidators");
 const router = express.Router();
 
 /**
@@ -17,8 +18,8 @@ const router = express.Router();
 router.patch(
   "/:iduser",
   upload("users").single("img"),
-  // editUserRules,
-  // validator,
+   editUserRules,
+   validator,
  
   updateuser
 );

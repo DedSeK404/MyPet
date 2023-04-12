@@ -31,7 +31,12 @@ const PetsEdit = ({ data, setShowEdit }) => {
   const [birthDay, setbirthDay] = useState(false);
   const [tag, setTag] = useState(false);
 
-  const [editData, setEditData] = useState({});
+  const [editData, setEditData] = useState({
+    name:data.name,
+    breed:data.breed,
+    gender:data.gender,
+    birth_date:data.birth_date
+  });
 
   const handleChange = (e) => {
     setEditData({ ...editData, [e.target.name]: e.target.value });
@@ -41,14 +46,31 @@ console.log(data.birth_date)
   const handleUpdate = () => {
     const data = new FormData();
 
-    data.append("img", img?img:data.img);
-    data.append("name", editData.name?editData.name:data.name);
-    data.append("tag", editData.tag?editData.tag:data.tag);
-    data.append("gender", editData.gender?editData.gender:data.gender);
-    data.append("breed", editData.breed?editData.breed:data.gender);
-    data.append("birth_date", editData.birth_date?editData.birth_date:data.birth_date);
+    data.append("img", img);
+    data.append("name", editData.name?editData.name:"");
+    data.append("tag", editData.tag?editData.tag:"");
+    data.append("gender", editData.gender?editData.gender:"");
+    data.append("breed", editData.breed?editData.breed:"");
+    data.append("birth_date", editData.birth_date?editData.birth_date:"");
     data.append("idpet", idpet);
-    dispatch(editpet(data));
+    if (!editData.name) {
+      data.delete("name")
+    }
+    if (!editData.tag) {
+      data.delete("tag")
+    }
+    if (!editData.gender) {
+      data.delete("gender")
+    }
+    if (!editData.breed) {
+      data.delete("breed")
+    }
+    if (!editData.birth_date) {
+      data.delete("birth_date")
+    }
+    
+    console.log(data)
+    dispatch(editpet(data)); 
     setShowEdit(true);
   };
 

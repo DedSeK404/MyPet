@@ -7,17 +7,24 @@ module.exports.addPet = async (req, res) => {
     //console.log(url);
     const { name } = req.body;
    
-    const existPet = await petModel.find({ user: req.user._id });
+    const existPet = await petModel.find({ user: req.body.user });
 
     const existingPet = existPet.find((el) => el.name == name);
 
     if (existingPet) {
       return res.status(400).send({ msg: "Pet is already added" });
     }
+    const image = req.file?{img: `${url}/${req.file.path}`}:"" 
+    const data = req.body
+    Object.keys(data).forEach(key => {
+      if (data[key] == "") {
+        delete data[key];
+      }
+    }); 
     const newPet = new petModel({
-      ...req.body,
-      img: `${url}/${req.file.path}`,
-      user: req.user._id,
+      ...data,
+      ...image
+      
     });
     await newPet.save();
     res.send({ msg: "pet added successfuly" });
@@ -37,15 +44,24 @@ module.exports.getallpets = async (req, res) => {
 
 module.exports.updatePet = async (req, res) => {
   try {
-    const { idpet } = req.body;
     const url = `${req.protocol}://${req.get("host")}`;
-    //console.log(req)
+    const { idpet } = req.body;
+    
+    const image = req.file?{img: `${url}/${req.file.path}`}:"" 
+    const data = req.body
+    Object.keys(data).forEach(key => {
+      if (data[key] == "") {
+        delete data[key]; 
+      }
+    }); 
+    console.log(data)
     const pet = await petModel.findByIdAndUpdate(
       idpet,
       {
         $set: {
-          ...req.body,
-          img: `${url}/${req.file.path}`,
+          ...data,
+       ...image,
+       birth_date: data.birth_date
         },
       },
       { new: true }
