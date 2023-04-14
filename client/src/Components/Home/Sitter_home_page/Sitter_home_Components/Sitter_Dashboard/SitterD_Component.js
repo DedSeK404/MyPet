@@ -9,7 +9,7 @@ import "./SitterDashboard.css";
 import Nav from "react-bootstrap/Nav";
 import Tab from "react-bootstrap/Tab";
 import { editoffer, getUniqueOffers } from "../../../../../JS/actions/offeractions";
-import { editUser } from "../../../../../JS/actions/usermanagementactions";
+import { editUser, editUserAvailability } from "../../../../../JS/actions/usermanagementactions";
 
 const SitterD_Component = ({ data }) => {
   const pets = useSelector((state) => state.petR.pets);
@@ -28,7 +28,7 @@ const SitterD_Component = ({ data }) => {
   const idoffer = data._id;
 
   const handleSubmitAccept = () => {
-    dispatch(editUser({ editData: { status: "busy" }, idUser: data.sitter,token:true }));  
+    dispatch(editUserAvailability({ editData: { status: "busy" }, idUser: data.sitter,token:true }));  
     dispatch(editoffer({ idoffer: idoffer, status: "active" })); 
     
     setDisabled(true);

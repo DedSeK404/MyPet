@@ -23,6 +23,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   deleteUser,
   editUser,
+  editUserAvailability,
 } from "../../../../JS/actions/usermanagementactions";
 import { useNavigate } from "react-router-dom";
 import Loading from "../../../Loading";
@@ -65,7 +66,8 @@ export default function EditSitterProfile({ show, setUnavailable }) {
       const editData = {
         status: currentUser.status == "available" ? "unavailable" : "available",
       };
-      dispatch(editUser({ editData, idUser, token: true }));
+      console.log(editData)
+      dispatch(editUserAvailability({ editData, idUser, token: true }));
     }
   };
 

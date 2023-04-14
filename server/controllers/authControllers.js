@@ -27,9 +27,11 @@ module.exports.signin = async (req, res) => {
         msg: "there is no account linked to this email, please make sure that you type the email correctly",
       });
     }
-    const match = comparePwd(password, existingUser.password);
+
+    const match = await comparePwd(password, existingUser.password);
+
     if (!match) {
-      return res.status(400).send({ msg: "the password you entered is wrong" });
+      return res.status(400).send({ msg: "the password you entered is incorrect" });
     }
     const payload = { userID: existingUser._id };
     const token = createtoken(payload);
@@ -48,8 +50,6 @@ module.exports.getCurrentUser = (req, res) => {
   try {
     res.send({ user: req.user });
   } catch (error) {
-    res.status(500).send({ msg: error.message });
+    res.status(500).send({ msg: error.message }); 
   }
 };
-
-

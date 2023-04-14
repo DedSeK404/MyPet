@@ -98,7 +98,7 @@ const Chat = ({ ChatData }) => {
     setMessageList([]);
     setTimeout(() => {
       dispatch(getallMessages())
-    }, 500);
+    }, 1000);
     
   };
   return (

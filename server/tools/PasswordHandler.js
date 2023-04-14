@@ -7,15 +7,9 @@ const hashPwd = async (pwd) => {
 };
 
 const comparePwd = async (pwd, bdpwd) => {
-  const match = bcrypt.compare(pwd, bdpwd, function (err, result) {
-    if (err) {
-      console.log(err);
-    }
-    return match;
-  });
+  const match = await bcrypt.compare(pwd, bdpwd) 
+  
+    return match
 };
-// const comparePwd = async (pwd, bdpwd) => {
-//   const match = await bcrypt.compare(pwd, bdpwd);
-//   return match;
-// };
+
 module.exports = { hashPwd, comparePwd };

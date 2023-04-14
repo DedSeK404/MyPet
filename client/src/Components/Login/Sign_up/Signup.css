@@ -5,11 +5,11 @@
     color: #755A58;
     background-image: url("../../../Assets/signup_owner.svg");
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: auto;
     border: none;
     background-color: transparent;
-    width: 30vw;
-    height: 80vh;
+    width: 400px;
+    height: 500px;
     transition: 0.3s;
 }
 .Signup_owner:hover{
@@ -19,11 +19,11 @@
     color: #755A58;
     background-image: url("../../../Assets/signup_owner.svg");
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: auto;
     border: none;
     background-color: transparent;
-    width: 30vw;
-    height: 80vh;
+    width: 400px;
+    height: 500px;
     scale: 1.05;
     transition: 0.3s;
 }
@@ -34,11 +34,11 @@
     color: #755A58;
     background-image: url("../../../Assets/signup_sitter.svg");
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: auto;
     border: none;
     background-color: transparent;
-    width: 30vw;
-    height: 80vh;
+    width: 400px;
+    height: 500px;
     transition: 0.3s;
 }
 .Signup_sitter:hover{
@@ -48,11 +48,11 @@
     color: #755A58;
     background-image: url("../../../Assets/signup_sitter.svg");
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: auto;
     border: none;
     background-color: transparent;
-    width: 30vw;
-    height: 80vh;
+    width: 400px;
+    height: 500px;
     scale: 1.05;
     transition: 0.3s;
 }
@@ -65,4 +65,5 @@
     background-image: url("../../../Assets/signup_bkg.svg");
     background-repeat: no-repeat;
     background-size: cover;
+    background-attachment: fixed;
 }

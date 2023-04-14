@@ -3,6 +3,8 @@ const {
   updateuser,
   deleteUser,
   getallSitters,
+  updateuserAvailability,
+  updatePassword,
 } = require("../controllers/userControllers");
 const filterUsers = require("../middlewares/filterUsers");
 const upload = require("../tools/multer");
@@ -19,7 +21,7 @@ router.patch(
   "/:iduser",
   upload("users").single("img"),
    editUserRules,
-   validator,
+   validator, 
  
   updateuser
 );
@@ -44,5 +46,25 @@ router.delete(
  * @access protected
  */
 router.get("/", filterUsers,  getallSitters);
+
+/**
+ * @route patch /user/available/:iduser
+ * @description update user availablility
+ * @access private
+ */
+router.patch(
+  "/available/:iduser",   
+  updateuserAvailability
+);
+
+/**
+ * @route patch /user/password/:iduser
+ * @description update password
+ * @access private
+ */
+router.patch(
+  "/password/:iduser",   
+  updatePassword
+);
 
 module.exports = router;

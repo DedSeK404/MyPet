@@ -15,8 +15,8 @@ function SignUp() {
   const handleShowRight = () => setShowRight(true);
 
   return (
-    <div className="Container">
-      <div className="Signup_container">
+    <div style={{height:"fit-content", minHeight:"100vh"}} className="Container">
+      <div  className="Signup_container">
         <h3
           style={{
             margin: "auto",
@@ -27,11 +27,13 @@ function SignUp() {
         >
           Choose which type of account you want to create
         </h3>
-        <Row>
-          <Col>
-            <button className="Signup_owner" onClick={handleShow}>
+        <Row sm={12}>
+          <Col sm={6}>
+            
+            <button  style={{border:"solid black 1px"}} className="Signup_owner" onClick={handleShow}>
               Owner Account
             </button>
+         
 
             <Offcanvas
               placement="start"
@@ -49,10 +51,12 @@ function SignUp() {
               </Offcanvas.Body>
             </Offcanvas>
           </Col>
-          <Col>
-            <button className="Signup_sitter" onClick={handleShowRight}>
+          <Col sm={6}>
+          
+            <button  style={{border:"solid black 1px"}} className="Signup_sitter" onClick={handleShowRight}>
               Sitter Account
             </button>
+          
 
             <Offcanvas
               placement="end"

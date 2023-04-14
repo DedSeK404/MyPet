@@ -186,7 +186,7 @@ const HireSitterCard = ({ data, setKey }) => {
                 }}
               >
                 <i class="fas fa-table"></i>
-                <span>Send Offer</span>
+                <span>Send offer</span>
               </div>
             </Button>
           ) : loading ? (
@@ -207,7 +207,7 @@ const HireSitterCard = ({ data, setKey }) => {
                 }}
               >
                 <i class="fas fa-table"></i>
-                <span>Send Offer</span>
+                <span>Cannot end offer</span>
               </div>
             </Button>
           ) : loading ? (
@@ -228,7 +228,7 @@ const HireSitterCard = ({ data, setKey }) => {
                 }}
               >
                 <i class="fas fa-table"></i>
-                <span>Send Offer</span>
+                <span>Cannot end offer</span>
               </div>
             </Button>
           ) : (

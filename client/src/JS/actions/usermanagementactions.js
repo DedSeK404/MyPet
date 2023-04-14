@@ -79,16 +79,70 @@ export const getallSitters = (city, available) => async (dispatch) => {
   dispatch({ type: USERLOADING });
   const opts = {
     headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-  };
+  }
+  console.log(city)
   try {
     const { data } = await axios.get(
-      `${baseURL}/${
-        city ? "?city=" + city :"" & available ? "?available=" + available : ""
-      }`,opts
+      `${baseURL}/${city ? "?city=" + city : available ? "?available=" + available : ""}`
+      ,opts
     );
+    
   
     dispatch({ type: GETALLSITTERSSUCCESS, payload: data });
   } catch (error) {
     dispatch({ type: USERFAILED, payload: error });
   }
 }; 
+
+
+
+/**
+ * @route patch /user/available/:iduser
+ * @description update user availablility
+ * @access private
+ */
+export const editUserAvailability = ({editData, idUser,token}) => async (dispatch) => {
+  dispatch({ type: USERLOADING });
+
+  try {
+    const { data } = await axios.patch(`${baseURL}available/${idUser}`, editData); 
+    
+    dispatch({ type: EDITUSER, payload: data.msg });
+    if (token) {
+      dispatch(getUser())
+    }
+    if (data.msg) {
+      alert(data.msg);
+    }
+  } catch (error) {
+    dispatch({ type: USERFAILED, payload: error });
+    console.log(error);
+  }
+};
+
+/**
+ * @route patch /user/password/:iduser
+ * @description update password
+ * @access private
+ */
+export const editPassword = (pass,iduser,oldpass) => async (dispatch) => { 
+  dispatch({ type: USERLOADING });
+console.log(pass,iduser)
+  try {
+    const { data } = await axios.patch(`${baseURL}password/${iduser}`, {password:pass,oldpassword:oldpass}); 
+    
+    dispatch({ type: EDITUSER, payload: data.msg });
+    console.log(data.msg)
+    if (data.msg=="password changed successfully") {
+      dispatch(getUser())
+    }
+     
+   
+    if (data.msg) {
+      alert(data.msg);
+    }
+  } catch (error) {
+    dispatch({ type: USERFAILED, payload: error });
+    console.log(error);
+  }
+};

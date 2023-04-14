@@ -1,4 +1,5 @@
 const userModel = require("../models/userModel");
+const { hashPwd, comparePwd } = require("../tools/PasswordHandler");
 
 module.exports.updateuser = async (req, res) => {
   const { email } = req.body;
@@ -61,6 +62,53 @@ module.exports.getallSitters = async (req, res) => {
     const sitters = await userModel.find({ role: "sitter" });
 
     res.send({ sitters });
+  } catch (error) {
+    res.send({ msg: error.message });
+  }
+};
+
+
+
+module.exports.updateuserAvailability = async (req, res) => {
+
+    const { iduser } = req.params;
+try{
+    const user = await userModel.findByIdAndUpdate(
+      iduser,
+      {
+        ...req.body
+      },
+      { new: true }
+    );
+    res.send({ updateduser: user });
+  } catch (error) {
+    res.send({ msg: error.message });
+  }
+};
+
+module.exports.updatePassword = async (req, res) => { 
+  try {
+    const { iduser } = req.params;
+    const {password}=req.body
+    const {oldpassword}=req.body
+    console.log(req.body.oldpassword)
+    const hashPassword = await hashPwd(password); 
+    const existingUser = await userModel.findOne({ _id:iduser });
+    console.log(existingUser)
+    const match = await comparePwd(oldpassword, existingUser.password);
+
+    if (!match) {
+      return res.send({ msg: "the old password you entered is incorrect" });
+    }
+    
+    const user = await userModel.findByIdAndUpdate(
+      iduser,
+      {
+       password: hashPassword
+      },
+      { new: true }
+    );
+    res.send({ msg: "password changed successfully" });
   } catch (error) {
     res.send({ msg: error.message });
   }

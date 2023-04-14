@@ -118,6 +118,7 @@ const SitterDashboard = ({ setStatus }) => {
                   name="city"
                   onChange={handleCheck}
                 >
+                  <option value="" >Please select an option</option>
                   <option value="">show all</option>
                   <option value="unknown">New</option>
                   <option value="active">Ongoing</option>

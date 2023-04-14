@@ -11,7 +11,7 @@ import Box from "@mui/material/Box";
 import { useDispatch, useSelector } from "react-redux";
 import { addReview } from "../../../JS/actions/reviewactions";
 import { editoffer, getUniqueOffers } from "../../../JS/actions/offeractions";
-import { editUser } from "../../../JS/actions/usermanagementactions";
+import { editUser, editUserAvailability } from "../../../JS/actions/usermanagementactions";
 import Cheers from "../../../Assets/Cheers.svg"
 
 const ReviewModalComponent = ({ data, setShow }) => {
@@ -36,7 +36,7 @@ const ReviewModalComponent = ({ data, setShow }) => {
     dispatch(addReview({ ...review, ...rate }));
     dispatch(editoffer({ idoffer: idoffer, status: "completed" }));
     dispatch(
-      editUser({ editData: { status: "available" }, idUser: data.sitter })
+      editUserAvailability({ editData: { status: "available" }, idUser: data.sitter })
     );
     window.scrollTo(0, 0);
     dispatch(getUniqueOffers(currentUser._id));

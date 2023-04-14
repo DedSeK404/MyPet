@@ -6,8 +6,7 @@ import Row from "react-bootstrap/Row";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addUser } from "../../../../JS/actions/useraction";
-import Toast from "react-bootstrap/Toast";
-import ToastContainer from "react-bootstrap/ToastContainer";
+
 
 const SitterForm = () => {
   const [validated, setValidated] = useState(false);

@@ -21,6 +21,7 @@ import {
 import { motion, AnimatePresence } from "framer-motion";
 import {
   deleteUser,
+  editPassword,
   editUser,
 } from "../../../../JS/actions/usermanagementactions";
 import { useNavigate } from "react-router-dom";
@@ -121,10 +122,10 @@ export default function EditOwnerProfile({ show }) {
     );
 
     data.append("img", img);
-    if (!editData.email) { 
-      data.delete("email")
+    if (!editData.email) {
+      data.delete("email");
     }
-console.log(data)
+
     dispatch(editUser({ editData: data, idUser: idUser, token: true }));
   };
 
@@ -137,7 +138,24 @@ console.log(data)
     dispatch(deleteUser(userid, navigate));
     setShow(false);
   };
+  const [pass, setpass] = useState("");
+  const [oldpass, setOldpass] = useState("");
+  const resetPassword = () => {
+    dispatch(editPassword(pass, currentUser._id, oldpass));
+  };
 
+  const [icon, showIcon] = useState(false);
+  const [newicon, showNewIcon] = useState(false);
+  const [oldpassword, showOldPassword] = useState(false);
+  const [newpassword, showNewPassword] = useState(false);
+  const handleShowOldPass = () => {
+    showOldPassword(!oldpassword);
+    showIcon(!icon);
+  };
+  const handleShowNewPass = () => {
+    showNewPassword(!newpassword);
+    showNewIcon(!newicon);
+  };
   return (
     <section style={{ backgroundColor: "transparent", marginTop: "-3%" }}>
       <MDBContainer className="py-5 h-50">
@@ -650,7 +668,7 @@ console.log(data)
                     </MDBTypography>
                     <hr className="mt-0 mb-4" />
                     <MDBRow className="pt-2">
-                      <MDBCol size="6" className="mb-3">
+                      <MDBCol size="12" className="mb-3">
                         <MDBTypography tag="h6">
                           Password{" "}
                           <Button
@@ -676,14 +694,80 @@ console.log(data)
                                     duration: 0.8,
                                     ease: [0, 0.71, 0.2, 1.01],
                                   }}
+                                  style={{
+                                    display: "flex",
+                                    gap: "10px",
+                                    justifyContent: "space-between",
+                                  }}
                                 >
-                                  <Form.Control
-                                    name="password"
-                                    onChange={handleChange}
-                                    type="password"
-                                    placeholder=""
-                                  />
+                                  <div>
+                                    <div
+                                      style={{
+                                        display: "flex",
+                                        gap: "5px",
+                                        alignItems: "center",
+                                      }}
+                                    >
+                                      <Form.Control
+                                        name="password"
+                                        onChange={(e) =>
+                                          setOldpass(e.target.value)
+                                        }
+                                        type={oldpassword ? "text" : "password"}
+                                        placeholder="Type old password"
+                                      />
 
+                                      <Form.Group
+                                        as={Col}
+                                        md="0"
+                                        controlId="validationCustom02"
+                                      >
+                                        <div
+                                          onClick={handleShowOldPass}
+                                          onSubmit={""}
+                                          className={
+                                            icon ? "hide_icon" : "show_icon"
+                                          }
+                                        ></div>
+                                      </Form.Group>
+                                    </div>
+                                    <div
+                                      style={{
+                                        display: "flex",
+                                        gap: "5px",
+                                        alignItems: "center",
+                                      }}
+                                    >
+                                      <Form.Control
+                                        name="password"
+                                        onChange={(e) =>
+                                          setpass(e.target.value)
+                                        }
+                                        type={newpassword ? "text" : "password"}
+                                        placeholder="Type new password"
+                                      />
+
+                                      <Form.Group
+                                        as={Col}
+                                        md="0"
+                                        controlId="validationCustom02"
+                                      >
+                                        <div
+                                          onClick={handleShowNewPass}
+                                          onSubmit={""}
+                                          className={
+                                            newicon ? "hide_icon" : "show_icon"
+                                          }
+                                        ></div>
+                                      </Form.Group>
+                                    </div>
+                                  </div>
+                                  <Button
+                                    variant="success"
+                                    onClick={resetPassword}
+                                  >
+                                    Save password
+                                  </Button>
                                   <Form.Text className="text-muted"></Form.Text>
                                 </motion.div>
                               </AnimatePresence>
@@ -693,7 +777,7 @@ console.log(data)
                           )}
                         </MDBCardText>
                       </MDBCol>
-                      <MDBCol size="6" className="mb-3">
+                      <MDBCol size="6">
                         <MDBCardText className="text-muted">
                           <AnimatePresence>
                             <motion.div
@@ -705,14 +789,6 @@ console.log(data)
                               }}
                             >
                               <>
-                                <Button
-                                  variant="danger"
-                                  size="sm"
-                                  onClick={handleShow}
-                                >
-                                  <i class="fas fa-eraser"></i> Delete profile
-                                </Button>
-
                                 <Modal show={shows} onHide={handleClose}>
                                   <Modal.Header
                                     style={{ background: "white" }}
@@ -750,6 +826,7 @@ console.log(data)
                       style={{
                         display: "flex",
                         justifyContent: "space-between",
+                        gap: "10px",
                       }}
                     >
                       <Button
@@ -757,6 +834,9 @@ console.log(data)
                         variant="outline-info"
                       >
                         Return to Profile
+                      </Button>
+                      <Button variant="danger" size="sm" onClick={handleShow}>
+                        <i class="fas fa-eraser"></i> Delete profile
                       </Button>
                       <OverlayTrigger
                         trigger="click"

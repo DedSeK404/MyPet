@@ -12,7 +12,7 @@ import {
   editoffer,
   getUniqueOffers,
 } from "../../../../../JS/actions/offeractions";
-import { editUser } from "../../../../../JS/actions/usermanagementactions";
+import { editUser, editUserAvailability } from "../../../../../JS/actions/usermanagementactions";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import ReviewModalComponent from "../../../Reviews/ReviewModalComponent";
 import Button from "react-bootstrap/Button";
@@ -69,7 +69,7 @@ const OwnerD_Component = ({ data }) => {
     setShowComplete(false);
     dispatch(editoffer({ idoffer: idoffer, status: "completed" }));
     dispatch(
-      editUser({ editData: { status: "available" }, idUser: data.sitter })
+      editUserAvailability({ editData: { status: "available" }, idUser: data.sitter })
     );
     window.scrollTo(0, 0)
     dispatch(getUniqueOffers(CurrentUser._id));
