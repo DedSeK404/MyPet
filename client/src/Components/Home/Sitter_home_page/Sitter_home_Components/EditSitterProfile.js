@@ -27,8 +27,7 @@ import {
   editUserAvailability,
 } from "../../../../JS/actions/usermanagementactions";
 import { useNavigate } from "react-router-dom";
-import Loading from "../../../Loading";
-import { getUser } from "../../../../JS/actions/useraction";
+
 
 export default function EditSitterProfile({ show, setUnavailable }) {
   const [img, setimg] = useState("");

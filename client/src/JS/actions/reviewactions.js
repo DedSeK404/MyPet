@@ -29,7 +29,7 @@ export const addReview = (reviewData) => async (dispatch) => {
   
     alert(`${res.data.msg}`);
     dispatch({ type: ADDREVIEWSUCCESS });
-    dispatch(getallSitters());
+    dispatch(getallSitters()); 
     dispatch(getallpets());
   } catch (error) {
     console.log(error);

@@ -11,15 +11,17 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import SitterD_Component from "./SitterD_Component";
 import { getallpets } from "../../../../../JS/actions/petactions";
-import { getallOwners } from "../../../../../JS/actions/offeractions";
-import { Col, Form } from "react-bootstrap";
+import { getUniqueOffers, getallOwners, getalloffers } from "../../../../../JS/actions/offeractions";
+import { Button, Col, Form, Row } from "react-bootstrap";
 import Loading from "../../../../Loading";
 import OngoingOwner from "../../../../../Assets/ongoing_sitter.svg";
+import { getOnlyUser } from "../../../../../JS/actions/usermanagementactions";
+
 
 const SitterDashboard = ({ setStatus }) => {
   const offers = useSelector((state) => state.offerR.uniqueOffers);
   const loading = useSelector((state) => state.offerR.loading);
- 
+  const currentUser = useSelector((state) => state.userR.currentUser);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getallOwners());
@@ -60,8 +62,44 @@ const SitterDashboard = ({ setStatus }) => {
     setcheck(e.target.value);
   };
   setStatus(check);
+  const handleRefresh= () =>{
+    dispatch(getOnlyUser(currentUser._id)) 
+    dispatch(getUniqueOffers(currentUser._id))
+  }
   return (
     <AnimatePresence>
+       <Row style={{display:"flex"}}>
+       <Col sm={2}>
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <Col sm={2}>
+                <div style={{display:"flex", gap:"5px"}}>
+                  <p>Filter</p> <p style={{ color: "green" }}>Jobs</p>
+                </div>
+              </Col>
+              
+            </div>
+          </Col>
+      <Col sm={8}>
+                <Form.Select
+                  as={Col}
+                  sm="8"
+                  controlId="validationCustom04"
+                  name="city"
+                  onChange={handleCheck}
+                >
+                  <option value="" >Please select an option</option>
+                  <option value="">show all</option>
+                  <option value="unknown">New</option>
+                  <option value="active">Ongoing</option>
+                  <option value="declined">Declined</option>
+                  <option value="completed">Completed</option>
+                </Form.Select>
+              </Col>
+              <Col sm={2}>
+              <Button onClick={handleRefresh} variant="info">Refresh Jobs</Button>
+              </Col> 
+              </Row>
+           
       <>
         {showTopBtn && (
           <button
@@ -103,32 +141,7 @@ const SitterDashboard = ({ setStatus }) => {
             </motion.section>
            :
         <>
-          <Col>
-            <div style={{ display: "flex", alignItems: "center" }}>
-              <Col sm={2}>
-                <label class="form-check-label" for="flexSwitchCheckDefault">
-                  Filter <span style={{ color: "green" }}>Jobs</span>
-                </label>
-              </Col>
-              <Col sm={10}>
-                <Form.Select
-                  as={Col}
-                  sm="8"
-                  controlId="validationCustom04"
-                  name="city"
-                  onChange={handleCheck}
-                >
-                  <option value="" >Please select an option</option>
-                  <option value="">show all</option>
-                  <option value="unknown">New</option>
-                  <option value="active">Ongoing</option>
-                  <option value="declined">Declined</option>
-                  <option value="completed">Completed</option>
-                </Form.Select>
-              </Col>
-            </div>
-          </Col>
-           
+         
             <>
               {loading ? (
                 <Loading />

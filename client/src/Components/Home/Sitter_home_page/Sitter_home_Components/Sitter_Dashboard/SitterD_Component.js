@@ -17,8 +17,11 @@ const SitterD_Component = ({ data }) => {
 
    //console.log(owners);
   //console.log(data);
+  const currentUserR = useSelector((state) => state.userR.currentUserR);
+  // console.log(currentUserR)
   const CurrentUser = useSelector((state) => state.userR.currentUser);
-  const isBusy = CurrentUser.status;
+  const isBusy = currentUserR.status;
+  // console.log(isBusy)
   const dispatch = useDispatch();
   const Offerstatus = data.status;
   const [disabled, setDisabled] = useState(isBusy == "busy" ? true : false); 
@@ -28,15 +31,15 @@ const SitterD_Component = ({ data }) => {
   const idoffer = data._id;
 
   const handleSubmitAccept = () => {
-    dispatch(editUserAvailability({ editData: { status: "busy" }, idUser: data.sitter,token:true }));  
-    dispatch(editoffer({ idoffer: idoffer, status: "active" })); 
+    
+    dispatch(editoffer({ idoffer: idoffer, status: "active", idUser: data.sitter, CurrentUser:CurrentUser._id  })); 
     
     setDisabled(true);
   }; 
 
   const handleSubmitDecline = () => {
-    dispatch(editoffer({ idoffer: idoffer, status: "declined" }));
-    dispatch(getUniqueOffers(CurrentUser._id))
+    dispatch(editoffer({ idoffer: idoffer, status: "declined", CurrentUser:CurrentUser._id }));
+   
     setDisabledD(true);
   };
 

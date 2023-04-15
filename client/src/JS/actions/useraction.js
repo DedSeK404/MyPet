@@ -6,6 +6,7 @@ import {
   SIGNUPSUCCESS,
   CURRENTUSERAUTH,
   LOGOUT,
+  CURRENTUSERFORREVIEW,
 } from "../actiontypes/usertypes";
 
 const baseURL="http://localhost:4500/auth/"
@@ -92,6 +93,31 @@ export const getUser = () => async (dispatch) => {
     
     const { data } = await axios.get(baseURL, opts);
     dispatch({ type: CURRENTUSERAUTH, payload: data.user });
+    if (data.msg) {
+      alert(data.msg);
+    }
+  } catch (error) {
+    dispatch({ type: AUTHFAILED, payload: error });
+    console.log(error);
+
+ 
+  }
+};
+
+
+/**
+//  *@method GET /auth/
+//  *@description  utilisateur authentifié
+//  *@access private
+//  */
+export const getUserforReview = (userid) => async (dispatch) => {
+  dispatch({ type: LOADING });
+  
+ 
+  try {
+    
+    const { data } = await axios.get(`${baseURL}/${userid}`);
+    dispatch({ type: CURRENTUSERFORREVIEW, payload: data.user });
     if (data.msg) {
       alert(data.msg);
     }

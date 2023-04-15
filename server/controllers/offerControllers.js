@@ -2,8 +2,17 @@ const offerModel = require("../models/OfferModel");
 const petModel = require("../models/PetModel");
 const userModel = require("../models/userModel");
 // post offer
-module.exports.postOffer = async (req, res) => {
+module.exports.postOffer = async (req, res) => { 
+
+  const { sitter } = req.body;
+ 
+   
   try {
+    const userAvailable = await userModel.findOne({ _id:sitter });
+    if (userAvailable.status=="unavailable"||userAvailable.status=="busy") {
+      return res.send({ msg: "Sitter is currently unavailable for work" }); 
+    }
+
     const newOffer = new offerModel({
       ...req.body,
     });
@@ -48,6 +57,14 @@ module.exports.updateOffer = async (req, res) => {
   try {
     const { idoffer } = req.body;
     const { status } = req.body;
+
+    const offerState = await offerModel.findOne({ _id:idoffer });
+    console.log(offerState)
+    if (offerState==null) {
+      return res.send({ msg: "The Sitter deleted the offer" });   
+    } 
+
+
     const offerStatus = await offerModel.findByIdAndUpdate(
       idoffer,
       {
@@ -72,8 +89,16 @@ module.exports.updateOffer = async (req, res) => {
 };
 
 module.exports.deleteOffer = async (req, res) => {
+  
   try {
-    const { offerid } = req.params;
+    const { offerid } = req.params; 
+
+    const offerStatus = await offerModel.findOne({ _id:offerid });
+    
+    if (offerStatus.status=="declined"||offerStatus.status=="active") {
+      return res.send({ msg: "The Sitter already accepted or declined the offer" });   
+    }
+
 
     const deleteOffer = await offerModel.findByIdAndRemove(offerid);
     res.send({ msg: "offer deleted successfully" });

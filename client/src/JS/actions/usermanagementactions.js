@@ -7,6 +7,7 @@ import {
   USERLOADING,
 } from "../actiontypes/usermanagementtypes";
 import { getUser } from "./useraction";
+import { CURRENTUSERFORREVIEW } from "../actiontypes/usertypes";
 
 /**
  * @route patch /user/:iduser
@@ -114,6 +115,7 @@ export const editUserAvailability = ({editData, idUser,token}) => async (dispatc
     if (data.msg) {
       alert(data.msg);
     }
+    
   } catch (error) {
     dispatch({ type: USERFAILED, payload: error });
     console.log(error);
@@ -146,3 +148,23 @@ console.log(pass,iduser)
     console.log(error);
   }
 };
+
+
+/**
+//  *@method GET /auth/userid
+//  *@description  utilisateur authentifié
+//  *@access private
+//  */
+export const getOnlyUser = (userid) => async (dispatch) => {
+  dispatch({ type: USERLOADING });
+  console.log(userid)
+  try {
+    const { data } = await axios.get(
+      `http://localhost:4500/auth/${userid}`
+      
+    ); 
+    dispatch({ type: CURRENTUSERFORREVIEW, payload: data });
+  } catch (error) {
+    dispatch({ type: USERFAILED, payload: error });
+  }
+}; 

@@ -12,13 +12,15 @@ import { getUniqueOffers } from "../../../JS/actions/offeractions";
 import { getUniqueReviews } from "../../../JS/actions/reviewactions";
 import Logo from "../../../Assets/Logo.svg";
 import Messages from "../../Chat/Messages";
+import { getallMessages } from "../../../JS/actions/roomactions";
+import { getOnlyUser } from "../../../JS/actions/usermanagementactions";
 
 const SitterHome = ({ setUnavailable }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [status, setStatus] = useState("") 
   const currentUser = useSelector((state) => state.userR.currentUser);
- 
+  
   useEffect(() => {
     window.scrollTo(0,0)
     //dispatch(getalloffers(status)); 
@@ -30,8 +32,18 @@ const SitterHome = ({ setUnavailable }) => {
     dispatch(logout());
     navigate("/login");
   };
+  const [key, setKey] = useState('Dashboard')
+  if (key=="Dashboard") {
+    dispatch(getOnlyUser(currentUser._id))  
+    dispatch(getUniqueOffers(currentUser._id))
+   }
+   if (key=="Messages") {
+    dispatch(getallMessages())
+   }
+
   return (
     <div className="Home_Container" style={{ height: "max-content", minHeight:"100vh" }}>
+      
       <Container fluid>
         <Row>
           <Col sm={2}>
@@ -44,10 +56,11 @@ const SitterHome = ({ setUnavailable }) => {
           <Col sm={8}>
             {" "}
             <Tabs
-              defaultActiveKey="Dashboard"
-              id="fill-tab-example"
-              className="mb-3"
-              fill
+             id="controlled-tab-example"
+             activeKey={key}
+             onSelect={(k) => setKey(k)} 
+             className="mb-3"
+             fill
             >
               <Tab eventKey="Dashboard" title="Dashboard">
                 <SitterDashboard setStatus={setStatus} />

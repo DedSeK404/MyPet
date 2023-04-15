@@ -10,8 +10,8 @@ import Rating from "@mui/material/Rating";
 import Box from "@mui/material/Box";
 import { useDispatch, useSelector } from "react-redux";
 import { addReview } from "../../../JS/actions/reviewactions";
-import { editoffer, getUniqueOffers } from "../../../JS/actions/offeractions";
-import { editUser, editUserAvailability } from "../../../JS/actions/usermanagementactions";
+import { editoffer } from "../../../JS/actions/offeractions";
+import {  editUserAvailability } from "../../../JS/actions/usermanagementactions";
 import Cheers from "../../../Assets/Cheers.svg"
 
 const ReviewModalComponent = ({ data, setShow }) => {
@@ -32,14 +32,12 @@ const ReviewModalComponent = ({ data, setShow }) => {
   const handleChange = (e) => {
     setReview({ ...review, [e.target.name]: e.target.value });
   };
-  const handleSubmit = () => {
-    dispatch(addReview({ ...review, ...rate }));
-    dispatch(editoffer({ idoffer: idoffer, status: "completed" }));
-    dispatch(
-      editUserAvailability({ editData: { status: "available" }, idUser: data.sitter })
-    );
+  const handleSubmit = () => { 
+    dispatch(addReview({ ...review, ...rate })); 
+    dispatch(editoffer({ idoffer: idoffer, status: "completed", CurrentUser: currentUser._id, iduser: data.sitter }));
+   
     window.scrollTo(0, 0);
-    dispatch(getUniqueOffers(currentUser._id));
+    
     setShow(false);
   };
 

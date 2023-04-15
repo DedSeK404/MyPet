@@ -16,7 +16,7 @@ const HireSitterCard = ({ data, setKey }) => {
   const loading = useSelector((state) => state.userM.loading);
   const currentUser = useSelector((state) => state.userR.currentUser);
 
-  const [show, setShow] = useState(false); 
+  const [show, setShow] = useState(false);
   const handleClose = () => {
     setOfferData({});
     setShow(false);
@@ -33,20 +33,29 @@ const HireSitterCard = ({ data, setKey }) => {
   const handleCloseMessageModal = () => setShowMessageModal(false);
   const handleShowMessageModal = () => setShowMessageModal(true);
 
-  const [messageData, setMessageData]=useState("")
-  const handleChangeMessage=(e)=>{
-    setMessageData({sitter:data._id, client:currentUser._id, messages:[{role:"client",message:e.target.value,created_on: new Date(Date.now()).getHours() +
-    ":" +
-    new Date(Date.now()).getMinutes()}] })
-    
-  }
-// console.log(messageData)
-  const handleSendMessage = ()=>{
-    dispatch(addRoom(messageData))
-    handleCloseMessageModal()
-    setKey("Messages")
-    
-  }
+  const [messageData, setMessageData] = useState("");
+  const handleChangeMessage = (e) => {
+    setMessageData({
+      sitter: data._id,
+      client: currentUser._id,
+      messages: [
+        {
+          role: "client",
+          message: e.target.value,
+          created_on:
+            new Date(Date.now()).getHours() +
+            ":" +
+            new Date(Date.now()).getMinutes(),
+        },
+      ],
+    });
+  };
+
+  const handleSendMessage = () => {
+    dispatch(addRoom(messageData));
+    handleCloseMessageModal();
+    setKey("Messages");
+  };
   return (
     <div className="col col-md-9 col-lg-7 col-xl-5">
       <div
@@ -144,7 +153,6 @@ const HireSitterCard = ({ data, setKey }) => {
                     <FloatingLabel
                       controlId="floatingTextarea2"
                       label="Message"
-                      
                     >
                       <Form.Control
                         as="textarea"
@@ -155,7 +163,10 @@ const HireSitterCard = ({ data, setKey }) => {
                     </FloatingLabel>
                   </Modal.Body>
                   <Modal.Footer style={{ background: "white" }}>
-                    <Button variant="secondary" onClick={handleCloseMessageModal}>
+                    <Button
+                      variant="secondary"
+                      onClick={handleCloseMessageModal}
+                    >
                       Close
                     </Button>
                     <Button variant="primary" onClick={handleSendMessage}>
@@ -207,7 +218,7 @@ const HireSitterCard = ({ data, setKey }) => {
                 }}
               >
                 <i class="fas fa-table"></i>
-                <span>Cannot end offer</span>
+                <span>Cannot send offer</span>
               </div>
             </Button>
           ) : loading ? (
@@ -228,7 +239,7 @@ const HireSitterCard = ({ data, setKey }) => {
                 }}
               >
                 <i class="fas fa-table"></i>
-                <span>Cannot end offer</span>
+                <span>Cannot send offer</span>
               </div>
             </Button>
           ) : (
@@ -240,8 +251,7 @@ const HireSitterCard = ({ data, setKey }) => {
             data={data}
             setOfferData={setOfferData}
             OfferData={OfferData}
-            
-          /> 
+          />
         </div>
       </div>
 

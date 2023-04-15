@@ -1,5 +1,5 @@
 const express = require("express");
-const { Signup, signin, getCurrentUser, updateuser } = require("../controllers/authControllers");
+const { Signup, signin, getCurrentUser, updateuser, getCurrentUserforReview } = require("../controllers/authControllers");
 const IsAuth = require("../middlewares/authorization/IsAuth");
 const { validator, registerRules, loginRules, editUserRules } = require("../middlewares/validators/bodyValidators");
 const router = express.Router();
@@ -30,5 +30,12 @@ module.exports = router
  *@description  utilisateur authentifié
  *@access private
  */
- router.get("/",IsAuth(), getCurrentUser)
+ router.get("/",IsAuth(), getCurrentUser) 
+
+ /**
+ *@method GET /auth/
+ *@description  utilisateur authentifié
+ *@access private
+ */
+ router.get("/:userid", getCurrentUserforReview) 
 

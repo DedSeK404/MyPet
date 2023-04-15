@@ -2,10 +2,11 @@ import React from "react";
 import { Button } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import NotFoundPic from "../../Assets/404.svg"
 
 const NotFound = () => {
   const currentUser = useSelector((state) => state.userR.currentUser);
-  //console.log(currentUser.role);
+  
   return (
     <div>
       <div className="d-grid gap-2">
@@ -16,7 +17,7 @@ const NotFound = () => {
         </Link>
       </div>
       <img
-        src="https://i.ibb.co/dc7sw3X/404.png"
+        src={NotFoundPic}
         alt="0"
         style={{ width: "100vw" }}
       />

@@ -53,3 +53,15 @@ module.exports.getCurrentUser = (req, res) => {
     res.status(500).send({ msg: error.message }); 
   }
 };
+
+module.exports.getCurrentUserforReview = async (req, res) => { 
+  try { 
+const {userid}=req.params
+const current = await userModel.findOne({ _id:userid })
+console.log(current)
+
+    res.send( current );
+  } catch (error) {
+    res.status(500).send({ msg: error.message }); 
+  }
+};

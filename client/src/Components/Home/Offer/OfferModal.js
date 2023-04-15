@@ -11,7 +11,7 @@ import { addOffer, getUniqueOffers } from "../../../JS/actions/offeractions";
 function OfferModal({ handleClose, show, data,OfferData,setOfferData }) {
   const dispatch=useDispatch()
  
-//console.log(data) 
+
   const pets = useSelector((state) => state.petR.pets);
 
   const currentUser = useSelector((state) => state.userR.currentUser);
@@ -20,6 +20,7 @@ function OfferModal({ handleClose, show, data,OfferData,setOfferData }) {
   };
 
   const handleClick = () => { 
+    
     dispatch(addOffer(OfferData))
     dispatch(getUniqueOffers(currentUser._id)) 
     handleClose()

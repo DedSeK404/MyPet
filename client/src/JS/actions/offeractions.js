@@ -6,11 +6,12 @@ import {
   GETALLOFFERSSUCCESS,
   GETALLOWNERS,
   GETUNIQUEOFFERS,
+  OFFERCOMPLETED,
   OFFERFAILED,
   OFFERLOADING,
 } from "../actiontypes/offertypes";
 import { getallReviews } from "./reviewactions";
-import { getallSitters } from "./usermanagementactions";
+import { editUserAvailability, getallSitters } from "./usermanagementactions";
 
 const baseURL = "http://localhost:4500/offer";
 
@@ -31,7 +32,13 @@ export const addOffer = (offerData) => async (dispatch) => {
 
   try {
     const res = await axios.post(baseURL + "/add", offerData, opts);
-    //console.log("res", res.data);
+    if (res.data.msg=="Sitter is currently unavailable for work") {
+      
+      
+       alert(`${res.data.msg}`);
+       dispatch({ type: OFFERFAILED });
+      return dispatch(getallSitters());
+    }
     alert(`${res.data.msg}`);
     dispatch({ type: ADDOFFERSUCCESS });
     dispatch(getallSitters());
@@ -97,17 +104,53 @@ export const editoffer = (offerEdit) => async (dispatch) => {
   dispatch({
     type: OFFERLOADING,
   });
-  console.log(offerEdit);
+
+  
+  const {idUser}=offerEdit
+  const {CurrentUser}=offerEdit
+  const {status}=offerEdit
+  const {iduser}=offerEdit
+
+  console.log(status);
   const opts = {
     headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
   };
   try {
     const { data } = await axios.patch(baseURL + "/edit", offerEdit, opts);
 
-    // alert(`${data.msg}`);
+    console.log(data.msg)
+if (data.msg=="Offer accepted") {
+  dispatch(editUserAvailability({ editData: { status: "busy" }, idUser: idUser,token:true })); 
+  return dispatch(getUniqueOffers(CurrentUser))
+}
+
+    
+    if (data.msg=="The Sitter already accepted or declined the offer") { 
+      alert(`${data.msg}`)
+      
+      return dispatch({ type: OFFERFAILED })
+    }
+    if (data.msg=="The Sitter deleted the offer") { 
+      alert(`${data.msg}`)
+      dispatch({ type: OFFERFAILED })
+      
+      return dispatch(getUniqueOffers(CurrentUser));
+    }
+
+    if (status=="completed") { 
+      
+      dispatch({ type: OFFERCOMPLETED});
+      dispatch(
+        editUserAvailability({ editData: { status: "available" }, idUser: iduser })
+      );
+      dispatch(getallSitters());
+      return   dispatch(getUniqueOffers(CurrentUser));
+    }
+
     dispatch({ type: ACCEPT_DECLINE_OFFER, payload: data.msg });
     dispatch(getallSitters());
     dispatch(getallReviews());
+    dispatch(getUniqueOffers(CurrentUser));
   } catch (error) {
     dispatch({ type: OFFERFAILED, payload: error });
     console.log(error);
@@ -115,7 +158,7 @@ export const editoffer = (offerEdit) => async (dispatch) => {
 };
 
 /**
- * @route delete /offer/delete
+ * @route delete /offer/delete 
  * @description delete  offer
  * @access protected
  */

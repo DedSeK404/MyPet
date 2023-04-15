@@ -12,36 +12,46 @@ import { useNavigate } from "react-router-dom";
 import OwnerDashboard from "./Owner_home_Components/Owner_Dashboard/OwnerDashboard";
 import HireSitter from "./HireSitter/HireSitter";
 import { getallSitters } from "../../../JS/actions/usermanagementactions";
-import { getalloffers, getallOwners, getUniqueOffers } from "../../../JS/actions/offeractions";
+import { getallOwners, getUniqueOffers } from "../../../JS/actions/offeractions";
 import { getallReviews } from "../../../JS/actions/reviewactions";
 import Logo from "../../../Assets/Logo.svg"
 import Messages from "../../Chat/Messages";
+import { getallMessages } from "../../../JS/actions/roomactions";
 
  
 const OwnerHome = () => {
   const currentUser = useSelector((state) => state.userR.currentUser);
   const [city, setCity] = useState("")
   const [available, setAvailable] = useState("")
-  //console.log(available)
+  
   const navigate = useNavigate();
   const dispatch = useDispatch();
 const [status, setStatus] = useState("") 
   useEffect(() => {
     window.scrollTo(0,0)
-    //dispatch(getalloffers(status))
+    
     dispatch(getallpets());
     dispatch(getallSitters(city,available));
     dispatch(getallReviews())
     dispatch(getallOwners())
     dispatch(getUniqueOffers(currentUser._id,status)); 
   }, [city,available,status]);
-//console.log(status)
+
   const handleClick = () => {
     dispatch(logout());
     navigate("/login");
   };
   const [key, setKey] = useState('Dashboard')
-   
+   console.log(key)
+   if (key=="Hire a Sitter") {
+    dispatch(getallSitters())
+   }
+   if (key=="Dashboard") {
+    dispatch(getUniqueOffers(currentUser._id))
+   }
+   if (key=="Messages") {
+    dispatch(getallMessages())
+   }
   return (
     <div
       className="Home_Container"
@@ -87,7 +97,7 @@ const [status, setStatus] = useState("")
           <Col sm={2}>
             <Button className="logout" onClick={handleClick}>
               logout
-            </Button>
+            </Button>           
           </Col>
         </Row>
       </Container>

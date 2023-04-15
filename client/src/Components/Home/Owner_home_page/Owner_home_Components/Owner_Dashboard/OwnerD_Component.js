@@ -12,13 +12,14 @@ import {
   editoffer,
   getUniqueOffers,
 } from "../../../../../JS/actions/offeractions";
-import { editUser, editUserAvailability } from "../../../../../JS/actions/usermanagementactions";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import ReviewModalComponent from "../../../Reviews/ReviewModalComponent";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
 const OwnerD_Component = ({ data }) => {
+ 
+
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -65,14 +66,12 @@ const OwnerD_Component = ({ data }) => {
     setShow(true);
     setDisabled(true);
   };
-  const handleMarkAsComplete = () => {
+  const handleMarkAsComplete = () => {  
     setShowComplete(false);
-    dispatch(editoffer({ idoffer: idoffer, status: "completed" }));
-    dispatch(
-      editUserAvailability({ editData: { status: "available" }, idUser: data.sitter })
-    );
+    dispatch(editoffer({ idoffer: idoffer, status: "completed", CurrentUser:CurrentUser._id , iduser: data.sitter })); 
+   
     window.scrollTo(0, 0)
-    dispatch(getUniqueOffers(CurrentUser._id));
+    
 
     setDisabled(true);
   };

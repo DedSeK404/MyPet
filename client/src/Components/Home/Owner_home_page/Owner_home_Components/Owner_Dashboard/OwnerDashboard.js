@@ -15,8 +15,9 @@ import OwnerD_Component from "./OwnerD_Component";
 import { getallSitters } from "../../../../../JS/actions/usermanagementactions";
 import { getUser } from "../../../../../JS/actions/useraction";
 import Col from "react-bootstrap/esm/Col";
-import { Form } from "react-bootstrap";
+import { Button, Form, Row } from "react-bootstrap";
 import Loading from "../../../../Loading";
+import { getUniqueOffers } from "../../../../../JS/actions/offeractions";
 
 const OwnerDashboard = ({ setStatus }) => {
   const dispatch = useDispatch();
@@ -67,6 +68,39 @@ const OwnerDashboard = ({ setStatus }) => {
   //console.log(offers);
   return (
     <AnimatePresence>
+      
+        <Row style={{display:"flex"}}>
+       <Col sm={2}>
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <Col sm={2}>
+                <div style={{display:"flex", gap:"5px"}}>
+                  <p>Filter</p> <p style={{ color: "green" }}>Jobs</p>
+                </div>
+              </Col>
+              
+            </div>
+          </Col>
+      <Col sm={8}>
+                <Form.Select
+                  as={Col}
+                  sm="8"
+                  controlId="validationCustom04"
+                  name="city"
+                  onChange={handleCheck}
+                >
+                  <option value="" >Please select an option</option>
+                  <option value="">show all</option>
+                  <option value="unknown">New</option>
+                  <option value="active">Ongoing</option>
+                  <option value="declined">Declined</option>
+                  <option value="completed">Completed</option>
+                </Form.Select>
+              </Col>
+              <Col sm={2}>
+              <Button onClick={()=>dispatch(getUniqueOffers(currentUser._id))} variant="info">Refresh Jobs</Button>
+              </Col> 
+              </Row>
+              
       {loading?<Loading/>:offers.length == 0 ? (
         <motion.section
           initial={{ opacity: 0, scale: 0.5 }}
@@ -107,31 +141,7 @@ const OwnerDashboard = ({ setStatus }) => {
               <i class="fas fa-arrow-up"></i>
             </button>
           )}
-          <Col>
-            <div style={{ display: "flex", alignItems: "center" }}>
-              <Col sm={2}>
-                <label class="form-check-label" for="flexSwitchCheckDefault">
-                  Filter <span style={{ color: "green" }}>Jobs</span>
-                </label>
-              </Col>
-              <Col sm={10}>
-                <Form.Select
-                  as={Col}
-                  sm="8"
-                  controlId="validationCustom04"
-                  name="city"
-                  onChange={handleCheck}
-                >
-                  <option value="" >Please select an option</option>
-                  <option value="">show all</option>
-                  <option value="unknown">New</option>
-                  <option value="active">Ongoing</option>
-                  <option value="declined">Declined</option>
-                  <option value="completed">Completed</option>
-                </Form.Select>
-              </Col>
-            </div>
-          </Col>
+         
           {offers ? (
             <>
               {offers.map((e) =>

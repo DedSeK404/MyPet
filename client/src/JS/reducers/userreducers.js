@@ -1,6 +1,7 @@
 import {
   AUTHFAILED,
   CURRENTUSERAUTH,
+  CURRENTUSERFORREVIEW,
   LOADING,
   LOGOUT,
   SIGNINSUCCESS,
@@ -13,7 +14,7 @@ const initialState = {
   Alert: "",
   currentUser: {},
   isAuth: false,
-  
+  currentUserR:{}
 };
 
 export const userReducers = (state = initialState, { type, payload }) => {
@@ -33,13 +34,21 @@ export const userReducers = (state = initialState, { type, payload }) => {
         authloading: false,
         isAuth: true,
       };
-
+      
     case CURRENTUSERAUTH:
       return {
         ...state,
         
         currentUser: payload,
         isAuth: true,
+        authloading: false,
+      };
+      case CURRENTUSERFORREVIEW:
+      return {
+        ...state,
+        
+        currentUserR: payload,
+        
         authloading: false,
       };
     case LOGOUT:

@@ -10,6 +10,6 @@ export const LOGOUT="LOGOUT"
 
 export const AUTHFAILED="AUTHFAILED"
 
-
+export const CURRENTUSERFORREVIEW="CURRENTUSERFORREVIEW"
 
 export const FAILED = "FAILED";
