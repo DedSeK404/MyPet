@@ -6,7 +6,7 @@ import InputGroup from "react-bootstrap/InputGroup";
 import Row from "react-bootstrap/Row";
 import { addUser } from "../../../../JS/actions/useraction";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const OwnerForm = () => {
   const [validated, setValidated] = useState(false);
@@ -29,6 +29,7 @@ const OwnerForm = () => {
     birth_date: "",
     password: "",
     gender: "",
+    phone:""
   });
 
   const navigate = useNavigate();
@@ -127,10 +128,27 @@ const OwnerForm = () => {
               aria-describedby="inputGroupPrepend"
               required
               onChange={handleChange}
-              name="email"
+              name="email" 
             />
             <Form.Control.Feedback type="invalid">
               Please provile a valid email adress
+            </Form.Control.Feedback>
+          </InputGroup>
+        </Form.Group>
+        <Form.Group as={Col} md="12" controlId="validationCustomUsername">
+          <Form.Label style={{ color: "#db8c6f" }}>Phone</Form.Label>
+          <InputGroup hasValidation>
+            <InputGroup.Text id="inputGroupPrepend">+216</InputGroup.Text>
+            <Form.Control
+              type="text"
+              placeholder="Phone number"
+              aria-describedby="inputGroupPrepend"
+              required
+              onChange={handleChange}
+              name="phone"
+            />
+            <Form.Control.Feedback type="invalid">
+              Please provile a valid phone number 
             </Form.Control.Feedback>
           </InputGroup>
         </Form.Group>
@@ -203,14 +221,11 @@ const OwnerForm = () => {
           </Form.Control.Feedback>
         </Form.Group>
       </Row>
-      <Form.Group className="mb-4">
-        <Form.Check
-          required
-          label="Agree to terms and conditions"
-          feedback="You must agree before submitting."
-          feedbackType="invalid"
-        />
-      </Form.Group>
+      <Link style={{textDecoration: 'none', color:"#FFB694"}} to="/login/Signin">
+        <div style={{paddingBottom:"10px", textDecoration:"none"}}>
+      <a >Already have an account? Click to sign in</a>
+      </div>
+      </Link>
       <button className="submit_signup" type="submit" onClick={handleSumbit}>
         Create account
       </button>

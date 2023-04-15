@@ -17,7 +17,7 @@ import { motion, AnimatePresence } from "framer-motion";
 export default function OwnerProfile() {
   const [show, setShow] = useState(false);
   const currentUser = useSelector((state) => state.userR.currentUser);
-  const authloading = useSelector((state) => state.userR.authloading); 
+  const authloading = useSelector((state) => state.userR.authloading);
 
   const handleClick = () => {
     setShow(true);
@@ -52,7 +52,7 @@ export default function OwnerProfile() {
           >
             <MDBContainer className="py-5 h-50">
               <MDBRow className="justify-content-center align-items-center h-100">
-                <MDBCol lg="8" className="mb-4 mb-lg-0">
+                <MDBCol lg="12" className="mb-4 mb-lg-0">
                   <MDBCard className="mb-3" style={{ borderRadius: ".5rem" }}>
                     <MDBRow className="g-0">
                       <MDBCol
@@ -83,18 +83,20 @@ export default function OwnerProfile() {
                           }}
                           fluid
                         />
-<hr style={{color:"gray"}}/>
+                        <hr style={{ color: "gray" }} />
                         <MDBTypography tag="h5" style={{ color: "white" }}>
                           {!authloading ? currentUser.first_name : ""}
                         </MDBTypography>
                         <MDBTypography tag="h5" style={{ color: "white" }}>
                           {!authloading ? currentUser.last_name : ""}
                         </MDBTypography>
-                        <hr style={{color:"gray"}}/>
+                        <hr style={{ color: "gray" }} />
                         <MDBCardText style={{ color: "#49312c" }}>
-                          Bio: {currentUser.bio ? currentUser.bio : ""}
+                          Bio:{" "}
+                          {currentUser.bio == "undefined"
+                            ? "No bio yet"
+                            : currentUser.bio}
                         </MDBCardText>
-                       
                       </MDBCol>
                       <MDBCol md="8">
                         <MDBCardBody className="p-4">

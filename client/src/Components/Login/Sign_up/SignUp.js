@@ -30,7 +30,7 @@ function SignUp() {
         <Row sm={12}>
           <Col sm={6}>
             
-            <button  style={{border:"solid black 1px"}} className="Signup_owner" onClick={handleShow}>
+            <button   className="Signup_owner" onClick={handleShow}>
               Owner Account
             </button>
          
@@ -53,7 +53,7 @@ function SignUp() {
           </Col>
           <Col sm={6}>
           
-            <button  style={{border:"solid black 1px"}} className="Signup_sitter" onClick={handleShowRight}>
+            <button   className="Signup_sitter" onClick={handleShowRight}>
               Sitter Account
             </button>
           

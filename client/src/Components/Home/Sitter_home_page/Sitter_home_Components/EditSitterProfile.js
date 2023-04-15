@@ -22,6 +22,7 @@ import {
 import { motion, AnimatePresence } from "framer-motion";
 import {
   deleteUser,
+  editPassword,
   editUser,
   editUserAvailability,
 } from "../../../../JS/actions/usermanagementactions";
@@ -66,7 +67,7 @@ export default function EditSitterProfile({ show, setUnavailable }) {
       const editData = {
         status: currentUser.status == "available" ? "unavailable" : "available",
       };
-      console.log(editData)
+      console.log(editData);
       dispatch(editUserAvailability({ editData, idUser, token: true }));
     }
   };
@@ -137,8 +138,10 @@ export default function EditSitterProfile({ show, setUnavailable }) {
 
     data.append("img", img);
     if (!editData.email) {
-      data.delete("email")
+      data.delete("email");
     }
+    
+    console.log(data)
     dispatch(editUser({ editData: data, idUser: idUser, token: true }));
   };
 
@@ -151,8 +154,27 @@ export default function EditSitterProfile({ show, setUnavailable }) {
     dispatch(deleteUser(userid, navigate));
     setShow(false);
   };
+
+  const [pass, setpass] = useState("");
+  const [oldpass, setOldpass] = useState("");
+  const resetPassword = () => {
+    dispatch(editPassword(pass, currentUser._id, oldpass));
+  };
+
+  const [icon, showIcon] = useState(false);
+  const [newicon, showNewIcon] = useState(false);
+  const [oldpassword, showOldPassword] = useState(false);
+  const [newpassword, showNewPassword] = useState(false);
+  const handleShowOldPass = () => {
+    showOldPassword(!oldpassword);
+    showIcon(!icon);
+  };
+  const handleShowNewPass = () => {
+    showNewPassword(!newpassword);
+    showNewIcon(!newicon);
+  };
   return (
-    <section className="vh-100" style={{ backgroundColor: "transparent" }}>
+    <section className="vh-100" style={{ backgroundColor: "transparent" }}> 
       <MDBCard
         className="mb-3"
         sm={2}
@@ -334,7 +356,7 @@ export default function EditSitterProfile({ show, setUnavailable }) {
             </MDBTypography>
             <hr style={{ color: "gray" }} />
             <MDBCardText style={{ color: "#49312c" }}>
-              Bio:{currentUser.bio ? currentUser.bio : ""}
+              Bio:{currentUser.bio=="undefined" ? "No bio yet" : currentUser.bio}
               <Button
                 style={{
                   border: "none",
@@ -716,7 +738,7 @@ export default function EditSitterProfile({ show, setUnavailable }) {
               </MDBTypography>
               <hr className="mt-0 mb-4" />
               <MDBRow className="pt-2">
-                <MDBCol size="6" className="mb-3">
+                <MDBCol size="12" className="mb-3">
                   <MDBTypography tag="h6">
                     Password{" "}
                     <Button
@@ -742,14 +764,75 @@ export default function EditSitterProfile({ show, setUnavailable }) {
                               duration: 0.8,
                               ease: [0, 0.71, 0.2, 1.01],
                             }}
-                          >
-                            <Form.Control
-                              name="password"
-                              onChange={handleChange}
-                              type="password"
-                              placeholder=""
-                            />
+                            style={{
+                              display: "flex",
 
+                              justifyContent: "space-between",
+                            }}
+                          >
+                            <div>
+                              <div
+                                style={{
+                                  display: "flex",
+                                  gap: "5px",
+                                  alignItems: "center",
+                                }}
+                              >
+                                <Form.Control
+                                  name="password"
+                                  onChange={(e) => setOldpass(e.target.value)}
+                                  type={oldpassword ? "text" : "password"}
+                                  placeholder="Type old password"
+                                />
+
+                                <Form.Group
+                                  as={Col}
+                                  md="0"
+                                  controlId="validationCustom02"
+                                >
+                                  <div
+                                    onClick={handleShowOldPass}
+                                    onSubmit={""}
+                                    className={icon ? "hide_icon" : "show_icon"}
+                                  ></div>
+                                </Form.Group>
+                              </div>
+                              <div
+                                style={{
+                                  display: "flex",
+                                  gap: "5px",
+                                  alignItems: "center",
+                                }}
+                              >
+                                <Form.Control
+                                  name="password"
+                                  onChange={(e) => setpass(e.target.value)}
+                                  type={newpassword ? "text" : "password"}
+                                  placeholder="Type new password"
+                                />
+
+                                <Form.Group
+                                  as={Col}
+                                  md="0"
+                                  controlId="validationCustom02"
+                                >
+                                  <div
+                                    onClick={handleShowNewPass}
+                                    onSubmit={""}
+                                    className={
+                                      newicon ? "hide_icon" : "show_icon"
+                                    }
+                                  ></div>
+                                </Form.Group>
+                              </div>
+                            </div>
+                            <Button
+                              style={{ marginLeft: "30%" }}
+                              variant="success"
+                              onClick={resetPassword}
+                            >
+                              Save password
+                            </Button>
                             <Form.Text className="text-muted"></Form.Text>
                           </motion.div>
                         </AnimatePresence>
@@ -759,7 +842,7 @@ export default function EditSitterProfile({ show, setUnavailable }) {
                     )}
                   </MDBCardText>
                 </MDBCol>
-                <MDBCol size="6" className="mb-3">
+                <MDBCol size="6">
                   <MDBCardText className="text-muted">
                     <AnimatePresence>
                       <motion.div
@@ -771,14 +854,6 @@ export default function EditSitterProfile({ show, setUnavailable }) {
                         }}
                       >
                         <>
-                          <Button
-                            variant="danger"
-                            size="sm"
-                            onClick={handleShow}
-                          >
-                            <i class="fas fa-eraser"></i> Delete profile
-                          </Button>
-
                           <Modal show={shows} onHide={handleClose}>
                             <Modal.Header
                               style={{ background: "white" }}
@@ -812,10 +887,14 @@ export default function EditSitterProfile({ show, setUnavailable }) {
                 style={{
                   display: "flex",
                   justifyContent: "space-between",
+                  gap: "10px",
                 }}
               >
                 <Button onClick={handleClickReturn} variant="outline-info">
                   Return to Profile
+                </Button>
+                <Button variant="danger" size="sm" onClick={handleShow}>
+                  <i class="fas fa-eraser"></i> Delete profile
                 </Button>
                 <OverlayTrigger
                   trigger="click"

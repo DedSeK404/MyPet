@@ -14,14 +14,12 @@ import { useSelector } from "react-redux";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import EditSitterProfile from "./EditSitterProfile";
-import Loading from "../../../Loading";
 import SitterProfileReviews from "./SitterProfileReviews";
 
 export default function SitterProfile({ setUnavailable }) {
   const [show, setShow] = useState(false);
   const currentUser = useSelector((state) => state.userR.currentUser);
   const authloading = useSelector((state) => state.userR.authloading);
-  const loading = useSelector((state) => state.userM.loading);
   const handleClick = () => {
     setShow(true);
   };
@@ -132,7 +130,7 @@ export default function SitterProfile({ setUnavailable }) {
                       </MDBTypography>
                       <hr style={{ color: "gray" }} />
                       <MDBCardText style={{ color: "#49312c" }}>
-                        Bio: {currentUser.bio ? currentUser.bio : ""}
+                        Bio: {currentUser.bio=="undefined" ? "No bio yet" : currentUser.bio}
                       </MDBCardText>
                     </MDBCol>
                     <MDBCol md="8">

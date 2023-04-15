@@ -17,6 +17,11 @@ module.exports.registerRules = [
     .normalizeEmail()
     .trim()
     .withMessage("enter a valid email "),
+    body("phone")
+    .notEmpty()
+    .trim()
+    .isLength({ min: 8, max: 8 })
+    .withMessage("phone number must be 8 digits"),
   body("password")
     .isLength({ min: 8 })
     .withMessage("password cannot be less than 8 characters"),

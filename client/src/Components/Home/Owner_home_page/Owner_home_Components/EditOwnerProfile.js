@@ -157,10 +157,10 @@ export default function EditOwnerProfile({ show }) {
     showNewIcon(!newicon);
   };
   return (
-    <section style={{ backgroundColor: "transparent", marginTop: "-3%" }}>
+    <section style={{ backgroundColor: "transparent" }}>
       <MDBContainer className="py-5 h-50">
         <MDBRow className="justify-content-center align-items-center h-100">
-          <MDBCol lg="8" className="mb-4 mb-lg-0">
+          <MDBCol lg="12" className="mb-4 mb-lg-0">
             <MDBCard className="mb-3" style={{ borderRadius: ".5rem" }}>
               <MDBRow className="g-0">
                 <MDBCol
@@ -303,7 +303,10 @@ export default function EditOwnerProfile({ show }) {
                   </MDBTypography>
                   <hr style={{ color: "gray" }} />
                   <MDBCardText style={{ color: "#49312c" }}>
-                    Bio:{currentUser.bio ? currentUser.bio : ""}
+                    Bio:
+                    {currentUser.bio == "undefined"
+                      ? "No bio yet"
+                      : currentUser.bio}
                     <Button
                       style={{
                         border: "none",
