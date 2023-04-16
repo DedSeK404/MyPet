@@ -19,7 +19,7 @@ const SitterReviewsComponent = ({data, setStars}) => {
     stars.length == 0
       ? "no stars yet"
       : stars.reduce((a, b) => a + b) / stars.length.toFixed(1);
-  //console.log(average);
+ 
   setStars(average)
   return (
     <AnimatePresence>

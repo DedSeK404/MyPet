@@ -23,7 +23,7 @@ module.exports.getAllReviews = async (req, res) => {
 
 module.exports.getUniqueReviews = async (req, res) => {
   const { sitterid } = req.params;
-  //console.log(sitterid)
+  
   try {
     const uniqueReviews = await reviewModel.find({ sitter: sitterid });
 

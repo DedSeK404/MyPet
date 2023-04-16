@@ -4,7 +4,7 @@ module.exports.addPet = async (req, res) => {
   try {
     const url = `${req.protocol}://${req.get("host")}`;
 
-    //console.log(url);
+    
     const { name } = req.body;
    
     const existPet = await petModel.find({ user: req.body.user });
@@ -54,7 +54,7 @@ module.exports.updatePet = async (req, res) => {
         delete data[key]; 
       }
     }); 
-    console.log(data)
+    
     const pet = await petModel.findByIdAndUpdate(
       idpet,
       {

@@ -37,10 +37,10 @@ export const addpet = (newPet) => async (dispatch) => {
     type: PETLOADING,
   });
  
-  console.log(newPet)
+ 
   try {
     const res = await axios.post(baseURL + "/add", newPet);
-    //console.log("res", res.data);
+    
     alert(`${res.data.msg}`);
     dispatch({ type: ADDPETSUCCESS });
     dispatch(getallpets());
@@ -65,7 +65,7 @@ export const editpet = (editData) => async (dispatch) => {
   dispatch({
     type: PETLOADING,
   });
-  console.log(editData);
+  
   try {
     const { data } = await axios.patch(baseURL + "edit", editData);
     
@@ -96,10 +96,10 @@ export const deletepet = (petid) => async (dispatch) => {
   const opts = {
     headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
   };
-  //console.log(petid);
+ 
   try {
     const { data } = await axios.delete(baseURL + `delete/${petid}`,opts);
-    //console.log(petid);
+   
     alert(`${data.msg}`);
     dispatch({ type: DELETEPETSUCCESS, payload: data.msg });
     dispatch(getallpets());

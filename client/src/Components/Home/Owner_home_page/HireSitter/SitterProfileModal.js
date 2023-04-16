@@ -10,7 +10,7 @@ import Box from "@mui/material/Box";
 
 const SitterProfileModal = (props) => {
   const [stars, setStars] = useState("");
-  // console.log(stars);
+  
   return (
     <Modal
       {...props}

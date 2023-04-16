@@ -12,16 +12,13 @@ import { editoffer, getUniqueOffers } from "../../../../../JS/actions/offeractio
 import { editUser, editUserAvailability } from "../../../../../JS/actions/usermanagementactions";
 
 const SitterD_Component = ({ data }) => {
+  
   const pets = useSelector((state) => state.petR.pets);
   const owners = useSelector((state) => state.offerR.owners);
-
-   //console.log(owners);
-  //console.log(data);
   const currentUserR = useSelector((state) => state.userR.currentUserR);
-  // console.log(currentUserR)
   const CurrentUser = useSelector((state) => state.userR.currentUser);
   const isBusy = currentUserR.status;
-  // console.log(isBusy)
+
   const dispatch = useDispatch();
   const Offerstatus = data.status;
   const [disabled, setDisabled] = useState(isBusy == "busy" ? true : false); 

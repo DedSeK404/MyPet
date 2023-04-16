@@ -18,7 +18,7 @@ const baseURL = "http://localhost:4500/user/";
 
 export const editUser = ({editData, idUser,token}) => async (dispatch) => {
   dispatch({ type: USERLOADING });
-  console.log(editData)
+  
   const opts = {
     headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
   };
@@ -30,7 +30,7 @@ export const editUser = ({editData, idUser,token}) => async (dispatch) => {
     if (token) {
       dispatch(getUser())
     }
-    //console.log(data.msg);
+    
     if (data.msg) {
       alert(data.msg);
     }
@@ -81,7 +81,7 @@ export const getallSitters = (city, available) => async (dispatch) => {
   const opts = {
     headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
   }
-  console.log(city)
+ 
   try {
     const { data } = await axios.get(
       `${baseURL}/${city ? "?city=" + city : available ? "?available=" + available : ""}`
@@ -129,12 +129,12 @@ export const editUserAvailability = ({editData, idUser,token}) => async (dispatc
  */
 export const editPassword = (pass,iduser,oldpass) => async (dispatch) => { 
   dispatch({ type: USERLOADING });
-console.log(pass,iduser)
+
   try {
     const { data } = await axios.patch(`${baseURL}password/${iduser}`, {password:pass,oldpassword:oldpass}); 
     
     dispatch({ type: EDITUSER, payload: data.msg });
-    console.log(data.msg)
+    
     if (data.msg=="password changed successfully") {
       dispatch(getUser())
     }
@@ -157,7 +157,7 @@ console.log(pass,iduser)
 //  */
 export const getOnlyUser = (userid) => async (dispatch) => {
   dispatch({ type: USERLOADING });
-  console.log(userid)
+  
   try {
     const { data } = await axios.get(
       `http://localhost:4500/auth/${userid}`

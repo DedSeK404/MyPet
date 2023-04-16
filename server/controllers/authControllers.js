@@ -58,7 +58,7 @@ module.exports.getCurrentUserforReview = async (req, res) => {
   try { 
 const {userid}=req.params
 const current = await userModel.findOne({ _id:userid })
-console.log(current)
+
 
     res.send( current );
   } catch (error) {

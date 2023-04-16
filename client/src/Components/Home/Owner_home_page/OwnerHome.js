@@ -42,12 +42,12 @@ const [status, setStatus] = useState("")
     navigate("/login");
   };
   const [key, setKey] = useState('Dashboard')
-   console.log(key)
+   
    if (key=="Hire a Sitter") {
     dispatch(getallSitters())
    }
    if (key=="Dashboard") {
-    dispatch(getUniqueOffers(currentUser._id))
+    dispatch(getUniqueOffers(currentUser._id,status))
    }
    if (key=="Messages") {
     dispatch(getallMessages())

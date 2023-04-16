@@ -59,7 +59,7 @@ module.exports.updateOffer = async (req, res) => {
     const { status } = req.body;
 
     const offerState = await offerModel.findOne({ _id:idoffer });
-    console.log(offerState)
+    
     if (offerState==null) {
       return res.send({ msg: "The Sitter deleted the offer" });   
     } 

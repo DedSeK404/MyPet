@@ -111,14 +111,14 @@ export const editoffer = (offerEdit) => async (dispatch) => {
   const {status}=offerEdit
   const {iduser}=offerEdit
 
-  console.log(status);
+
   const opts = {
     headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
   };
   try {
     const { data } = await axios.patch(baseURL + "/edit", offerEdit, opts);
 
-    console.log(data.msg)
+    
 if (data.msg=="Offer accepted") {
   dispatch(editUserAvailability({ editData: { status: "busy" }, idUser: idUser,token:true })); 
   return dispatch(getUniqueOffers(CurrentUser))

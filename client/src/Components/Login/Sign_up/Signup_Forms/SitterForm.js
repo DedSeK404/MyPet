@@ -41,9 +41,7 @@ const SitterForm = () => {
 
   const handleSumbit = (e) => {
     e.preventDefault();
-    dispatch(addUser({ ...sigupData, role: "sitter" }));
-
-    navigate("/sitter");
+    dispatch(addUser({ ...sigupData, role: "sitter" },navigate));
   };
   const [icon, showIcon] = useState(false);
   const [password, showPassword] = useState(false);

@@ -42,7 +42,7 @@ const PetsEdit = ({ data, setShowEdit }) => {
     setEditData({ ...editData, [e.target.name]: e.target.value });
   };
   const idpet = data._id;
-console.log(data.birth_date)
+
   const handleUpdate = () => {
     const data = new FormData();
 
@@ -69,7 +69,7 @@ console.log(data.birth_date)
       data.delete("birth_date")
     }
     
-    console.log(data)
+   
     dispatch(editpet(data)); 
     setShowEdit(true);
   };

@@ -12,7 +12,7 @@ const SitterProfileReviews = ({data}) => {
   const reviews = useSelector((state) => state.reviewR.uniqueReviews);
   const loading = useSelector((state) => state.reviewR.loading);
 
-  //console.log(reviews);
+  
   return (
     <AnimatePresence>
       <div style={{ backgroundColor: "transparent" }}>

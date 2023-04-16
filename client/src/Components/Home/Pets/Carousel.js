@@ -4,7 +4,7 @@ import PetProfile from "./PetProfile";
 import PetBG from "../../../Assets/pet_bg.svg";
 
 const CarouselTab = ({ data }) => {
-  console.log(data._id);
+  
   return (
     <MDBCarousel showControls showIndicators>
       <MDBCarouselItem

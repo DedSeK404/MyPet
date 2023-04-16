@@ -13,7 +13,6 @@ import ongoingLogo from "../../../../../Assets/ongoing_owner.svg";
 import { getallpets } from "../../../../../JS/actions/petactions";
 import OwnerD_Component from "./OwnerD_Component";
 import { getallSitters } from "../../../../../JS/actions/usermanagementactions";
-import { getUser } from "../../../../../JS/actions/useraction";
 import Col from "react-bootstrap/esm/Col";
 import { Button, Form, Row } from "react-bootstrap";
 import Loading from "../../../../Loading";
@@ -29,7 +28,7 @@ const OwnerDashboard = ({ setStatus }) => {
   const currentUser = useSelector((state) => state.userR.currentUser);
   const loading = useSelector((state) => state.offerR.loading);
  
-  //console.log(offers);
+
   const cardVariants = {
     offscreen: {
       y: 190,
@@ -65,7 +64,7 @@ const OwnerDashboard = ({ setStatus }) => {
     setcheck(e.target.value);
   };
   setStatus(check);
-  //console.log(offers);
+  
   return (
     <AnimatePresence>
       

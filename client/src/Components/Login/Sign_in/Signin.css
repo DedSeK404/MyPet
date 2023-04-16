@@ -39,4 +39,7 @@
   background-image: url("../../../Assets/signin_lines.svg");
   background-repeat: no-repeat;
   background-size: contain;
+  width:1380px;
+  height: fit-content;
+  min-height: 100vh;
 }

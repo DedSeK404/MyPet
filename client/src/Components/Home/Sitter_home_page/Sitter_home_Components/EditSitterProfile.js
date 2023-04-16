@@ -66,7 +66,7 @@ export default function EditSitterProfile({ show, setUnavailable }) {
       const editData = {
         status: currentUser.status == "available" ? "unavailable" : "available",
       };
-      console.log(editData);
+      
       dispatch(editUserAvailability({ editData, idUser, token: true }));
     }
   };
@@ -140,7 +140,7 @@ export default function EditSitterProfile({ show, setUnavailable }) {
       data.delete("email");
     }
     
-    console.log(data)
+    
     dispatch(editUser({ editData: data, idUser: idUser, token: true }));
   };
 

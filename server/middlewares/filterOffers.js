@@ -2,7 +2,7 @@ const offerModel = require("../models/OfferModel");
 const filterOffers = async (req, res, next) => {
   try {
     const { status } = req.query; 
-    //console.log(status)
+   
 
     let uniqueOffers = [];
 if (status) {

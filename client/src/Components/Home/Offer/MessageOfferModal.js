@@ -10,7 +10,7 @@ import { addOffer, getUniqueOffers } from "../../../JS/actions/offeractions";
 
 function MessageOfferModal({ handleClose, show, data, OfferData, setOfferData }) {
   const dispatch = useDispatch();
-//console.log(data)
+
   const pets = useSelector((state) => state.petR.pets);
 
   const currentUser = useSelector((state) => state.userR.currentUser);

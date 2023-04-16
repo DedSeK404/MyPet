@@ -66,7 +66,7 @@ export const pushMessage = (MessageData) => async (dispatch) => {
   dispatch({
     type: ROOMLOADING,
   });
-  console.log(MessageData);
+  
 
   try {
     const { data } = await axios.patch(baseURL + "/push", MessageData);
@@ -90,7 +90,7 @@ export const deleteRoom = (roomID) => async (dispatch) => {
 
   try {
     const { data } = await axios.delete(baseURL + `/delete/${roomID}`);
-    //console.log(petid);
+    
     alert(`${data.msg}`);
     dispatch({ type: DELETEROOMSUCCESS, payload: data.msg });
     dispatch(getallMessages());
@@ -108,11 +108,11 @@ export const clearMessage = (roomID) => async (dispatch) => {
   dispatch({
     type: ROOMLOADING,
   });
-  console.log(roomID);
+  
 
   try {
     const res = await axios.patch(baseURL + `/clear/${roomID}`);
-   // dispatch(getallMessages());
+   
     dispatch({ type: CLEARMESSAGES });
     
   } catch (error) {

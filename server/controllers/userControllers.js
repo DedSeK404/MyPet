@@ -20,7 +20,7 @@ module.exports.updateuser = async (req, res) => {
   
 
     const {email}=data
-    console.log(email)
+    
     if (email) {
       const existingEmail = await userModel.findOne({ email });
    
@@ -29,8 +29,6 @@ module.exports.updateuser = async (req, res) => {
     } 
     }
     
-
-
     const user = await userModel.findByIdAndUpdate(
       iduser,
       {
@@ -91,10 +89,10 @@ module.exports.updatePassword = async (req, res) => {
     const { iduser } = req.params;
     const {password}=req.body
     const {oldpassword}=req.body
-    console.log(req.body.oldpassword)
+    
     const hashPassword = await hashPwd(password); 
     const existingUser = await userModel.findOne({ _id:iduser });
-    console.log(existingUser)
+   
     const match = await comparePwd(oldpassword, existingUser.password);
 
     if (!match) {

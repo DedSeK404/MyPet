@@ -69,7 +69,7 @@ module.exports.clearMessages = async (req, res) => {
   try {
     const { roomID } = req.params;
     
-console.log(roomID)
+
     const findRoom = await RoomModel.findOneAndUpdate(
       { _id: roomID },  
       {

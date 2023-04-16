@@ -15,7 +15,7 @@ const baseURL="http://localhost:4500/auth/"
  *@description register a new user
  *@access public
  */
-export const addUser = (newUserData, navigate) => async (dispatch) => {
+export const addUser = (newUserData, navigate) => async (dispatch) => { 
   dispatch({
     type: LOADING,
   });
@@ -29,7 +29,7 @@ export const addUser = (newUserData, navigate) => async (dispatch) => {
       alert(data.msg);
     }
 
-    navigate();
+    navigate("/login/Signin");
   } catch (error) {
     dispatch({ type: AUTHFAILED, payload: error });
     console.log(error);

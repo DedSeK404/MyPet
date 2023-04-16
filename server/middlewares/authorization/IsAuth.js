@@ -10,7 +10,7 @@ passport.use(
   new JwtStrategy(opts, async (jwt_payload, done) => {
     try {
       const user = await usermodel.findOne({_id: jwt_payload.userID}).select("-password");
-      //console.log(user)
+      
       if (!user) {
         done(null, false);
         // or you could create a new account
