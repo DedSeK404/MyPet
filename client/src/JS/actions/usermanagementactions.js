@@ -7,6 +7,7 @@ import {
   USERLOADING,
 } from "../actiontypes/usermanagementtypes";
 import { getUser } from "./useraction";
+import { loginUser } from "./useraction";
 import { CURRENTUSERFORREVIEW } from "../actiontypes/usertypes";
 
 /**
@@ -16,7 +17,7 @@ import { CURRENTUSERFORREVIEW } from "../actiontypes/usertypes";
  */
 const baseURL = "http://localhost:4500/user/"; 
 
-export const editUser = ({editData, idUser,token}) => async (dispatch) => {
+export const editUser = ({editData, idUser,token},navigate) => async (dispatch) => {
   dispatch({ type: USERLOADING });
   
   const opts = {
@@ -24,8 +25,12 @@ export const editUser = ({editData, idUser,token}) => async (dispatch) => {
   };
   
   try {
-    const { data } = await axios.patch(`${baseURL}${idUser}`, editData,opts); 
+    const { data } = await axios.patch(`${baseURL}${idUser}`,editData, opts); 
     
+if (data.msg=="Account activated") {
+  navigate("/login/Signin")
+}
+
     dispatch({ type: EDITUSER, payload: data.msg });
     if (token) {
       dispatch(getUser())

@@ -9,27 +9,28 @@ import {
   CURRENTUSERFORREVIEW,
 } from "../actiontypes/usertypes";
 
-const baseURL="http://localhost:4500/auth/"
+const baseURL = "http://localhost:4500/auth/";
 /**
  *@method POST /auth/signup
  *@description register a new user
  *@access public
  */
-export const addUser = (newUserData, navigate) => async (dispatch) => { 
+export const addUser = (newUserData, navigate) => async (dispatch) => {
   dispatch({
     type: LOADING,
   });
 
   try {
-    const { data } = await axios.post(baseURL+"signup", { ...newUserData });
+    const { data } = await axios.post(baseURL + "signup", { ...newUserData });
 
-    dispatch({ type: SIGNUPSUCCESS, payload: data.msg }); 
+    dispatch({ type: SIGNUPSUCCESS, payload: data.msg });
 
     if (data.msg) {
       alert(data.msg);
     }
-
-    navigate("/login/Signin");
+    console.log(data)
+const{_id}=data.user
+    navigate(`/activation/${_id}`);
   } catch (error) {
     dispatch({ type: AUTHFAILED, payload: error });
     console.log(error);
@@ -39,7 +40,7 @@ export const addUser = (newUserData, navigate) => async (dispatch) => {
     if (error.response.data.msg) {
       alert(error.response.data.msg);
     }
-  } 
+  }
 };
 
 /**
@@ -52,11 +53,17 @@ export const loginUser = (UserLoginData, navigate) => async (dispatch) => {
   dispatch({
     type: LOADING,
   });
-
+  console.log(UserLoginData)
   try {
-    const { data } = await axios.post(baseURL+"signin", { ...UserLoginData });
+    const { data } = await axios.post(baseURL + "signin", { ...UserLoginData });
+    
 
-    dispatch({ type: SIGNINSUCCESS, payload: data }); 
+    const {userID}=data
+    
+    if (data.msg == "Your account is not activated yet") {
+      navigate(`/activation/${userID}`); 
+    }
+    dispatch({ type: SIGNINSUCCESS, payload: data });
 
     if (data.msg) {
       alert(data.msg);
@@ -66,6 +73,9 @@ export const loginUser = (UserLoginData, navigate) => async (dispatch) => {
       : data.user.role == "sitter"
       ? navigate("/sitter")
       : navigate("/owner");
+    
+
+    
   } catch (error) {
     dispatch({ type: AUTHFAILED, payload: error });
     console.log(error);
@@ -75,6 +85,8 @@ export const loginUser = (UserLoginData, navigate) => async (dispatch) => {
     if (error.response.data.msg) {
       alert(error.response.data.msg);
     }
+
+   
   }
 };
 
@@ -85,12 +97,11 @@ export const loginUser = (UserLoginData, navigate) => async (dispatch) => {
  */
 export const getUser = () => async (dispatch) => {
   dispatch({ type: LOADING });
-  
+
   const opts = {
     headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
   };
   try {
-    
     const { data } = await axios.get(baseURL, opts);
     dispatch({ type: CURRENTUSERAUTH, payload: data.user });
     if (data.msg) {
@@ -99,11 +110,8 @@ export const getUser = () => async (dispatch) => {
   } catch (error) {
     dispatch({ type: AUTHFAILED, payload: error });
     console.log(error);
-
- 
   }
 };
-
 
 /**
 //  *@method GET /auth/
@@ -112,10 +120,8 @@ export const getUser = () => async (dispatch) => {
 //  */
 export const getUserforReview = (userid) => async (dispatch) => {
   dispatch({ type: LOADING });
-  
- 
+
   try {
-    
     const { data } = await axios.get(`${baseURL}/${userid}`);
     dispatch({ type: CURRENTUSERFORREVIEW, payload: data.user });
     if (data.msg) {
@@ -124,14 +130,9 @@ export const getUserforReview = (userid) => async (dispatch) => {
   } catch (error) {
     dispatch({ type: AUTHFAILED, payload: error });
     console.log(error);
-
- 
   }
 };
 //logout
 export const logout = () => ({
   type: LOGOUT,
 });
-
-
-

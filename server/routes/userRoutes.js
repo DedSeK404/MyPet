@@ -20,8 +20,8 @@ const router = express.Router();
 router.patch(
   "/:iduser",
   upload("users").single("img"),
-   editUserRules,
-   validator, 
+  //  editUserRules,
+  //  validator, 
  
   updateuser
 );

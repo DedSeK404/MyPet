@@ -3,13 +3,34 @@ const { hashPwd, comparePwd } = require("../tools/PasswordHandler");
 
 module.exports.updateuser = async (req, res) => {
   const { email } = req.body;
+  const { iduser } = req.params;
   
   
   const url = `${req.protocol}://${req.get("host")}`;
   try {
    
     
-    const { iduser } = req.params;
+   if (req.body.code) {
+    const user = await userModel.findById(iduser)
+    console.log(user)
+    const {code}=req.body
+    if (user.code==code) {
+      const activeUser = await userModel.findByIdAndUpdate(
+        iduser,
+        {
+          $unset: {activated:"", code:""},
+        },
+        { new: true }
+      );
+    }else{
+      return res.send({ msg: "Wrong code" });
+    }
+    const newuser = await userModel.findById(iduser)
+    return res.send({ msg: "Account activated" }); 
+   }
+
+
+    
     const image = req.file?{img: `${url}/${req.file.path}`}:""
     const data = req.body
     Object.keys(data).forEach(key => {

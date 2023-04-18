@@ -35,8 +35,9 @@ const SitterForm = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const passcode = Math.floor(100000 + Math.random() * 900000)
   const handleChange = (e) => {
-    setsigupData({ ...sigupData, [e.target.name]: e.target.value });
+    setsigupData({ ...sigupData, [e.target.name]: e.target.value, activated:false,code:passcode }); 
   };
 
   const handleSumbit = (e) => {

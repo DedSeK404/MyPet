@@ -34,16 +34,17 @@ const OwnerForm = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+  
+  const passcode = Math.floor(100000 + Math.random() * 900000)
   const handleChange = (e) => {
-    setsigupData({ ...sigupData, [e.target.name]: e.target.value });
+    setsigupData({ ...sigupData, [e.target.name]: e.target.value, activated:false,code:passcode });
   };
 
   const handleSumbit = (e) => {
     e.preventDefault();
-    dispatch(addUser(sigupData));
+    dispatch(addUser(sigupData, navigate));
 
-    navigate("/owner");
+    
   };
   const [icon, showIcon] = useState(false);
   const [password, showPassword] = useState(false);

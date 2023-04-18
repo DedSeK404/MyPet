@@ -13,6 +13,8 @@ const userSchema = new mongoose.Schema({
   created_on: { type: Date, default: Date.now() },
   phone: { type: Number  },
   status: { type: String, default: "available" },
+  activated: { type: Boolean },
+  code: { type: Number},
   img: {
     type: String,
     default:

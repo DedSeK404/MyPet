@@ -10,10 +10,12 @@ import SitterHome from "./Components/Home/Sitter_home_page/SitterHome";
 import AdminHome from "./Components/Home/Sitter_home_page/Admin_home_page/AdminHome";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-
 import PrivateRoute from "./Components";
 import { getUser } from "./JS/actions/useraction";
 import NotFound from "./Components/Home/NotFound";
+import * as Realm from "realm-web";
+import ActivateAccount from "./Components/Login/ActivateAccount";
+
 
 function App() {
   const [unavailable, setUnavailable] = useState("");
@@ -31,6 +33,7 @@ function App() {
         <Route path="/login" element={<MainLogin />} />
         <Route path="/login/Signup" element={<SignUp />} />
         <Route path="/login/Signin" element={<SignIn />} />
+        <Route path="/activation/:userID" element={<ActivateAccount />} />
         <Route
           path="/admin"
           element={

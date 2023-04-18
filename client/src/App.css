@@ -8,4 +8,5 @@
   background-color: #FEF1DD;
   width: 100vw;
   height: max-content;
+  min-height: 100vh;
 }

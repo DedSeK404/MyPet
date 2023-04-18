@@ -21,6 +21,7 @@
     "react-scripts": "5.0.1",
     "react-scroll-to-bottom": "^4.2.0",
     "react-stars": "^2.2.5",
+    "realm-web": "^2.0.0",
     "redux": "^4.2.1",
     "redux-thunk": "^2.4.2",
     "socket.io-client": "^4.6.1",
