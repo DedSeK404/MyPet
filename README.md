@@ -111,11 +111,11 @@ This section should list any major frameworks/libraries used to bootstrap your p
 
 * [![React][React.js]][React-url]
 * [![Bootstrap][Bootstrap.com]][Bootstrap-url]
-* [![Redux][Redux.com]][Bootstrap-url]
-* [![MongoDB][MongoDB.com]][React-url]
-* [![NodeJS][NodeJS.com]][Bootstrap-url]
-* [![Express][Express.com]][Bootstrap-url]
-* [![Mongoose][Mongoose.com]][Bootstrap-url]
+* [![Redux][Redux.com]][Redux-url]
+* [![MongoDB][MongoDB.com]][MongoDB-url]
+* [![NodeJS][NodeJS.com]][NodeJS-url]
+* [![Express][Express.com]][Express-url]
+* [![Mongoose][Mongoose.com]][Mongoose-url]
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -275,4 +275,13 @@ Use this space to list resources you find helpful and would like to give credit 
 [JQuery.com]: https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white
 [JQuery-url]: https://jquery.com 
 [Mongoose.com]: https://img.shields.io/badge/M-mongoose-%23D9634D
+[MongoDB.com]:https://img.shields.io/badge/M-mongoDB-%2396C40F
+[Express.com]:https://img.shields.io/badge/E-Express-%23D7614B
+[NodeJS.com]:https://img.shields.io/badge/N-NodeJS-%234EC820
+[Redux.com]:https://img.shields.io/badge/R-Redux-%238B36DB
+[Mongoose-url]: https://mongoosejs.com/
+[MongoDB-url]: https://www.mongodb.com/
+[Express-url]: https://expressjs.com/
+[NodeJS-url]: https://nodejs.org/en
+[Redux-url]: https://redux.js.org/
 
