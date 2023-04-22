@@ -71,7 +71,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[product-screenshot]
+[![Product Name Screen Shot][product-screenshot]]
 
 MyPet app makes it easy to find a trusted pet sitter near you. Our pet sitters offer home visits, dog walking, house sitting and home boarding while you are away or busy with work.
 
