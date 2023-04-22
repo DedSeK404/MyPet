@@ -5,6 +5,9 @@ const {
   getallSitters,
   updateuserAvailability,
   updatePassword,
+  getUserCode,
+  resetPassword,
+  sendResetEmail,
 } = require("../controllers/userControllers");
 const filterUsers = require("../middlewares/filterUsers");
 const upload = require("../tools/multer");
@@ -65,6 +68,34 @@ router.patch(
 router.patch(
   "/password/:iduser",   
   updatePassword
+);
+
+
+/**
+ * @route get /user/:userID
+ * @description get user for resend activation code
+ * @access protected
+ */
+router.get("/:userID", getUserCode);
+
+/**
+ * @route patch /user/password/reset/
+ * @description reset password
+ * @access private
+ */
+router.put(
+  "/password/reset/",   
+  resetPassword 
+);
+
+/**
+ * @route patch /user/reset/email
+ * @description send reset email
+ * @access private
+ */
+router.patch(
+  "/reset/email",   
+  sendResetEmail
 );
 
 module.exports = router;

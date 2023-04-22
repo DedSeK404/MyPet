@@ -3,19 +3,23 @@ import activationPuppy from "../../Assets/activationPuppy.svg";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { editUser } from "../../JS/actions/usermanagementactions";
+import { editUser, getUserCode } from "../../JS/actions/usermanagementactions";
 const ActivateAccount = () => {
-  const navigate=useNavigate()
-  const {userID}=useParams()
-  const dispatch=useDispatch()
-  const [activation, setactivation] = useState({})
-  const handleChange=(e)=>{
-    setactivation({code:e.target.value})
-  }
-  
-  const handleSubmit=()=>{
-dispatch(editUser({editData:activation,idUser:userID},navigate))
-  }
+  const navigate = useNavigate();
+  const { userID } = useParams();
+  const dispatch = useDispatch();
+  const [activation, setactivation] = useState({});
+  const handleChange = (e) => {
+    setactivation({ code: e.target.value });
+  };
+const [sent, setsent] = useState(false)
+  const handleSubmit = () => {
+    dispatch(editUser({ editData: activation, idUser: userID }, navigate));
+  };
+  const handleResend = () => {
+    dispatch(getUserCode(userID))
+    setsent(true)
+  };
   return (
     <div className="container py-4" style={{ minHeight: "100vh" }}>
       <Link to="/login/Signin">
@@ -63,7 +67,13 @@ dispatch(editUser({editData:activation,idUser:userID},navigate))
                       onChange={handleChange}
                     />
                   </div>
-
+                { !sent? <a
+                    onClick={handleResend}
+                    type="button"
+                    style={{ color: "#A56856" }}
+                  >
+                    Didn't recieve a code? click here to resend it
+                  </a>:<p style={{color:"gray",fontSize:"smaller"}}>Code sent, Check your emails for the new code</p>}
                   <div className="text-center text-lg-start mt-4 pt-2">
                     <button
                       type="button"

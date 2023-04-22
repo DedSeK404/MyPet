@@ -3,6 +3,8 @@ import {
   DELETEUSERSUCCESS,
   EDITUSER,
   GETALLSITTERSSUCCESS,
+  RESETPASSWORD,
+  SENDRESETEMAIL,
   USERFAILED,
   USERLOADING,
 } from "../actiontypes/usermanagementtypes";
@@ -173,3 +175,75 @@ export const getOnlyUser = (userid) => async (dispatch) => {
     dispatch({ type: USERFAILED, payload: error });
   }
 }; 
+
+/**
+ * @route get /user/:userID
+ * @description get user for resend activation code
+ * @access protected
+ */
+export const getUserCode = (userID) => async (dispatch) => {
+  dispatch({ type: USERLOADING });
+
+  try {
+    const { data } = await axios.get(`${baseURL}${userID}`);
+    
+    if (data.msg) {
+      alert(data.msg);
+    }
+  } catch (error) {
+    dispatch({ type: USERFAILED, payload: error });
+    console.log(error);
+  }
+};
+
+/**
+ * @route patch /user/password/reset/
+ * @description reset password
+ * @access private
+ */
+export const resetPassword = (resetData,setShow) => async (dispatch) => { 
+  dispatch({ type: USERLOADING });
+
+  try {
+    const { data } = await axios.put(`${baseURL}password/reset/`,resetData); 
+    console.log(data)
+    dispatch({ type: RESETPASSWORD });
+    
+    if (data.msg=="password changed successfully") {
+      setShow(false)
+    }
+   
+    if (data.msg) {
+      alert(data.msg);
+    }
+  } catch (error) {
+    dispatch({ type: USERFAILED, payload: error });
+    console.log(error);
+  }
+};
+
+/**
+ * @route patch /user/reset/email
+ * @description send reset email
+ * @access private
+ */
+export const sendResetEmail = (resetEmailData,setButton) => async (dispatch) => { 
+  dispatch({ type: USERLOADING });
+
+  try {
+    const { data } = await axios.patch(`${baseURL}reset/email`,resetEmailData); 
+    console.log(data)
+    dispatch({ type: SENDRESETEMAIL });
+    if (data.msg!="No user found") {
+      setButton(true)
+    }
+    
+   
+    if (data.msg) {
+      alert(data.msg);
+    }
+  } catch (error) {
+    dispatch({ type: USERFAILED, payload: error });
+    console.log(error);
+  }
+};
