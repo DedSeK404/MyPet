@@ -232,7 +232,7 @@ Project Link: [https://github.com/DedSeK404/MyPet](https://github.com/DedSeK404/
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 
-These are some of the recourses I used.
+These are some of the resources I used.
 
 * [react-bootstrap](https://react-bootstrap.github.io/)
 * [MDB - Material Design for Bootstrap 5 & 4](https://mdbootstrap.com/)
