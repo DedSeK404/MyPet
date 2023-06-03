@@ -166,7 +166,7 @@ These are all the dependencies that I used in my project
 To see all the functionalities and use-case scenarios of my app please watch this short video explainer on my youtube channel:
 [youtube video](https://www.youtube.com/embed/kYxPYUIYMtE)
  <a href="https://www.youtube.com/embed/kYxPYUIYMtE">
-    <img src="https://i.ibb.co/8Y0d9Ws/youtube.jpg" alt="Logo" width="1366" height="413">
+    <img src="https://i.ibb.co/bKjgym7/thumbnail.png" alt="Logo" width="1366" height="413">
   </a>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
