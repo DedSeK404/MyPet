@@ -163,11 +163,21 @@ These are all the dependencies that I used in my project
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-To see all the functionalities and use-case scenarios of my app please visit my linkedin page, I created short videos explaining what everything does in details.
-
-if you are interested to see how everything works, please refer to my [Linkedin profile](https://www.linkedin.com/in/marwen-bennaceur-584366270/)
+To see all the functionalities and use-case scenarios of my app please watch this short video explainer on my youtube channel:
+[youtube video](https://www.youtube.com/embed/kYxPYUIYMtE)
+ <a href="https://www.youtube.com/embed/kYxPYUIYMtE">
+    <img src="https://i.ibb.co/8Y0d9Ws/youtube.jpg" alt="Logo" width="1366" height="413">
+  </a>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<br />
+Here are some screenshots from the app:
+<div align="center">
+  <a href="https://i.ibb.co/sy6Yr96/screenshots.jpg">
+    <img src="https://i.ibb.co/sy6Yr96/screenshots.jpg" alt="Logo" width="1366" height="1040">
+  </a>
+</div>
 
 
 
